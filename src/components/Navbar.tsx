@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ArrowUpRight, PhoneCall } from 'lucide-react';
+import { ChevronDown, ArrowUpRight } from 'lucide-react';
 
 interface NavbarProps {
   onOpenInquiry: () => void;
@@ -7,144 +7,236 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ onOpenInquiry, onOpenSchedule }) => {
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isScrolledPastHero, setIsScrolledPastHero] = useState(false);
+  const [servicesExpanded, setServicesExpanded] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolledPastHero(window.scrollY > 450);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const navLinks = [
-    { name: 'Portfolio', href: '#portfolio' },
-    { name: 'Services', href: '#services' },
-    { name: 'Studio', href: '#about' },
-    { name: 'Why Us', href: '#advantages' },
-    { name: 'FAQ', href: '#faq' },
-  ];
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setDrawerOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, []);
+
+  // Adaptive colors for Logo & Burger based on scroll & drawer state
+  const burgerColor = drawerOpen
+    ? 'bg-[#222222]'
+    : isScrolledPastHero
+    ? 'bg-[#2E2E2E]'
+    : 'bg-[#FFFFFF]';
+
+  const logoColor = isScrolledPastHero && !drawerOpen
+    ? 'text-[#2E2E2E]'
+    : 'text-[#FFFFFF]';
+
+  const logoFilter = isScrolledPastHero && !drawerOpen
+    ? 'brightness-0'
+    : 'brightness-100 invert';
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 px-4 md:px-8 pt-4 transition-all duration-300">
-      <div
-        className={`max-w-7xl mx-auto flex items-center justify-between transition-all duration-300 rounded-full px-5 py-3 ${
-          isScrolled
-            ? 'glass-nav shadow-2xl shadow-black/50 border border-white/10'
-            : 'bg-black/30 backdrop-blur-sm border border-white/5'
-        }`}
-      >
-        {/* Brand Logo */}
-        <a href="#" className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-full bg-white/10 p-1 flex items-center justify-center overflow-hidden border border-white/20 group-hover:border-[#e45d36] transition-colors">
-            <img
-              src="/assets/Logo/Logo.png"
-              alt="Arcade Architects"
-              className="w-full h-full object-contain filter brightness-110"
-              onError={(e) => {
-                // Fallback if logo path varies
-                (e.currentTarget as HTMLImageElement).src = '/assets/Logo/Logo_01.png';
-              }}
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-display text-sm md:text-base font-bold tracking-tight text-white group-hover:text-white/90">
+    <>
+      {/* Fixed Top Bar (Exactly at top: 32px, left: 32px, right: 32px) */}
+      <header className="fixed top-0 left-0 right-0 z-[900] px-8 pt-8 pointer-events-none transition-colors duration-300">
+        <div className="w-full flex items-center justify-between">
+          {/* Top-Left: Minimal Brand Mark & Wordmark */}
+          <a
+            href="#"
+            className={`pointer-events-auto flex items-center gap-3 transition-colors duration-300 ${logoColor}`}
+          >
+            <div className="w-6 h-6 flex items-center justify-center">
+              <img
+                src="/assets/Logo/Logo.png"
+                alt="Arcade Architects"
+                className={`w-full h-full object-contain transition-all duration-300 ${logoFilter}`}
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/assets/Logo/Logo_01.png';
+                }}
+              />
+            </div>
+            <span className="font-sans text-base font-medium tracking-[-0.5px]">
               ARCADE ARCHITECTS
             </span>
-            <span className="text-[10px] tracking-widest uppercase text-white/50 font-medium">
-              Studio & Visualization
-            </span>
-          </div>
-        </a>
+          </a>
 
-        {/* Desktop Nav Links */}
-        <nav className="hidden lg:flex items-center gap-1 bg-white/5 rounded-full px-3 py-1.5 border border-white/5">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              className="px-4 py-1.5 text-xs font-medium text-white/70 hover:text-white rounded-full hover:bg-white/10 transition-all duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
-        </nav>
-
-        {/* CTA Buttons */}
-        <div className="hidden sm:flex items-center gap-2.5">
+          {/* Top-Right: 2-Line Minimal Hamburger / Close Button */}
           <button
-            onClick={onOpenSchedule}
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full text-xs font-medium text-white/80 hover:text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-200"
+            onClick={() => setDrawerOpen(!drawerOpen)}
+            className="pointer-events-auto relative w-12 h-12 flex flex-col items-center justify-center p-3 cursor-pointer focus:outline-none z-[910] group"
+            aria-label={drawerOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
+            aria-expanded={drawerOpen}
           >
-            <PhoneCall className="w-3.5 h-3.5 text-[#e45d36]" />
-            <span>Schedule Call</span>
-          </button>
-
-          {/* Bloom3D style sliding button */}
-          <button
-            onClick={onOpenInquiry}
-            className="bloom-btn h-9 px-5 rounded-full bg-[#e45d36] hover:bg-[#f16d47] text-white text-xs font-semibold tracking-wide shadow-lg shadow-[#e45d36]/20"
-          >
-            <div className="bloom-btn-inner h-9">
-              <span className="h-9 flex items-center gap-1.5">
-                Discuss Project <ArrowUpRight className="w-3.5 h-3.5" />
-              </span>
-              <span className="h-9 flex items-center gap-1.5">
-                Start Today <ArrowUpRight className="w-3.5 h-3.5" />
-              </span>
+            <div className="w-5 h-2.5 flex flex-col justify-between">
+              {/* Top Line */}
+              <span
+                className={`w-5 h-[1.75px] block rounded-sm transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${burgerColor} ${
+                  drawerOpen ? 'rotate-45 translate-y-[4.25px]' : ''
+                }`}
+              />
+              {/* Bottom Line */}
+              <span
+                className={`w-5 h-[1.75px] block rounded-sm transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${burgerColor} ${
+                  drawerOpen ? '-rotate-45 -translate-y-[4.25px]' : ''
+                }`}
+              />
             </div>
           </button>
         </div>
+      </header>
 
-        {/* Mobile Menu Trigger */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="lg:hidden p-2 rounded-full bg-white/5 text-white/80 hover:text-white border border-white/10"
-          aria-label="Toggle Menu"
-        >
-          {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-        </button>
-      </div>
+      {/* Dimmed Backdrop */}
+      <div
+        onClick={() => setDrawerOpen(false)}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-[2px] z-[840] transition-opacity duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+          drawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      />
 
-      {/* Mobile Drawer */}
-      {mobileMenuOpen && (
-        <div className="lg:hidden mt-2 max-w-7xl mx-auto rounded-3xl glass-nav p-6 border border-white/10 animate-in fade-in slide-in-from-top-4 duration-300">
-          <nav className="flex flex-col gap-3">
-            {navLinks.map((link) => (
+      {/* Off-Canvas Slide-Out White Drawer (Width: 480px, Padding: 48px) */}
+      <aside
+        className={`fixed top-0 right-0 bottom-0 w-full sm:w-[480px] bg-[#FFFFFF] text-[#2E2E2E] z-[850] shadow-2xl transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col justify-between p-8 sm:p-12 overflow-y-auto ${
+          drawerOpen ? 'translate-x-0' : 'translate-x-full'
+        }`}
+        aria-hidden={!drawerOpen}
+      >
+        {/* Top: Exactly 4 Clean Nav Links */}
+        <div className="pt-4">
+          <nav className="flex flex-col gap-7">
+            <div>
               <a
-                key={link.name}
-                href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium text-white/80 hover:text-white px-3 py-2 rounded-xl hover:bg-white/5"
+                href="#"
+                onClick={() => setDrawerOpen(false)}
+                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] bloom-nav-link"
               >
-                {link.name}
+                Home
               </a>
-            ))}
-            <div className="pt-4 border-t border-white/10 flex flex-col gap-2.5">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenSchedule();
-                }}
-                className="w-full py-3 rounded-full text-xs font-semibold text-white bg-white/10 hover:bg-white/15 border border-white/10"
+            </div>
+
+            <div>
+              <a
+                href="#portfolio"
+                onClick={() => setDrawerOpen(false)}
+                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] bloom-nav-link"
               >
-                Schedule Call
+                Portfolio
+              </a>
+            </div>
+
+            {/* Services with Accordion Toggle */}
+            <div className="flex flex-col">
+              <button
+                onClick={() => setServicesExpanded(!servicesExpanded)}
+                className="flex items-center gap-2 font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] text-left focus:outline-none group"
+              >
+                <span>Services</span>
+                <ChevronDown
+                  className={`w-5 h-5 text-[#2E2E2E] transition-transform duration-300 ${
+                    servicesExpanded ? 'rotate-180' : ''
+                  }`}
+                />
               </button>
+
+              {servicesExpanded && (
+                <div className="flex flex-col gap-2.5 pt-3 pl-1 text-[#2E2E2E]/80 animate-in fade-in slide-in-from-top-2 duration-200">
+                  <a
+                    href="#services"
+                    onClick={() => setDrawerOpen(false)}
+                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors"
+                  >
+                    3D interior visualization
+                  </a>
+                  <a
+                    href="#services"
+                    onClick={() => setDrawerOpen(false)}
+                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors"
+                  >
+                    3D architectural visualization
+                  </a>
+                  <a
+                    href="#services"
+                    onClick={() => setDrawerOpen(false)}
+                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors"
+                  >
+                    Exhibition & pavilion architecture
+                  </a>
+                  <a
+                    href="#services"
+                    onClick={() => setDrawerOpen(false)}
+                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors"
+                  >
+                    3D walkthrough animation
+                  </a>
+                </div>
+              )}
+            </div>
+
+            <div>
               <button
                 onClick={() => {
-                  setMobileMenuOpen(false);
+                  setDrawerOpen(false);
                   onOpenInquiry();
                 }}
-                className="w-full py-3 rounded-full text-xs font-semibold text-white bg-[#e45d36] hover:bg-[#f16d47]"
+                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] text-left bloom-nav-link"
               >
-                Discuss Project
+                Contacts
               </button>
             </div>
           </nav>
         </div>
-      )}
-    </header>
+
+        {/* Bottom: Contact & Action Strip (Matching Bloom3D) */}
+        <div className="pt-8 border-t border-black/[0.08] flex flex-col gap-4">
+          <p className="text-[18px] text-[#2E2E2E] font-normal leading-snug">
+            Let’s talk about your next project
+          </p>
+
+          <div className="flex items-center gap-2.5">
+            {/* Schedule a Call Button */}
+            <button
+              onClick={() => {
+                setDrawerOpen(false);
+                onOpenSchedule();
+              }}
+              className="bloom-btn-wrap flex-1 !h-[54px] !px-4 !bg-[#222222] !text-white text-sm"
+            >
+              <div className="btn-text-track">
+                <div className="btn-text-inner">
+                  <span className="btn-label">
+                    Schedule a call <ArrowUpRight className="w-4 h-4 ml-0.5" />
+                  </span>
+                  <span className="btn-label">
+                    Schedule a call <ArrowUpRight className="w-4 h-4 ml-0.5" />
+                  </span>
+                </div>
+              </div>
+            </button>
+
+            {/* Discuss the Project Button */}
+            <button
+              onClick={() => {
+                setDrawerOpen(false);
+                onOpenInquiry();
+              }}
+              className="bloom-btn-wrap flex-1 !h-[54px] !px-4 !bg-[#222222] !text-white text-sm"
+            >
+              <div className="btn-text-track">
+                <div className="btn-text-inner">
+                  <span className="btn-label">Discuss the project</span>
+                  <span className="btn-label">Discuss the project</span>
+                </div>
+              </div>
+            </button>
+          </div>
+        </div>
+      </aside>
+    </>
   );
 };
-

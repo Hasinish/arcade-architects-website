@@ -1,0 +1,62 @@
+{
+  "imgTransform": "none",
+  "imgTransition": "all",
+  "texts": [
+    {
+      "tag": "IMG",
+      "class": "portfolio_project_img",
+      "text": "",
+      "opacity": "1",
+      "transform": "none",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "portfolio_project_overlay",
+      "text": "",
+      "opacity": "0.329993",
+      "transform": "none",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "portfolio_project_info",
+      "text": "MorvenScotland",
+      "opacity": "1",
+      "transform": "none",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "project_btn",
+      "text": "Morven",
+      "opacity": "1",
+      "transform": "none",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Morven",
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0.000504063)",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "project_btn_underline",
+      "text": "",
+      "opacity": "1",
+      "transform": "none",
+      "color": "rgb(255, 255, 255)"
+    },
+    {
+      "tag": "DIV",
+      "class": "portfolio_project_text",
+      "text": "Scotland",
+      "opacity": "1",
+      "transform": "matrix(1, 0, 0, 1, 0, 0.000504063)",
+      "color": "rgb(255, 255, 255)"
+    }
+  ]
+}

@@ -1,0 +1,518 @@
+{
+  "ctaWrapStyle": {
+    "display": "flex",
+    "flexDirection": "column",
+    "justifyContent": "flex-end",
+    "height": "1350px",
+    "padding": "80px 0px",
+    "position": "static"
+  },
+  "ctaHeadingStyle": {
+    "fontSize": "64px",
+    "lineHeight": "70.4px",
+    "maxWidth": "none",
+    "width": "384px"
+  },
+  "ctaBtnsStyle": {
+    "display": "flex",
+    "gap": "4px",
+    "marginTop": "0px"
+  },
+  "faqWrapStyle": {
+    "display": "grid",
+    "gridTemplateColumns": "424px 424px 424px",
+    "gap": "4px",
+    "padding": "0px"
+  },
+  "faqItems": [
+    {
+      "question": "What is architectural 3D visualization and how can it benefit my project?",
+      "answer": "",
+      "borderBottom": "0px none rgb(46, 46, 46)"
+    },
+    {
+      "question": "What types of 3D rendering services do you provide?",
+      "answer": "",
+      "borderBottom": "0px none rgb(46, 46, 46)"
+    },
+    {
+      "question": "How long does a 3D rendering project take?",
+      "answer": "",
+      "borderBottom": "0px none rgb(46, 46, 46)"
+    },
+    {
+      "question": "Can I return to a project after it has been completed?",
+      "answer": "",
+      "borderBottom": "0px none rgb(46, 46, 46)"
+    }
+  ],
+  "footerStyle": {
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "padding": "0px 0px 4px",
+    "height": "373.016px"
+  },
+  "footerCols": [
+    {
+      "class": "footer_cols",
+      "title": "Navigate",
+      "links": [
+        {
+          "text": "Get personal offer\nGet personal offer",
+          "href": "/contacts"
+        },
+        {
+          "text": "Portfolio",
+          "href": "/projects"
+        },
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        },
+        {
+          "text": "Contacts",
+          "href": "/contacts"
+        },
+        {
+          "text": "info@bloom3d.studio",
+          "href": "mailto:info@bloom3d.studio"
+        },
+        {
+          "text": "+48 664 658 053",
+          "href": "tel:+37529625-24-41"
+        },
+        {
+          "text": "",
+          "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw=="
+        },
+        {
+          "text": "",
+          "href": "https://www.behance.net/bloomvisualization"
+        },
+        {
+          "text": "",
+          "href": "https://www.linkedin.com/company/bloom-visualization-studio/"
+        }
+      ]
+    },
+    {
+      "class": "footer_cols_wrapper",
+      "title": "Navigate",
+      "links": [
+        {
+          "text": "Portfolio",
+          "href": "/projects"
+        },
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        },
+        {
+          "text": "Contacts",
+          "href": "/contacts"
+        },
+        {
+          "text": "info@bloom3d.studio",
+          "href": "mailto:info@bloom3d.studio"
+        },
+        {
+          "text": "+48 664 658 053",
+          "href": "tel:+37529625-24-41"
+        },
+        {
+          "text": "",
+          "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw=="
+        },
+        {
+          "text": "",
+          "href": "https://www.behance.net/bloomvisualization"
+        },
+        {
+          "text": "",
+          "href": "https://www.linkedin.com/company/bloom-visualization-studio/"
+        }
+      ]
+    },
+    {
+      "class": "footer_col",
+      "title": "Navigate",
+      "links": [
+        {
+          "text": "Portfolio",
+          "href": "/projects"
+        },
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        },
+        {
+          "text": "Contacts",
+          "href": "/contacts"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_title",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list w-list-unstyled",
+      "title": "",
+      "links": [
+        {
+          "text": "Portfolio",
+          "href": "/projects"
+        },
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        },
+        {
+          "text": "Contacts",
+          "href": "/contacts"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": [
+        {
+          "text": "Portfolio",
+          "href": "/projects"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": [
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link w-dropdown-toggle",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": {},
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_dd w-dropdown-list",
+      "title": "",
+      "links": [
+        {
+          "text": "3D interior visualization",
+          "href": "/services/interior"
+        },
+        {
+          "text": "3D architectural visualization",
+          "href": "/services/exterior"
+        },
+        {
+          "text": "3D animation",
+          "href": "/services/animation"
+        },
+        {
+          "text": "3D modelling (Soon)",
+          "href": "#"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_dd_link w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_dd_link w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_dd_link w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_dd_link w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": [
+        {
+          "text": "Contacts",
+          "href": "/contacts"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col",
+      "title": "Contacts",
+      "links": [
+        {
+          "text": "info@bloom3d.studio",
+          "href": "mailto:info@bloom3d.studio"
+        },
+        {
+          "text": "+48 664 658 053",
+          "href": "tel:+37529625-24-41"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_title",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list w-list-unstyled",
+      "title": "",
+      "links": [
+        {
+          "text": "info@bloom3d.studio",
+          "href": "mailto:info@bloom3d.studio"
+        },
+        {
+          "text": "+48 664 658 053",
+          "href": "tel:+37529625-24-41"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": [
+        {
+          "text": "info@bloom3d.studio",
+          "href": "mailto:info@bloom3d.studio"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": [
+        {
+          "text": "+48 664 658 053",
+          "href": "tel:+37529625-24-41"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col",
+      "title": "Address",
+      "links": []
+    },
+    {
+      "class": "footer_col_title",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list w-list-unstyled",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_link_address",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col",
+      "title": "Socials",
+      "links": [
+        {
+          "text": "",
+          "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw=="
+        },
+        {
+          "text": "",
+          "href": "https://www.behance.net/bloomvisualization"
+        },
+        {
+          "text": "",
+          "href": "https://www.linkedin.com/company/bloom-visualization-studio/"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_title",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_socials w-list-unstyled",
+      "title": "",
+      "links": [
+        {
+          "text": "",
+          "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw=="
+        },
+        {
+          "text": "",
+          "href": "https://www.behance.net/bloomvisualization"
+        },
+        {
+          "text": "",
+          "href": "https://www.linkedin.com/company/bloom-visualization-studio/"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_socials",
+      "title": "",
+      "links": [
+        {
+          "text": "",
+          "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw=="
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link_social w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": {},
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_socials",
+      "title": "",
+      "links": [
+        {
+          "text": "",
+          "href": "https://www.behance.net/bloomvisualization"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link_social w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": {},
+      "title": "",
+      "links": []
+    },
+    {
+      "class": "footer_col_list_item_socials",
+      "title": "",
+      "links": [
+        {
+          "text": "",
+          "href": "https://www.linkedin.com/company/bloom-visualization-studio/"
+        }
+      ]
+    },
+    {
+      "class": "footer_col_list_item_link_social w-inline-block",
+      "title": "",
+      "links": []
+    },
+    {
+      "class": {},
+      "title": "",
+      "links": []
+    }
+  ]
+}

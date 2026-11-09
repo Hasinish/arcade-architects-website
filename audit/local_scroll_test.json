@@ -1,0 +1,51 @@
+[
+  {
+    "scrollY": 0,
+    "heroSectionTop": 0,
+    "stickyDivTop": 0,
+    "videoTop": 0,
+    "portfolioTop": 1800
+  },
+  {
+    "scrollY": 200,
+    "heroSectionTop": -200,
+    "stickyDivTop": -200,
+    "videoTop": -200,
+    "portfolioTop": 1600
+  },
+  {
+    "scrollY": 400,
+    "heroSectionTop": -400,
+    "stickyDivTop": -400,
+    "videoTop": -400,
+    "portfolioTop": 1400
+  },
+  {
+    "scrollY": 600,
+    "heroSectionTop": -600,
+    "stickyDivTop": -600,
+    "videoTop": -600,
+    "portfolioTop": 1200
+  },
+  {
+    "scrollY": 800,
+    "heroSectionTop": -800,
+    "stickyDivTop": -800,
+    "videoTop": -800,
+    "portfolioTop": 1000
+  },
+  {
+    "scrollY": 1000,
+    "heroSectionTop": -1000,
+    "stickyDivTop": -1000,
+    "videoTop": -1000,
+    "portfolioTop": 800
+  },
+  {
+    "scrollY": 1400,
+    "heroSectionTop": -1400,
+    "stickyDivTop": -1400,
+    "videoTop": -1400,
+    "portfolioTop": 400
+  }
+]

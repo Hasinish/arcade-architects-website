@@ -1,0 +1,445 @@
+{
+  "about": {
+    "section": {
+      "class": "section_about",
+      "bgColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px",
+      "height": 640.78125,
+      "top": 6119.25
+    },
+    "text": {
+      "fullText": "By combining creativity with\u00a0technical expertise, we ensure every visual reflects at\u00a0houghtful and\u00a0collaborative process shaped by\u00a0your ideas",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "57.6px",
+      "letterSpacing": "-0.5px",
+      "color": "rgb(46, 46, 46)",
+      "maxWidth": "848px",
+      "textAlign": "start"
+    },
+    "wordCount": 0,
+    "firstWord": null,
+    "stats": [
+      {
+        "class": "about_nums",
+        "text": "0+Projects0+Clients0+Countries0+Team members",
+        "numText": "0+",
+        "labelText": "0",
+        "rect": {
+          "x": 80,
+          "y": 6557.625,
+          "width": 1280,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 1360,
+          "bottom": 6632.03125,
+          "left": 80
+        }
+      },
+      {
+        "class": "about_num",
+        "text": "0+Projects",
+        "numText": "0+",
+        "labelText": "0",
+        "rect": {
+          "x": 80,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 351.25,
+          "bottom": 6632.03125,
+          "left": 80
+        }
+      },
+      {
+        "class": "about_num_title u-h3",
+        "text": "0+",
+        "numText": "0",
+        "labelText": "0",
+        "rect": {
+          "x": 80,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 38.40625,
+          "top": 6557.625,
+          "right": 351.25,
+          "bottom": 6596.03125,
+          "left": 80
+        }
+      },
+      {
+        "class": "about_num_title_inner",
+        "text": "0",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 80,
+          "y": 6552.625,
+          "width": 19.71875,
+          "height": 48,
+          "top": 6552.625,
+          "right": 99.71875,
+          "bottom": 6600.625,
+          "left": 80
+        }
+      },
+      {
+        "class": "about_num_text u-subheading-xl",
+        "text": "Projects",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 80,
+          "y": 6604.03125,
+          "width": 271.25,
+          "height": 28,
+          "top": 6604.03125,
+          "right": 351.25,
+          "bottom": 6632.03125,
+          "left": 80
+        }
+      },
+      {
+        "class": "about_nums_divider",
+        "text": "",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 383.25,
+          "y": 6557.625,
+          "width": 1,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 384.25,
+          "bottom": 6632.03125,
+          "left": 383.25
+        }
+      },
+      {
+        "class": "about_num",
+        "text": "0+Clients",
+        "numText": "0+",
+        "labelText": "0",
+        "rect": {
+          "x": 416.25,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 687.5,
+          "bottom": 6632.03125,
+          "left": 416.25
+        }
+      },
+      {
+        "class": "about_num_title u-h3",
+        "text": "0+",
+        "numText": "0",
+        "labelText": "0",
+        "rect": {
+          "x": 416.25,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 38.40625,
+          "top": 6557.625,
+          "right": 687.5,
+          "bottom": 6596.03125,
+          "left": 416.25
+        }
+      },
+      {
+        "class": "about_num_title_inner",
+        "text": "0",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 416.25,
+          "y": 6552.625,
+          "width": 19.71875,
+          "height": 48,
+          "top": 6552.625,
+          "right": 435.96875,
+          "bottom": 6600.625,
+          "left": 416.25
+        }
+      },
+      {
+        "class": "about_num_text u-subheading-xl",
+        "text": "Clients",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 416.25,
+          "y": 6604.03125,
+          "width": 271.25,
+          "height": 28,
+          "top": 6604.03125,
+          "right": 687.5,
+          "bottom": 6632.03125,
+          "left": 416.25
+        }
+      },
+      {
+        "class": "about_nums_divider",
+        "text": "",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 719.5,
+          "y": 6557.625,
+          "width": 1,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 720.5,
+          "bottom": 6632.03125,
+          "left": 719.5
+        }
+      },
+      {
+        "class": "about_num",
+        "text": "0+Countries",
+        "numText": "0+",
+        "labelText": "0",
+        "rect": {
+          "x": 752.5,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 1023.75,
+          "bottom": 6632.03125,
+          "left": 752.5
+        }
+      },
+      {
+        "class": "about_num_title u-h3",
+        "text": "0+",
+        "numText": "0",
+        "labelText": "0",
+        "rect": {
+          "x": 752.5,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 38.40625,
+          "top": 6557.625,
+          "right": 1023.75,
+          "bottom": 6596.03125,
+          "left": 752.5
+        }
+      },
+      {
+        "class": "about_num_title_inner",
+        "text": "0",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 752.5,
+          "y": 6552.625,
+          "width": 19.71875,
+          "height": 48,
+          "top": 6552.625,
+          "right": 772.21875,
+          "bottom": 6600.625,
+          "left": 752.5
+        }
+      },
+      {
+        "class": "about_num_text u-subheading-xl",
+        "text": "Countries",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 752.5,
+          "y": 6604.03125,
+          "width": 271.25,
+          "height": 28,
+          "top": 6604.03125,
+          "right": 1023.75,
+          "bottom": 6632.03125,
+          "left": 752.5
+        }
+      },
+      {
+        "class": "about_nums_divider",
+        "text": "",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 1055.75,
+          "y": 6557.625,
+          "width": 1,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 1056.75,
+          "bottom": 6632.03125,
+          "left": 1055.75
+        }
+      },
+      {
+        "class": "about_num",
+        "text": "0+Team members",
+        "numText": "0+",
+        "labelText": "0",
+        "rect": {
+          "x": 1088.75,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 74.40625,
+          "top": 6557.625,
+          "right": 1360,
+          "bottom": 6632.03125,
+          "left": 1088.75
+        }
+      },
+      {
+        "class": "about_num_title u-h3",
+        "text": "0+",
+        "numText": "0",
+        "labelText": "0",
+        "rect": {
+          "x": 1088.75,
+          "y": 6557.625,
+          "width": 271.25,
+          "height": 38.40625,
+          "top": 6557.625,
+          "right": 1360,
+          "bottom": 6596.03125,
+          "left": 1088.75
+        }
+      },
+      {
+        "class": "about_num_title_inner",
+        "text": "0",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 1088.75,
+          "y": 6552.625,
+          "width": 19.71875,
+          "height": 48,
+          "top": 6552.625,
+          "right": 1108.46875,
+          "bottom": 6600.625,
+          "left": 1088.75
+        }
+      },
+      {
+        "class": "about_num_text u-subheading-xl",
+        "text": "Team members",
+        "numText": null,
+        "labelText": null,
+        "rect": {
+          "x": 1088.75,
+          "y": 6604.03125,
+          "width": 271.25,
+          "height": 28,
+          "top": 6604.03125,
+          "right": 1360,
+          "bottom": 6632.03125,
+          "left": 1088.75
+        }
+      }
+    ]
+  },
+  "advantages": {
+    "section": {
+      "class": "section_advantages",
+      "bgColor": "rgba(0, 0, 0, 0)",
+      "height": 1800,
+      "top": 6760.03125
+    },
+    "wrapper": {
+      "class": "advantages_wrapper",
+      "position": "static",
+      "top": "0px",
+      "height": 900
+    },
+    "items": [],
+    "images": [
+      {
+        "tag": "DIV",
+        "class": "advantageg_img_wrapper",
+        "src": null,
+        "width": 714,
+        "height": 892,
+        "opacity": "1",
+        "transform": "none"
+      },
+      {
+        "tag": "IMG",
+        "class": "advantage_img",
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b6a918d1b41aca0749c_c31b7777ef2ed18fdf7055f6581152d5_Architectural%20exterior%20visualization%20of%20a%20modern%20dark%20wood%20cabin.webp",
+        "width": 714,
+        "height": 892,
+        "opacity": "1",
+        "transform": "none"
+      },
+      {
+        "tag": "IMG",
+        "class": "advantage_img",
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69c7743db3db6d3239670427_Desert_portf%20(1).webp",
+        "width": 714,
+        "height": 892,
+        "opacity": "0",
+        "transform": "none"
+      },
+      {
+        "tag": "IMG",
+        "class": "advantage_img",
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6937f355238d93f9b25f93a3_57d07fcd8391a10c2dfeced6ebdbd7a0_Close-up%203D%20render%20of%20a%20wooden%20terrace%20workspace.webp",
+        "width": 714,
+        "height": 892,
+        "opacity": "0",
+        "transform": "none"
+      },
+      {
+        "tag": "IMG",
+        "class": "advantage_img",
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6937f1d8f09138bca1b65563_ac4a6059160f5b1b892ff3c92ada11d6_Architectural%20visualization%20of%20a%20modern%20pool%20exterior%20in%20Bali.webp",
+        "width": 714,
+        "height": 892,
+        "opacity": "0",
+        "transform": "none"
+      }
+    ]
+  },
+  "triggers": [
+    {
+      "trigger": "about_nums",
+      "pin": null,
+      "start": 5883,
+      "end": 6632,
+      "vars": {
+        "start": "top 75%",
+        "end": null,
+        "scrub": null,
+        "pin": null
+      }
+    },
+    {
+      "trigger": "advantages_wrapper",
+      "pin": "advantages_wrapper",
+      "start": 6760,
+      "end": 7660,
+      "vars": {
+        "start": "top top",
+        "end": "200% bottom",
+        "scrub": null,
+        "pin": true
+      }
+    },
+    {
+      "trigger": "section_advantages",
+      "pin": null,
+      "start": 6760,
+      "end": 7660,
+      "vars": {
+        "start": "top top",
+        "end": "bottom bottom",
+        "scrub": true,
+        "pin": null
+      }
+    }
+  ]
+}

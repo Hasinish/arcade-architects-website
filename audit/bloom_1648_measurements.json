@@ -1,0 +1,232 @@
+{
+  "viewport": {
+    "width": 1648,
+    "height": 900
+  },
+  "navbar": {
+    "rect": {
+      "x": 32,
+      "y": 16,
+      "width": 1584,
+      "height": 56,
+      "top": 16,
+      "right": 1616,
+      "bottom": 72,
+      "left": 32
+    },
+    "style": {
+      "maxWidth": "none",
+      "padding": "0px",
+      "left": "32px",
+      "right": "32px",
+      "width": "1584px"
+    }
+  },
+  "logo": {
+    "rect": {
+      "x": 32,
+      "y": 34,
+      "width": 97,
+      "height": 20,
+      "top": 34,
+      "right": 129,
+      "bottom": 54,
+      "left": 32
+    },
+    "text": "",
+    "left": 32
+  },
+  "burger": null,
+  "heading": {
+    "rect": {
+      "x": 80,
+      "y": 647.21875,
+      "width": 448,
+      "height": 172.78125,
+      "top": 647.21875,
+      "right": 528,
+      "bottom": 820,
+      "left": 80
+    },
+    "left": 80,
+    "bottom": 80,
+    "style": {
+      "fontSize": "48px",
+      "lineHeight": "57.6px",
+      "maxWidth": "none",
+      "width": "448px"
+    },
+    "text": "Bring your projects to\nlife with world-class\n3D visualization"
+  },
+  "buttons": [
+    {
+      "text": "PortfolioPortfolio",
+      "rect": {
+        "x": 1328.53125,
+        "y": 765.59375,
+        "width": 103.21875,
+        "height": 54.40625,
+        "top": 765.59375,
+        "right": 1431.75,
+        "bottom": 820,
+        "left": 1328.53125
+      },
+      "rightFromEdge": 216.25,
+      "bottomFromEdge": 80
+    },
+    {
+      "text": "Start projectStart project",
+      "rect": {
+        "x": 1435.75,
+        "y": 765.59375,
+        "width": 132.25,
+        "height": 54.40625,
+        "top": 765.59375,
+        "right": 1568,
+        "bottom": 820,
+        "left": 1435.75
+      },
+      "rightFromEdge": 80,
+      "bottomFromEdge": 80
+    },
+    {
+      "text": "download video",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "rightFromEdge": 1648,
+      "bottomFromEdge": 900
+    }
+  ],
+  "navbarChain": [
+    {
+      "tag": "A",
+      "class": "navbar_logo_wrapper w-nav-brand w--current",
+      "width": 97,
+      "left": 32,
+      "right": 129,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "navbar_container w-container",
+      "width": 1584,
+      "left": 32,
+      "right": 1616,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "navbar w-nav on_hero",
+      "width": 1584,
+      "left": 32,
+      "right": 1616,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    }
+  ],
+  "heroChain": [
+    {
+      "tag": "H1",
+      "class": "u-h2",
+      "width": 448,
+      "left": 80,
+      "right": 528,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "hero_content",
+      "width": 448,
+      "left": 80,
+      "right": 528,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "hero_wrapper",
+      "width": 1488,
+      "left": 80,
+      "right": 1568,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "w-layout-blockcontainer u-container w-container",
+      "width": 1648,
+      "left": 0,
+      "right": 1648,
+      "maxWidth": "1920px",
+      "paddingLeft": "80px",
+      "paddingRight": "80px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "SECTION",
+      "class": "section_hero",
+      "width": 1648,
+      "left": 0,
+      "right": 1648,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "",
+      "width": 1648,
+      "left": 0,
+      "right": 1648,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    {
+      "tag": "DIV",
+      "class": "",
+      "width": 1648,
+      "left": 0,
+      "right": 1648,
+      "maxWidth": "none",
+      "paddingLeft": "0px",
+      "paddingRight": "0px",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    }
+  ]
+}

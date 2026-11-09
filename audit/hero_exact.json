@@ -1,0 +1,190 @@
+{
+  "heroHtml": "<section class=\"section_hero\"><div class=\"w-layout-blockcontainer u-container w-container\"><div class=\"hero_wrapper\"><div class=\"hero_content\"><div class=\"hero_subheading u-subheading-l\" style=\"opacity: 0;\">Professional 3D Rendering Studio</div><h1 data-hero-split=\"\" class=\"u-h2\" aria-label=\"Bring your projects to&nbsp;life with&nbsp;world-class 3D&nbsp;visualization\"><div class=\"line-mask\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; overflow: clip;\"><div class=\"line\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; translate: none; rotate: none; scale: none; transform: translate(0%, 100%);\">Bring your projects to </div></div><div class=\"line-mask\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; overflow: clip;\"><div class=\"line\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; translate: none; rotate: none; scale: none; transform: translate(0%, 100%);\">life with world-class </div></div><div class=\"line-mask\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; overflow: clip;\"><div class=\"line\" aria-hidden=\"true\" style=\"position: relative; display: block; text-align: start; translate: none; rotate: none; scale: none; transform: translate(0%, 100%);\">3D visualization</div></div></h1></div><div class=\"hero_btns\"><a hero-btn-secondary=\"\" href=\"/projects\" class=\"u-btn w-inline-block\" style=\"opacity: 0;\"><div class=\"u-bt",
+  "heroStyle": {
+    "height": "1800px",
+    "position": "relative"
+  },
+  "h1Rect": {
+    "x": 80,
+    "y": 647.21875,
+    "width": 448,
+    "height": 172.78125,
+    "top": 647.21875,
+    "right": 528,
+    "bottom": 820,
+    "left": 80
+  },
+  "h1Style": {
+    "fontSize": "48px",
+    "fontWeight": "400",
+    "lineHeight": "57.6px",
+    "letterSpacing": "-0.5px",
+    "color": "rgb(255, 255, 255)",
+    "margin": "0px"
+  },
+  "subheadingStyle": {
+    "text": "100",
+    "fontSize": "18px",
+    "fontWeight": "400",
+    "color": "rgb(46, 46, 46)",
+    "margin": "0px"
+  },
+  "btnsRect": {
+    "x": 1120.53125,
+    "y": 765.59375,
+    "width": 239.46875,
+    "height": 54.40625,
+    "top": 765.59375,
+    "right": 1360,
+    "bottom": 820,
+    "left": 1120.53125
+  },
+  "btns": [
+    {
+      "text": "Portfolio\nPortfolio",
+      "className": "u-btn w-inline-block",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 238)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "54.4062px",
+      "width": "103.219px",
+      "border": "0px none rgb(0, 0, 238)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Portfolio",
+      "className": "u-btn-glass u-btn-front",
+      "bg": "rgba(255, 255, 255, 0.15)",
+      "color": "rgb(255, 255, 255)",
+      "borderRadius": "0px",
+      "padding": "16px 20px",
+      "height": "54.4062px",
+      "width": "103.219px",
+      "border": "0px none rgb(255, 255, 255)",
+      "backdropFilter": "blur(16px)",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Portfolio",
+      "className": "btn_text_front u-btn-text",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "22.4062px",
+      "width": "63.2188px",
+      "border": "0px none rgb(255, 255, 255)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "700"
+    },
+    {
+      "text": "Portfolio",
+      "className": "u-btn-glass u-btn-back",
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(34, 34, 34)",
+      "borderRadius": "0px",
+      "padding": "16px 20px",
+      "height": "54.4062px",
+      "width": "103.219px",
+      "border": "0px none rgb(34, 34, 34)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Portfolio",
+      "className": "btn_text_back u-btn-text",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(34, 34, 34)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "22.4062px",
+      "width": "63.2188px",
+      "border": "0px none rgb(34, 34, 34)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "700"
+    },
+    {
+      "text": "Start project\nStart project",
+      "className": "u-btn w-inline-block",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(0, 0, 238)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "54.4062px",
+      "width": "132.25px",
+      "border": "0px none rgb(0, 0, 238)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Start project",
+      "className": "u-btn-white u-btn-front",
+      "bg": "rgb(255, 255, 255)",
+      "color": "rgb(34, 34, 34)",
+      "borderRadius": "0px",
+      "padding": "16px 20px",
+      "height": "54.4062px",
+      "width": "132.25px",
+      "border": "0px none rgb(34, 34, 34)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Start project",
+      "className": "btn_text_front u-btn-text",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(34, 34, 34)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "22.4062px",
+      "width": "92.25px",
+      "border": "0px none rgb(34, 34, 34)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "700"
+    },
+    {
+      "text": "Start project",
+      "className": "u-btn-white u-btn-back",
+      "bg": "rgb(42, 42, 42)",
+      "color": "rgb(255, 255, 255)",
+      "borderRadius": "0px",
+      "padding": "16px 20px",
+      "height": "54.4062px",
+      "width": "132.25px",
+      "border": "0px none rgb(255, 255, 255)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "400"
+    },
+    {
+      "text": "Start project",
+      "className": "btn_text_back u-btn-text",
+      "bg": "rgba(0, 0, 0, 0)",
+      "color": "rgb(255, 255, 255)",
+      "borderRadius": "0px",
+      "padding": "0px",
+      "height": "22.4062px",
+      "width": "92.25px",
+      "border": "0px none rgb(255, 255, 255)",
+      "backdropFilter": "none",
+      "fontSize": "16px",
+      "fontWeight": "700"
+    }
+  ],
+  "videoStyle": {
+    "position": "absolute",
+    "width": "1440px",
+    "height": "900px",
+    "objectFit": "cover"
+  }
+}

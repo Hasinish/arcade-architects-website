@@ -1,0 +1,108 @@
+{
+  "1440": {
+    "local": {
+      "width": 1440,
+      "logoLeft": 32,
+      "logoTop": 44,
+      "burgerRight": 32,
+      "burgerIconRight": 46,
+      "burgerTop": 32,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    },
+    "bloom": {
+      "width": 1440,
+      "logoLeft": 32,
+      "logoTop": 34,
+      "burgerRight": 32,
+      "burgerIconRight": 48,
+      "burgerTop": 16,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    }
+  },
+  "1648": {
+    "local": {
+      "width": 1648,
+      "logoLeft": 32,
+      "logoTop": 44,
+      "burgerRight": 32,
+      "burgerIconRight": 46,
+      "burgerTop": 32,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    },
+    "bloom": {
+      "width": 1648,
+      "logoLeft": 32,
+      "logoTop": 34,
+      "burgerRight": 32,
+      "burgerIconRight": 48,
+      "burgerTop": 16,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    }
+  },
+  "1920": {
+    "local": {
+      "width": 1920,
+      "logoLeft": 32,
+      "logoTop": 44,
+      "burgerRight": 32,
+      "burgerIconRight": 46,
+      "burgerTop": 32,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    },
+    "bloom": {
+      "width": 1920,
+      "logoLeft": 32,
+      "logoTop": 34,
+      "burgerRight": 32,
+      "burgerIconRight": 48,
+      "burgerTop": 16,
+      "h1Left": 80,
+      "h1Bottom": 80,
+      "h1Width": 448,
+      "buttonsRight": 80,
+      "buttonsBottom": 80
+    }
+  },
+  "scroll_curtain_check": [
+    {
+      "scrollY": 0,
+      "videoTop": 0,
+      "portfolioTop": 900
+    },
+    {
+      "scrollY": 300,
+      "videoTop": 0,
+      "portfolioTop": 600
+    },
+    {
+      "scrollY": 600,
+      "videoTop": 0,
+      "portfolioTop": 300
+    },
+    {
+      "scrollY": 900,
+      "videoTop": 0,
+      "portfolioTop": 0
+    }
+  ]
+}

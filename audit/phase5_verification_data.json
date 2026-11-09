@@ -1,0 +1,138 @@
+{
+  "about": {
+    "faded": [
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)"
+    ],
+    "full": [
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)",
+      "rgb(46, 46, 46)"
+    ]
+  },
+  "advantages": {
+    "adv_01": {
+      "activeTitle": "Endless creative potential for bold ideas",
+      "images": [
+        {
+          "index": 0,
+          "opacity": "1"
+        },
+        {
+          "index": 1,
+          "opacity": "0"
+        },
+        {
+          "index": 2,
+          "opacity": "0"
+        },
+        {
+          "index": 3,
+          "opacity": "0"
+        }
+      ],
+      "stickyTop": 0
+    },
+    "adv_02": {
+      "activeTitle": "Fast delivery. Clear process. No surprises",
+      "images": [
+        {
+          "index": 0,
+          "opacity": "0.00309687"
+        },
+        {
+          "index": 1,
+          "opacity": "0.996903"
+        },
+        {
+          "index": 2,
+          "opacity": "0"
+        },
+        {
+          "index": 3,
+          "opacity": "0"
+        }
+      ],
+      "stickyTop": 0
+    },
+    "adv_03": {
+      "activeTitle": "Global vision. Local architectural insight",
+      "images": [
+        {
+          "index": 0,
+          "opacity": "0"
+        },
+        {
+          "index": 1,
+          "opacity": "0.00223693"
+        },
+        {
+          "index": 2,
+          "opacity": "0.997763"
+        },
+        {
+          "index": 3,
+          "opacity": "0"
+        }
+      ],
+      "stickyTop": 0
+    },
+    "adv_04": {
+      "activeTitle": "Architectural expertise at our foundation",
+      "images": [
+        {
+          "index": 0,
+          "opacity": "0"
+        },
+        {
+          "index": 1,
+          "opacity": "0"
+        },
+        {
+          "index": 2,
+          "opacity": "0.00156606"
+        },
+        {
+          "index": 3,
+          "opacity": "0.998434"
+        }
+      ],
+      "stickyTop": 0
+    },
+    "adv_unpin": {
+      "activeTitle": "Architectural expertise at our foundation",
+      "images": [
+        {
+          "index": 0,
+          "opacity": "0"
+        },
+        {
+          "index": 1,
+          "opacity": "0"
+        },
+        {
+          "index": 2,
+          "opacity": "0"
+        },
+        {
+          "index": 3,
+          "opacity": "1"
+        }
+      ],
+      "stickyTop": -299.84375
+    }
+  },
+  "wheel": {
+    "scrollY": 6718,
+    "activeTitle": "Fast delivery. Clear process. No surprises"
+  },
+  "integrity": {
+    "videoTop": 0,
+    "portTop": 900
+  }
+}

@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowUpRight } from 'lucide-react';
-import type { Project, ProjectCategory } from '../types';
+import type { Project } from '../types';
 import { projects } from '../data/projects';
 import { ProjectModal } from './ProjectModal';
 
@@ -9,112 +8,104 @@ interface PortfolioSectionProps {
 }
 
 export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenInquiryWithProject }) => {
-  const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>('all');
   const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
 
-  const categories: { label: string; value: ProjectCategory }[] = [
-    { label: 'All Projects', value: 'all' },
-    { label: 'Exterior Architecture', value: 'exterior' },
-    { label: 'Interior Design', value: 'interior' },
-    { label: 'Exhibitions & Pavilions', value: 'exhibition' },
-  ];
+  // Group projects into alternating rows matching Bloom3D: 2, 3, 2, 3
+  const row1 = projects.slice(0, 2);
+  const row2 = projects.slice(2, 5);
+  const row3 = projects.slice(5, 7);
+  const row4 = projects.slice(7, 10);
 
-  const filteredProjects = selectedCategory === 'all'
-    ? projects
-    : projects.filter((p) => p.category === selectedCategory);
+  const renderProjectCard = (project: Project) => {
+    return (
+      <div
+        key={project.id}
+        onClick={() => setActiveModalProject(project)}
+        className="group relative w-full aspect-[5/6] overflow-hidden bg-[#222222] cursor-pointer"
+      >
+        {/* Full-Bleed Architectural Visual */}
+        <img
+          src={project.coverImage}
+          alt={project.title}
+          loading="lazy"
+          className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.035]"
+        />
+
+        {/* Ambient Dark Overlay */}
+        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/35 transition-colors duration-500 ease-out pointer-events-none" />
+
+        {/* Bottom Ambient Dark Gradient for Legibility */}
+        <div className="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-black/75 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out pointer-events-none" />
+
+        {/* Bottom Project Details (Slides Up on Hover) */}
+        <div className="absolute inset-x-0 bottom-0 p-5 sm:p-6 md:p-8 flex items-baseline justify-between pointer-events-none z-10 overflow-hidden">
+          {/* Left: Project Title with Expanding Underline */}
+          <div className="flex flex-col items-start transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] translate-y-8 group-hover:translate-y-0">
+            <h3 className="font-sans text-[17px] sm:text-[18px] md:text-[19px] font-medium tracking-[0.15px] text-white">
+              {project.title}
+            </h3>
+            <div className="w-0 group-hover:w-full h-[1.5px] bg-white transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] delay-75 mt-0.5" />
+          </div>
+
+          {/* Right: Location / Country */}
+          <div className="transition-transform duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] translate-y-8 group-hover:translate-y-0 text-right">
+            <span className="font-sans text-[15px] sm:text-[16px] md:text-[17px] font-normal text-white/90">
+              {project.location}
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
-    <section id="portfolio" className="py-24 px-4 md:px-8 max-w-7xl mx-auto">
-      {/* Header & Category Filter Bar */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-        <div>
-          <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e45d36] mb-3">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#e45d36]" />
-            Selected Portfolio
-          </div>
-          <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight">
-            Featured Projects
-          </h2>
-        </div>
-
-        {/* Filter Pills */}
-        <div className="flex items-center gap-1.5 p-1.5 rounded-full bg-white/5 border border-white/10 overflow-x-auto max-w-full">
-          {categories.map((cat) => (
-            <button
-              key={cat.value}
-              onClick={() => setSelectedCategory(cat.value)}
-              className={`px-4 py-2 rounded-full text-xs font-medium whitespace-nowrap transition-all duration-200 ${
-                selectedCategory === cat.value
-                  ? 'bg-white text-black font-semibold shadow-md'
-                  : 'text-white/70 hover:text-white hover:bg-white/5'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
+    <section id="portfolio" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E]">
+      {/* Centered Portfolio Heading */}
+      <div className="pt-28 md:pt-36 pb-14 md:pb-20 px-4 text-center">
+        <h2 className="font-sans text-4xl sm:text-5xl md:text-[64px] font-normal leading-[1.1] text-center text-[#2E2E2E] tracking-[-1.5px]">
+          Featured Projects
+        </h2>
       </div>
 
-      {/* Projects Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
-        {filteredProjects.map((project) => (
-          <div
-            key={project.id}
-            onClick={() => setActiveModalProject(project)}
-            className="project-card group relative rounded-3xl overflow-hidden bg-[#151518] border border-white/10 cursor-pointer shadow-lg hover:shadow-2xl hover:border-white/20 transition-all duration-300"
-          >
-            {/* Image Container */}
-            <div className="relative aspect-[16/11] overflow-hidden bg-black/40">
-              <img
-                src={project.coverImage}
-                alt={project.title}
-                className="project-card-image w-full h-full object-cover filter brightness-[0.92] group-hover:brightness-100"
-                loading="lazy"
-              />
-
-              {/* Gradient Scrim */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0e0e10] via-black/20 to-transparent opacity-80 group-hover:opacity-60 transition-opacity duration-300" />
-
-              {/* Category Pill Tag */}
-              <div className="absolute top-4 left-4 z-10">
-                <span className="px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-black/50 text-white/90 backdrop-blur-md border border-white/10">
-                  {project.category}
-                </span>
-              </div>
-
-              {/* Hover Floating Arrow Pill */}
-              <div className="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-2 group-hover:translate-y-0 transition-all duration-300">
-                <ArrowUpRight className="w-5 h-5 text-white" />
-              </div>
-            </div>
-
-            {/* Project Details Footer on Card */}
-            <div className="p-6 flex items-center justify-between">
-              <div>
-                <h3 className="font-display text-xl sm:text-2xl font-bold text-white group-hover:text-[#e45d36] transition-colors">
-                  {project.title}
-                </h3>
-                <p className="text-xs sm:text-sm text-white/50 mt-1 flex items-center gap-2">
-                  <span>{project.location}</span>
-                  <span className="w-1 h-1 rounded-full bg-white/30" />
-                  <span>{project.year}</span>
-                </p>
-              </div>
-
-              <div className="hidden sm:flex items-center text-xs font-medium text-white/60 group-hover:text-white transition-colors gap-1">
-                <span>View Details</span>
-                <ArrowUpRight className="w-3.5 h-3.5" />
-              </div>
-            </div>
+      {/* Full-Bleed Edge-to-Edge Grid with 2px Gaps */}
+      <div className="w-full px-[2px] pb-[4px]">
+        {/* Row 1: Dual 50% Full-Bleed Cards */}
+        {row1.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] mb-[2px]">
+            {row1.map(renderProjectCard)}
           </div>
-        ))}
+        )}
+
+        {/* Row 2: Triple 33.3% Full-Bleed Cards */}
+        {row2.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2px] mb-[2px]">
+            {row2.map(renderProjectCard)}
+          </div>
+        )}
+
+        {/* Row 3: Dual 50% Full-Bleed Cards */}
+        {row3.length > 0 && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] mb-[2px]">
+            {row3.map(renderProjectCard)}
+          </div>
+        )}
+
+        {/* Row 4: Triple 33.3% Full-Bleed Cards */}
+        {row4.length > 0 && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2px]">
+            {row4.map(renderProjectCard)}
+          </div>
+        )}
       </div>
 
-      {/* Lightbox / Details Modal */}
+      {/* Modal for Project Deep Dive */}
       <ProjectModal
         project={activeModalProject}
         onClose={() => setActiveModalProject(null)}
-        onInquire={(projectName) => onOpenInquiryWithProject(projectName)}
+        onInquire={(projectName) => {
+          setActiveModalProject(null);
+          onOpenInquiryWithProject(projectName);
+        }}
       />
     </section>
   );

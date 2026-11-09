@@ -1,0 +1,160 @@
+{
+  "headerHtml": "<div data-animation=\"over-right\" class=\"navbar w-nav on_hero active\" data-easing2=\"ease-out-quint\" data-easing=\"ease-out-quint\" data-collapse=\"all\" data-w-id=\"beaca482-1f23-b394-eb1a-cc6d47d3f6dc\" role=\"banner\" data-duration=\"800\" data-doc-height=\"1\"><div class=\"w-embed\"><style>\n.navbar_container:after, .navbar_container:before {display: none;}\n.navbar.active .navbar_logo_wrapper { color: white; }\n\n.navbar.on_hero .navbar_logo_wrapper { color: white; }\n.navbar.on_hero [data-navbar-svg] path { fill: white; }\n\n.navbar.on_hero.active [data-navbar-svg] path { fill: #222; }\n\n.navbar [data-navbar-svg] path {\n\ttransition: .4s cubic-bezier(.23, 1, .32, 1);\n}\n\n@media (max-width: 567px) and (min-width: 0px) {\n\t.navbar.active .navbar_logo_wrapper { color: #222; }\n}\n\n/*.navbar_menu_btn_icon path {fill",
+  "navMenuHtml": "<nav role=\"navigation\" class=\"navbar_nav_wrapper w-nav-menu\" data-nav-menu-open=\"\" style=\"height: 10825px; transition: all, transform 800ms cubic-bezier(0.23, 1, 0.32, 1); transform: translateX(0px);\"><div class=\"navbar_nav_inner\" style=\"transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);\"><ul role=\"list\" class=\"navbar_nav w-list-unstyled\"><li class=\"navbar_nav_item\"><a href=\"/\" aria-current=\"page\" class=\"navbar_nav_link w--current\">Home</a><div class=\"u-underline\" style=\"width: 0%;\"></div></li><li class=\"navbar_nav_item\"><a href=\"/projects\" class=\"navbar_nav_link\">Portfolio</a><div class=\"u-underline\" style=\"width: 0%;\"></div></li><li class=\"navbar_nav_item\"><div data-delay=\"0\" data-hover=\"true\" class=\"navbar_nav_dd w-dropdown w--nav-dropdown-open\"><div class=\"navbar_nav_dd_btn w-dropdown-toggle w--nav-dropdown-toggle-open\" id=\"w-dropdown-toggle-0\" aria-controls=\"w-dropdown-list-0\" aria-haspopup=\"menu\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\"><div>Services</div><svg xmlns=\"http://www.w3.org/2000/svg\" width=\"100%\" viewBox=\"0 0 20 20\" fill=\"none\" class=\"navbar_nav_dd_icon\"><mask id=\"mask0_1668_498\" style=\"mask-type:alpha\" maskUnits=\"userSpaceOnUse\" x=\"0\" y=\"0\" width=\"20\" height=\"20\"><rect width=\"20\" height=\"20\" fill=\"#D9D9D9\"></rect></mask><g mask=\"url(#mask0_1668_498)\"><path d=\"M10 13.0625L5 8.0625L6.0625 7L10 10.9375L13.9375 7L15 8.0625L10 13.0625Z\" fill=\"currentColor\"></path></g></svg></div><nav class=\"n",
+  "headerStyle": {
+    "position": "fixed",
+    "top": "16px",
+    "left": "32px",
+    "right": "32px",
+    "padding": "0px",
+    "zIndex": "777"
+  },
+  "drawerStyle": {
+    "width": "480px",
+    "maxWidth": "none",
+    "backgroundColor": "rgba(0, 0, 0, 0)",
+    "padding": "0px",
+    "position": "fixed",
+    "right": "0px",
+    "top": "0px",
+    "bottom": "0px",
+    "boxShadow": "none",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "transition": "all, transform 0.8s cubic-bezier(0.23, 1, 0.32, 1)",
+    "zIndex": "1"
+  },
+  "burgerStyle": {
+    "width": "56px",
+    "height": "56px",
+    "padding": "16px",
+    "position": "relative",
+    "top": "0px",
+    "right": "0px"
+  },
+  "burgerLines": [
+    {
+      "width": "24px",
+      "height": "24px",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "margin": "0px",
+      "borderRadius": "0px"
+    }
+  ],
+  "logoStyle": {
+    "width": "240px",
+    "height": "240px",
+    "position": "absolute",
+    "top": "450px",
+    "left": "600px"
+  },
+  "links": [
+    {
+      "text": "Home",
+      "className": "navbar_nav_link w--current",
+      "fontSize": "32px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "0px",
+      "margin": "0px",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal"
+    },
+    {
+      "text": "Portfolio",
+      "className": "navbar_nav_link",
+      "fontSize": "32px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "0px",
+      "margin": "0px",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal"
+    },
+    {
+      "text": "3D interior visualization",
+      "className": "navbar_nav_dd_link w-inline-block",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.15px"
+    },
+    {
+      "text": "3D architectural visualization",
+      "className": "navbar_nav_dd_link w-inline-block",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.15px"
+    },
+    {
+      "text": "3D animation",
+      "className": "navbar_nav_dd_link w-inline-block",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.15px"
+    },
+    {
+      "text": "3D modelling (soon)",
+      "className": "navbar_nav_dd_link w-inline-block",
+      "fontSize": "20px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "4px 0px",
+      "margin": "0px",
+      "lineHeight": "24px",
+      "letterSpacing": "0.15px"
+    },
+    {
+      "text": "Contacts",
+      "className": "navbar_nav_link",
+      "fontSize": "32px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(46, 46, 46)",
+      "padding": "0px",
+      "margin": "0px",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal"
+    },
+    {
+      "text": "Schedule a call\nSchedule a call",
+      "className": "u-btn w-inline-block",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(0, 0, 238)",
+      "padding": "0px",
+      "margin": "0px",
+      "lineHeight": "20px",
+      "letterSpacing": "normal"
+    },
+    {
+      "text": "Discuss the project\nDiscuss the project",
+      "className": "u-btn w-inline-block",
+      "fontSize": "16px",
+      "fontWeight": "400",
+      "fontFamily": "\"Helvetica Now\", Arial, sans-serif",
+      "color": "rgb(0, 0, 238)",
+      "padding": "0px",
+      "margin": "0px",
+      "lineHeight": "20px",
+      "letterSpacing": "normal"
+    }
+  ]
+}

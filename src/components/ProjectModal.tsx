@@ -33,7 +33,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200">
+    <div className="fixed inset-0 z-[950] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200">
       <div
         className="relative w-full max-w-5xl max-h-[92vh] bg-[#121214] border border-white/10 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
         onClick={(e) => e.stopPropagation()}

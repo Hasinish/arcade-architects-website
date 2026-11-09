@@ -1,0 +1,224 @@
+[
+  {
+    "scrollY": 0,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav on_hero",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "scrollY": 200,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav on_hero",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "scrollY": 400,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav on_hero",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "scrollY": 600,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav on_hero",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "scrollY": 900,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav on_hero",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  },
+  {
+    "scrollY": 1200,
+    "mainDivs": [
+      {
+        "tag": "SECTION",
+        "class": "u-preloader",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "navbar w-nav",
+        "top": 16,
+        "bottom": 72,
+        "height": 56,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "top": 0,
+        "bottom": 900,
+        "height": 900,
+        "transform": "none"
+      },
+      {
+        "tag": "DIV",
+        "class": "popup_booking",
+        "top": 0,
+        "bottom": 0,
+        "height": 0,
+        "transform": "none"
+      }
+    ]
+  }
+]

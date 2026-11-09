@@ -1,0 +1,117 @@
+{
+  "local": [
+    {
+      "scrollY": 0,
+      "heroSectionTop": 0,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 900
+    },
+    {
+      "scrollY": 200,
+      "heroSectionTop": -200,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 700
+    },
+    {
+      "scrollY": 400,
+      "heroSectionTop": -400,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 500
+    },
+    {
+      "scrollY": 600,
+      "heroSectionTop": -600,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 300
+    },
+    {
+      "scrollY": 800,
+      "heroSectionTop": -800,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 100
+    },
+    {
+      "scrollY": 900,
+      "heroSectionTop": -900,
+      "stickyDivTop": 0,
+      "videoTop": 0,
+      "headingTop": 700,
+      "portfolioTop": 0
+    },
+    {
+      "scrollY": 1100,
+      "heroSectionTop": -1100,
+      "stickyDivTop": -200,
+      "videoTop": -200,
+      "headingTop": 500,
+      "portfolioTop": -200
+    }
+  ],
+  "bloom": [
+    {
+      "scrollY": 0,
+      "heroTop": 0,
+      "videoTop": 0,
+      "headingTop": 647.21875,
+      "portfolioTop": 900
+    },
+    {
+      "scrollY": 200,
+      "heroTop": -165.29095458984375,
+      "videoTop": 0.0009964110795408487,
+      "headingTop": 647.2197265625,
+      "portfolioTop": 734.7090454101562
+    },
+    {
+      "scrollY": 400,
+      "heroTop": -365.06134033203125,
+      "videoTop": 0.0009974121348932385,
+      "headingTop": 647.2197875976562,
+      "portfolioTop": 534.9386596679688
+    },
+    {
+      "scrollY": 600,
+      "heroTop": -563.8988037109375,
+      "videoTop": 0.0009802734712138772,
+      "headingTop": 647.2197265625,
+      "portfolioTop": 336.1011962890625
+    },
+    {
+      "scrollY": 800,
+      "heroTop": -764.0066528320312,
+      "videoTop": 0.0009793945355340838,
+      "headingTop": 647.2196655273438,
+      "portfolioTop": 135.99334716796875
+    },
+    {
+      "scrollY": 900,
+      "heroTop": -879.0572509765625,
+      "videoTop": 0.0009775391081348062,
+      "headingTop": 647.2197265625,
+      "portfolioTop": 20.942750930786133
+    },
+    {
+      "scrollY": 1100,
+      "heroTop": -1060.8931884765625,
+      "videoTop": -160.89219665527344,
+      "headingTop": 486.3265380859375,
+      "portfolioTop": -160.89317321777344
+    }
+  ],
+  "wheel": {
+    "scrollY": 400,
+    "stickyDivTop": 0,
+    "videoTop": 0,
+    "portfolioTop": 500
+  }
+}

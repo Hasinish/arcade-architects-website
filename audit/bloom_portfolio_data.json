@@ -1,0 +1,865 @@
+{
+  "portfolio": {
+    "rect": {
+      "width": 1440,
+      "height": 3840.46875,
+      "top": 3.355649948120117
+    },
+    "backgroundColor": "rgb(247, 247, 247)",
+    "padding": "0px"
+  },
+  "headings": [
+    {
+      "tag": "H2",
+      "class": "portfolio_heading u-h1",
+      "text": "Featured Projects",
+      "fontSize": "64px",
+      "fontWeight": "400",
+      "lineHeight": "70.4px",
+      "letterSpacing": "-1.5px",
+      "textAlign": "center",
+      "color": "rgb(46, 46, 46)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 131.35565185546875,
+        "left": 490.21875,
+        "width": 459.5625,
+        "height": 70.40625
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Morven",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 1170.5430908203125,
+        "left": 20,
+        "width": 61.96875,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Amrita",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 1170.5430908203125,
+        "left": 737.984375,
+        "width": 54.5625,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "SOLVANE",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 1744.1368408203125,
+        "left": 20,
+        "width": 79,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "The Ubud",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 1744.1368408203125,
+        "left": 498.65625,
+        "width": 78.828125,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Morven",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 1744.1368408203125,
+        "left": 977.328125,
+        "width": 61.96875,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Entropy",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 2642.590087890625,
+        "left": 20,
+        "width": 62.640625,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Amrita",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 2642.590087890625,
+        "left": 737.984375,
+        "width": 54.5625,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "The Ubud",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 2963.027587890625,
+        "left": 20,
+        "width": 78.828125,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Entropy",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 2963.027587890625,
+        "left": 498.65625,
+        "width": 62.640625,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "Entropy",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 2963.027587890625,
+        "left": 977.328125,
+        "width": 62.640625,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "The Ubud",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 3823.824462890625,
+        "left": 20,
+        "width": 78.828125,
+        "height": 25.203125
+      }
+    },
+    {
+      "tag": "H2",
+      "class": "portfolio_project_title",
+      "text": "SOLVANE",
+      "fontSize": "18px",
+      "fontWeight": "500",
+      "lineHeight": "25.2px",
+      "letterSpacing": "0.15px",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "marginTop": "0px",
+      "marginBottom": "0px",
+      "rect": {
+        "top": 3823.824462890625,
+        "left": 737.984375,
+        "width": 79,
+        "height": 25.203125
+      }
+    }
+  ],
+  "cardsCount": 12,
+  "cards": [
+    {
+      "index": 0,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 329.76190185546875,
+        "left": 4,
+        "width": 713.984375,
+        "height": 856.7811889648438
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694126047123892e8b8973f2_719e159b1e9c412b0c8f9e68936a7070_Photorealistic%203D%20architectural%20rendering%20of%20Morven%20project.webp",
+        "width": 713.984375,
+        "height": 856.7811889648438,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Morven",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Scotland",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 1,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 329.76190185546875,
+        "left": 721.984375,
+        "width": 714,
+        "height": 856.7811889648438
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694125df4a7a3624fc5ff4fe_c0b15daebc55e9592a3b466f11a637bc_3D%20interior%20visualization%20of%20Amrita.webp",
+        "width": 714,
+        "height": 856.7811889648438,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Amrita",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Italy",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 1190.5430908203125,
+        "left": 4,
+        "width": 474.65625,
+        "height": 569.59375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6a5f38692516f626c070f3f9_f094d44939235e6065e64c1e5940b75f_02%2012.webp",
+        "width": 474.65625,
+        "height": 569.59375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "SOLVANE",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Spain",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 1190.5430908203125,
+        "left": 482.65625,
+        "width": 474.671875,
+        "height": 569.59375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69412615bd688902609171cb_908cd15515a5ac0d5bb450f239808980_Modern%20Balinese%20interior%20design%20visualization.webp",
+        "width": 474.671875,
+        "height": 569.59375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "The Ubud",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Bali",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 1190.5430908203125,
+        "left": 961.328125,
+        "width": 474.65625,
+        "height": 569.59375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694126046a36b628b787bd49_3067fe483a5d420cf1444475bba5525d_Morven%20project%20by%20Bloom.webp",
+        "width": 474.65625,
+        "height": 569.59375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Morven",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Scotland",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 1764.1368408203125,
+        "left": 4,
+        "width": 713.984375,
+        "height": 894.4532470703125
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b45caa1621a6a4f45f0_57d07fcd8391a10c2dfeced6ebdbd7a0_Close-up%203D%20render%20of%20a%20wooden%20terrace%20workspace.webp",
+        "width": 713.984375,
+        "height": 894.4532470703125,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Entropy",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Sweden",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 1764.1368408203125,
+        "left": 721.984375,
+        "width": 714,
+        "height": 894.4532470703125
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694125de5691555328992c18_a69ebebd31967d1f2521f36a62fcffe6_3D%20interior%20visualization%20of%20Amrita%27s%20kitchen.webp",
+        "width": 714,
+        "height": 894.4532470703125,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Amrita",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Italy",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 2662.590087890625,
+        "left": 4,
+        "width": 474.65625,
+        "height": 316.4375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694126141c3eea278455ea4e_f069ebf4a9d9de326e02dbaeed24f0c5_Photorealistic%203D%20architectural%20visualization%20of%20The%20Ubud%20project.webp",
+        "width": 474.65625,
+        "height": 316.4375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "The Ubud",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Bali",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 2662.590087890625,
+        "left": 482.65625,
+        "width": 474.671875,
+        "height": 316.4375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694125f2036f9b6aa74bf106_c7970e7b79415608eaad673ce684a190_Architectural%203D%20rendering%20of%20Entropy%20project.webp",
+        "width": 474.671875,
+        "height": 316.4375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Entropy",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Sweden",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 2662.590087890625,
+        "left": 961.328125,
+        "width": 474.65625,
+        "height": 316.4375
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694125f256a9a99e0f56dd5d_3f35086e252e9eddde3f326a8e15df07_3D%20architectural%20visualization%20of%20Entropy%20forest%20house%20in%20Sweden.webp",
+        "width": 474.65625,
+        "height": 316.4375,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "Entropy",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Sweden",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 2983.027587890625,
+        "left": 4,
+        "width": 713.984375,
+        "height": 856.796875
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69412615cc32e96ed1acad4f_37d368f3f111947b6bdbee45d7b45936_Top-view%203D%20visualization%20of%20poolside%20lounge%20chairs%20and%20wooden%20table.webp",
+        "width": 713.984375,
+        "height": 856.796875,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "The Ubud",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Bali",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    },
+    {
+      "index": 11,
+      "tag": "A",
+      "class": "portfolio_project w-inline-block",
+      "rect": {
+        "top": 2983.027587890625,
+        "left": 721.984375,
+        "width": 714,
+        "height": 856.796875
+      },
+      "borderRadius": "0px",
+      "overflow": "hidden",
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6a5f386992e0ad05f381fa3a_8190b87e8bedb1586675c8a0b1e2f5ac_05%2013.webp",
+        "width": 714,
+        "height": 856.796875,
+        "objectFit": "cover",
+        "transition": "all"
+      },
+      "texts": [
+        {
+          "tag": "H2",
+          "class": "portfolio_project_title",
+          "text": "SOLVANE",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        },
+        {
+          "tag": "DIV",
+          "class": "portfolio_project_text",
+          "text": "Spain",
+          "fontSize": "18px",
+          "color": "rgb(255, 255, 255)",
+          "opacity": "1",
+          "transform": "matrix(1, 0, 0, 1, 0, 25.2031)"
+        }
+      ]
+    }
+  ],
+  "grids": [
+    {
+      "class": "portfolio_wrapper",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "128px",
+      "rowGap": "128px",
+      "columnGap": "128px",
+      "padding": "128px 0px 4px",
+      "margin": "0px",
+      "width": 1432,
+      "height": 3840.46875
+    },
+    {
+      "class": "portfolio_grid",
+      "display": "grid",
+      "gridTemplateColumns": "115.656px 115.672px 115.656px 115.672px 115.672px 115.656px 115.672px 115.672px 115.656px 115.672px 115.672px 115.656px",
+      "gap": "4px",
+      "rowGap": "4px",
+      "columnGap": "4px",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 1432,
+      "height": 3510.0625
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 681.984375,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 682,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 442.65625,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 442.671875,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 442.65625,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 681.984375,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 682,
+      "height": 25.203125
+    },
+    {
+      "class": "portfolio_project_info",
+      "display": "flex",
+      "gridTemplateColumns": "none",
+      "gap": "normal",
+      "rowGap": "normal",
+      "columnGap": "normal",
+      "padding": "0px",
+      "margin": "0px",
+      "width": 442.65625,
+      "height": 25.203125
+    }
+  ]
+}

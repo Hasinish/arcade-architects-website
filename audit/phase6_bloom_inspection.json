@@ -1,0 +1,567 @@
+{
+  "cta": {
+    "section": {
+      "class": "navbar_cta",
+      "height": 0,
+      "width": 0,
+      "top": 0,
+      "position": "static",
+      "overflow": "visible"
+    },
+    "media": {
+      "hasVideo": false,
+      "videoSrc": null,
+      "hasImg": false,
+      "imgSrc": null
+    },
+    "heading": {
+      "text": "Let\u2019s talk about your next project",
+      "fontSize": "24px",
+      "fontWeight": "400",
+      "lineHeight": "28.8px",
+      "letterSpacing": "normal",
+      "textAlign": "left",
+      "color": "rgb(46, 46, 46)"
+    },
+    "buttons": [
+      {
+        "text": "Schedule a callSchedule a call",
+        "class": "u-btn w-inline-block",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 238)",
+          "height": "auto",
+          "padding": "0px",
+          "borderRadius": "0px"
+        }
+      },
+      {
+        "text": "Discuss the projectDiscuss the project",
+        "class": "u-btn w-inline-block",
+        "rect": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "style": {
+          "background": "rgba(0, 0, 0, 0)",
+          "color": "rgb(0, 0, 238)",
+          "height": "auto",
+          "padding": "0px",
+          "borderRadius": "0px"
+        }
+      }
+    ]
+  },
+  "faq": {
+    "section": {
+      "class": "section_faq",
+      "bgColor": "rgba(0, 0, 0, 0)",
+      "padding": "128px 0px",
+      "height": 541.625,
+      "top": 9910.03125
+    },
+    "heading": {
+      "text": "You asked, we answered",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "57.6px",
+      "letterSpacing": "-0.5px",
+      "color": "rgb(46, 46, 46)"
+    },
+    "itemCount": 28,
+    "items": [
+      {
+        "question": "What is architectural 3D visualization and how can it benefit my project?",
+        "answer": "Architectural 3D visualization is the\u00a0process of\u00a0creating lifelike images or\u00a0animations of\u00a0a\u00a0project before it is built. It allows you to see colors, textures, proportions, and lighting with\u00a0clarity, making it easier to\u00a0approve design decisions, avoid mistakes, and present ideas professionally. It is also a powerful tool for\u00a0marketing and client communication.",
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": "What is architectural 3D visualization and how can it benefit my project?",
+        "answer": null,
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": "Architectural 3D visualization is the\u00a0process of\u00a0creating lifelike images or\u00a0animations of\u00a0a\u00a0project before it is built. It allows you to see colors, textures, proportions, and lighting with\u00a0clarity, making it easier to\u00a0approve design decisions, avoid mistakes, and present ideas professionally. It is also a powerful tool for\u00a0marketing and client communication.",
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": "What types of 3D rendering services do you provide?",
+        "answer": "We offer a wide range of\u00a03D\u00a0rendering services: interior rendering, exterior rendering, product visualization, high-poly modeling, 3D\u00a0animation, virtual tours &\u00a0360\u00a0panoramas.",
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": "What types of 3D rendering services do you provide?",
+        "answer": null,
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": "We offer a wide range of\u00a03D\u00a0rendering services: interior rendering, exterior rendering, product visualization, high-poly modeling, 3D\u00a0animation, virtual tours &\u00a0360\u00a0panoramas.",
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": "How long does a 3D rendering project take?",
+        "answer": "Each project is unique and requires an\u00a0individual approach. Timelines depend on complexity, level of detail, and specific client requirements. Our manager can provide an accurate estimate for both time and cost. We always aim to deliver the best balance of speed and quality.",
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": "How long does a 3D rendering project take?",
+        "answer": null,
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": "Each project is unique and requires an\u00a0individual approach. Timelines depend on complexity, level of detail, and specific client requirements. Our manager can provide an accurate estimate for both time and cost. We always aim to deliver the best balance of speed and quality.",
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": "Can I return to a project after it has been completed?",
+        "answer": "Yes. We understand that even months after a project is finished, new changes may be needed. That is why we securely archive every project on both online and offline servers. This allows us to reopen and continue work even years later. All project files remain completely confidential and safe.",
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": "Can I return to a project after it has been completed?",
+        "answer": null,
+        "qStyle": {
+          "fontSize": "16px",
+          "fontWeight": "500",
+          "color": "rgb(46, 46, 46)"
+        },
+        "iconClass": {}
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": "Yes. We understand that even months after a project is finished, new changes may be needed. That is why we securely archive every project on both online and offline servers. This allows us to reopen and continue work even years later. All project files remain completely confidential and safe.",
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      },
+      {
+        "question": null,
+        "answer": null,
+        "qStyle": {
+          "fontSize": null,
+          "fontWeight": null,
+          "color": null
+        },
+        "iconClass": null
+      }
+    ]
+  },
+  "footer": {
+    "footer": {
+      "class": "section_footer",
+      "bgColor": "rgba(0, 0, 0, 0)",
+      "padding": "0px 0px 4px",
+      "height": 373.015625,
+      "top": 10451.65625
+    },
+    "links": [
+      {
+        "text": "Get personal offerGet personal offer",
+        "href": "/contacts",
+        "color": "rgb(0, 0, 238)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Portfolio",
+        "href": "/projects",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "3D interior visualization",
+        "href": "/services/interior",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "text": "3D architectural visualization",
+        "href": "/services/exterior",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "text": "3D animation",
+        "href": "/services/animation",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "text": "3D modelling (Soon)",
+        "href": "#",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "text": "Contacts",
+        "href": "/contacts",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "info@bloom3d.studio",
+        "href": "mailto:info@bloom3d.studio",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "+48 664 658 053",
+        "href": "tel:+37529625-24-41",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "",
+        "href": "https://www.instagram.com/bloom.render?igsh=MXJjZ2FxcWp5M3Byaw==",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "",
+        "href": "https://www.behance.net/bloomvisualization",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "",
+        "href": "https://www.linkedin.com/company/bloom-visualization-studio/",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "16px"
+      },
+      {
+        "text": "Privacy Policy",
+        "href": "https://docs.google.com/document/d/1K8JcFQl7YlaaY6JtcISmHU1BYJPf6csA8Jy_iE-fGUA/edit?usp=sharing",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "12px"
+      }
+    ],
+    "texts": [
+      {
+        "tag": "H2",
+        "class": "footer_heading u-h3",
+        "text": "Let\u2019s talk about your next\u00a0project",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "32px"
+      },
+      {
+        "tag": "DIV",
+        "class": "btn_text_front u-btn-text",
+        "text": "Get personal offer",
+        "color": "rgb(34, 34, 34)",
+        "fontSize": "16px"
+      },
+      {
+        "tag": "DIV",
+        "class": "btn_text_back u-btn-text",
+        "text": "Get personal offer",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_col_title",
+        "text": "Navigate",
+        "color": "rgb(137, 137, 137)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "Services",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "3D interior visualization",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "3D architectural visualization",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "3D animation",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "3D modelling (Soon)",
+        "color": "rgb(46, 46, 46)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_col_title",
+        "text": "Contacts",
+        "color": "rgb(137, 137, 137)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_col_title",
+        "text": "Address",
+        "color": "rgb(137, 137, 137)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_col_list_item_link_address",
+        "text": "701 Tillery St Unit 12, Austin, TX 78702,\u00a0US",
+        "color": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_col_title",
+        "text": "Socials",
+        "color": "rgb(137, 137, 137)",
+        "fontSize": "14px"
+      },
+      {
+        "tag": "DIV",
+        "class": "footer_copyright",
+        "text": "Bloom \u00a9 2026",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "12px"
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "text": "Privacy Policy",
+        "color": "rgb(223, 223, 223)",
+        "fontSize": "12px"
+      }
+    ]
+  }
+}

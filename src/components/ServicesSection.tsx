@@ -1,139 +1,231 @@
-import React, { useState } from 'react';
-import { ArrowUpRight, CheckCircle, Layers } from 'lucide-react';
-import { services } from '../data/services';
+import React, { useState, useEffect, useRef } from 'react';
 
 interface ServicesSectionProps {
-  onOpenInquiry: () => void;
+  onOpenInquiry: (serviceName?: string) => void;
+}
+
+interface ServiceCardData {
+  id: string;
+  title: string;
+  image: string;
+  subtitle: string;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry }) => {
-  const [activeServiceId, setActiveServiceId] = useState(services[0].id);
+  const sectionRef = useRef<HTMLElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  // 7 Unique Architectural Services mapped onto a 14-card continuous 360-degree cylinder
+  const baseServices: ServiceCardData[] = [
+    {
+      id: 'exterior-viz',
+      title: 'Architectural Exterior Visualization',
+      image: '/assets/Exterior/Hazi Bari Project/01.png',
+      subtitle: 'View service',
+    },
+    {
+      id: 'interior-design',
+      title: '3D Interior Visualization & Styling',
+      image: '/assets/Interior/Cafe/nidasheena (1).jpg',
+      subtitle: 'View service',
+    },
+    {
+      id: 'exhibition-pavilion',
+      title: 'Exhibition Pavilions & Brand Architecture',
+      image: '/assets/Exhibition/Ford/01_Photo - 10 (FILEminimizer).jpg',
+      subtitle: 'View service',
+    },
+    {
+      id: 'concept-modeling',
+      title: 'Architectural Planning & Concept Modeling',
+      image: '/assets/Exterior/CHANDINA PROJECT/D.V-02.png',
+      subtitle: 'View service',
+    },
+    {
+      id: 'cinematic-animation',
+      title: 'Cinematic 3D Animation & Showreels',
+      image: '/assets/Exterior/USA/001_10 - Photo.jpg',
+      subtitle: 'View service',
+    },
+    {
+      id: 'commercial-facade',
+      title: 'Commercial Mixed-Use Facade Design',
+      image: '/assets/Exterior/Laksam Project/01.png',
+      subtitle: 'View service',
+    },
+    {
+      id: 'residential-villa',
+      title: 'Bespoke Residential Villa Architecture',
+      image: '/assets/Exterior/KOTBARI PROJECT/01.png',
+      subtitle: 'View service',
+    },
+  ];
+
+  // 14 cards arranged on the 3D ring
+  const cards: ServiceCardData[] = [...baseServices, ...baseServices];
+  const totalCards = 14;
+  const innerAngle = 360 / totalCards; // 25.7142857 deg
+
+  // Dynamic responsive dimensions
+  const [itemWidth, setItemWidth] = useState(475);
+  const [rotation, setRotation] = useState(-102); // Initial rotation matching Bloom3D
+
+  // Drag interaction state
+  const isDraggingRef = useRef(false);
+  const startXRef = useRef(0);
+  const startRotRef = useRef(-102);
+  const hasDraggedRef = useRef(false);
+
+  // Update card width and cylinder radius on resize
+  useEffect(() => {
+    const handleResize = () => {
+      const w = window.innerWidth;
+      if (w < 640) {
+        setItemWidth(Math.min(340, w - 48));
+      } else if (w < 1024) {
+        setItemWidth(400);
+      } else {
+        setItemWidth(475);
+      }
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Cylinder radius based on exact geometry: (width / 2) / tan(innerAngle / 2)
+  const halfAngleRad = (innerAngle / 2) * (Math.PI / 180);
+  const radius = Math.round((itemWidth / 2) / Math.tan(halfAngleRad)); // ~1095px for 475px width
+
+  // Scroll scrub listener matching Bloom3D's ScrollTrigger
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!sectionRef.current || isDraggingRef.current) return;
+      const rect = sectionRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Section progress from entering viewport (top = windowHeight) to exiting (bottom = 0)
+      const totalDistance = rect.height + windowHeight;
+      const currentProgress = (windowHeight - rect.top) / totalDistance;
+      const clampedProgress = Math.max(0, Math.min(1, currentProgress));
+
+      // Bloom3D scrolls from approx -102deg to -25deg across the section
+      const targetRotation = -102 + clampedProgress * 77;
+      setRotation(targetRotation);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Drag handlers for mouse & touch interaction
+  const handlePointerDown = (e: React.PointerEvent) => {
+    isDraggingRef.current = true;
+    startXRef.current = e.clientX;
+    startRotRef.current = rotation;
+    hasDraggedRef.current = false;
+  };
+
+  const handlePointerMove = (e: React.PointerEvent) => {
+    if (!isDraggingRef.current) return;
+    const deltaX = e.clientX - startXRef.current;
+    if (Math.abs(deltaX) > 5) {
+      hasDraggedRef.current = true;
+    }
+    // Sensitivity factor: 0.15 deg per px
+    setRotation(startRotRef.current + deltaX * 0.15);
+  };
+
+  const handlePointerUp = () => {
+    isDraggingRef.current = false;
+  };
 
   return (
-    <section id="services" className="py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-white/5">
-      {/* Header */}
-      <div className="max-w-3xl mb-16">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e45d36] mb-3">
-          <Layers className="w-4 h-4" />
-          <span>Core Capabilities</span>
-        </div>
-        <h2 className="font-display text-3xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-          We craft architectural visuals & spaces that elevate your vision
+    <section
+      ref={sectionRef}
+      id="services"
+      className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-28 md:py-36 overflow-hidden select-none"
+    >
+      {/* Centered Editorial Heading */}
+      <div className="w-full max-w-[980px] mx-auto px-6 mb-20 md:mb-28 text-center">
+        <h2 className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] md:leading-[57.6px] text-[#2E2E2E] tracking-[-0.5px]">
+          We create 3D visuals that elevate your architectural ideas and help your projects stand out
         </h2>
-        <p className="text-base text-white/60 font-light">
-          Whether you need photorealistic render marketing assets to secure investors or comprehensive architectural design execution, we deliver precision at every scale.
-        </p>
       </div>
 
-      {/* Services Grid with Interactive Active Preview */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-        {/* Left Column: List of Services */}
-        <div className="lg:col-span-7 flex flex-col gap-4">
-          {services.map((service) => {
-            const isActive = service.id === activeServiceId;
+      {/* 3D Perspective Stage Container */}
+      <div
+        className="w-full h-[520px] md:h-[560px] flex items-center justify-center relative touch-pan-y cursor-grab active:cursor-grabbing"
+        style={{
+          perspective: '5000px',
+          perspectiveOrigin: '50% 50%',
+        }}
+        onPointerDown={handlePointerDown}
+        onPointerMove={handlePointerMove}
+        onPointerUp={handlePointerUp}
+        onPointerLeave={handlePointerUp}
+      >
+        {/* The 3D Rotating Cylinder */}
+        <div
+          ref={carouselRef}
+          className="relative transition-transform ease-out"
+          style={{
+            width: `${itemWidth}px`,
+            height: `${itemWidth}px`,
+            transformStyle: 'preserve-3d',
+            transform: `translate3d(0px, 0px, -${radius}px) rotateY(${rotation}deg)`,
+            transitionDuration: isDraggingRef.current ? '0ms' : '150ms',
+          }}
+        >
+          {cards.map((card, idx) => {
+            const cardAngle = idx * innerAngle;
+
             return (
               <div
-                key={service.id}
-                onClick={() => setActiveServiceId(service.id)}
-                className={`p-6 sm:p-8 rounded-3xl cursor-pointer transition-all duration-300 border ${
-                  isActive
-                    ? 'bg-[#18181c] border-white/20 shadow-xl'
-                    : 'bg-[#121214] border-white/5 hover:border-white/10 hover:bg-[#151518]'
-                }`}
+                key={`${card.id}-${idx}`}
+                className="absolute inset-0 group overflow-hidden bg-[#222222] shadow-2xl transition-all duration-300"
+                style={{
+                  width: `${itemWidth}px`,
+                  height: `${itemWidth}px`,
+                  backfaceVisibility: 'hidden',
+                  WebkitBackfaceVisibility: 'hidden',
+                  transform: `rotateY(${cardAngle}deg) translate3d(0px, 0px, ${radius}px)`,
+                }}
+                onClick={(e) => {
+                  if (hasDraggedRef.current) {
+                    e.preventDefault();
+                    return;
+                  }
+                  onOpenInquiry(card.title);
+                }}
               >
-                <div className="flex items-start justify-between gap-4 mb-3">
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono text-sm text-[#e45d36] font-semibold">
-                      {service.number}
+                {/* Background Architectural Visual */}
+                <img
+                  src={card.image}
+                  alt={card.title}
+                  draggable={false}
+                  className="w-full h-full object-cover filter brightness-[0.88] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04]"
+                />
+
+                {/* Ambient Dark Overlay */}
+                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors duration-400 pointer-events-none" />
+
+                {/* Bottom Legibility Gradient */}
+                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
+
+                {/* Service Card Content */}
+                <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end pointer-events-none z-10">
+                  <h3 className="font-sans text-2xl sm:text-[32px] font-medium leading-[1.2] text-white tracking-normal mb-3">
+                    {card.title}
+                  </h3>
+
+                  {/* View Service Underline Button */}
+                  <div className="inline-flex items-center gap-1 text-white/90 group/btn">
+                    <span className="font-sans text-base font-normal tracking-wide">
+                      {card.subtitle}
                     </span>
-                    <h3 className="font-display text-xl sm:text-2xl font-bold text-white">
-                      {service.title}
-                    </h3>
+                    <div className="w-0 group-hover:w-16 h-[1.5px] bg-white transition-all duration-400 ease-out mt-1" />
                   </div>
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center transition-all ${
-                      isActive ? 'bg-[#e45d36] text-white rotate-45' : 'bg-white/5 text-white/40'
-                    }`}
-                  >
-                    <ArrowUpRight className="w-4 h-4" />
-                  </div>
-                </div>
-
-                <p className="text-sm text-white/60 leading-relaxed mb-5">
-                  {service.description}
-                </p>
-
-                {/* Deliverables Accordion View */}
-                {isActive && (
-                  <div className="pt-4 border-t border-white/10 animate-in fade-in duration-200">
-                    <p className="text-xs uppercase tracking-wider font-semibold text-white/40 mb-3">
-                      Key Deliverables & Specifications
-                    </p>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                      {service.deliverables.map((item, idx) => (
-                        <div key={idx} className="flex items-center gap-2 text-xs text-white/80">
-                          <CheckCircle className="w-3.5 h-3.5 text-[#e45d36] flex-shrink-0" />
-                          <span>{item}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="mt-6 pt-4 flex items-center justify-between">
-                      <span className="text-xs text-white/50">{service.tag}</span>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onOpenInquiry();
-                        }}
-                        className="text-xs font-semibold text-[#e45d36] hover:text-[#f16d47] flex items-center gap-1.5"
-                      >
-                        Inquire This Service <ArrowUpRight className="w-3.5 h-3.5" />
-                      </button>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </div>
-
-        {/* Right Column: Dynamic Sticky Visual Preview Card */}
-        <div className="lg:col-span-5 lg:sticky lg:top-28">
-          {services.map((service) => {
-            if (service.id !== activeServiceId) return null;
-            return (
-              <div
-                key={service.id}
-                className="rounded-3xl overflow-hidden bg-[#151518] border border-white/10 shadow-2xl relative animate-in fade-in zoom-in-95 duration-300"
-              >
-                <div className="aspect-[4/3] w-full overflow-hidden relative">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover filter brightness-95"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#151518] via-transparent to-transparent" />
-                  <div className="absolute top-4 left-4">
-                    <span className="px-3.5 py-1.5 rounded-full text-xs font-semibold bg-black/60 backdrop-blur-md border border-white/10 text-white">
-                      {service.tag}
-                    </span>
-                  </div>
-                </div>
-
-                <div className="p-6">
-                  <h4 className="font-display text-lg font-bold text-white mb-2">
-                    {service.title}
-                  </h4>
-                  <p className="text-xs text-white/60 mb-6">
-                    Fully optimized for real estate marketing, client presentations, and architectural permit clearances.
-                  </p>
-
-                  <button
-                    onClick={onOpenInquiry}
-                    className="w-full py-3.5 rounded-full bg-white text-black font-semibold text-xs flex items-center justify-center gap-2 hover:bg-white/90 transition-colors shadow-lg"
-                  >
-                    Start With {service.title} <ArrowUpRight className="w-4 h-4" />
-                  </button>
                 </div>
               </div>
             );
@@ -143,4 +235,3 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
     </section>
   );
 };
-

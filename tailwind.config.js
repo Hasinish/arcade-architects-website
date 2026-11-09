@@ -7,40 +7,33 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: '#0d0d0e',
-        surface: '#151517',
-        'surface-elevated': '#1d1d20',
-        'surface-border': '#27272a',
-        'subtle-border': 'rgba(255, 255, 255, 0.08)',
-        accent: {
-          DEFAULT: '#e45d36',
-          hover: '#f16d47',
-          light: '#fbece8'
-        },
+        // Bloom3D Measured Color System
         bloom: {
-          dark: '#121212',
-          card: '#1a1a1a',
-          border: '#2e2e2e',
-          textMuted: '#888888',
-          textLight: '#f5f5f7'
-        }
+          bg: '#F7F7F7',            // Core stone/paper light background
+          text: '#2E2E2E',          // Primary charcoal text
+          muted: 'rgba(46, 46, 46, 0.4)', // Secondary muted text
+          hairline: 'rgba(46, 46, 46, 0.12)', // Subtle divider lines
+          black: '#121212',         // Deep obsidian for media sections
+          darkCard: '#222222',      // Button background in drawer
+          accent: '#E45D36',        // Subtle brand accent
+          white: '#FFFFFF',
+        },
+        background: '#F7F7F7',
+        surface: '#FFFFFF',
       },
       fontFamily: {
-        sans: ['"Inter"', '"Plus Jakarta Sans"', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
-        display: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif']
+        sans: ['"Helvetica Now"', '"Plus Jakarta Sans"', '"Inter"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['"Helvetica Now"', '"Plus Jakarta Sans"', '"Inter"', 'sans-serif']
       },
-      animation: {
-        'marquee': 'marquee 35s linear infinite',
-        'pulse-subtle': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+      letterSpacing: {
+        'tight-bloom': '-0.5px',
+        'tighter-bloom': '-1.5px',
       },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' },
-        }
+      transitionTimingFunction: {
+        'bloom-ease': 'cubic-bezier(0.23, 1, 0.32, 1)',
+        'bloom-out': 'cubic-bezier(0.16, 1, 0.3, 1)',
       }
     },
   },
   plugins: [],
 }
-

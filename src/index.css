@@ -3,73 +3,104 @@
 @tailwind utilities;
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 body {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-  background-color: #0d0d0e;
-  color: #f5f5f7;
-  overflow-x: hidden;
+  font-family: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background-color: #F7F7F7;
+  color: #2E2E2E;
+  overflow-x: clip;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 ::-webkit-scrollbar-track {
-  background: #0d0d0e;
+  background: #F7F7F7;
 }
 ::-webkit-scrollbar-thumb {
-  background: #2a2a2e;
-  border-radius: 9999px;
+  background: #D9D9D9;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #3e3e44;
+  background: #B0B0B0;
 }
 
-/* Glassmorphism */
-.glass-nav {
-  background: rgba(18, 18, 20, 0.75);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-}
-
-.glass-card {
-  background: rgba(22, 22, 25, 0.65);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.06);
-}
-
-/* Bloom3D style magnetic/sliding button */
-.bloom-btn {
+/* Bloom3D Double-Layer Sliding Text Button */
+.bloom-btn-wrap {
   position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+  cursor: pointer;
+  background-color: #222222;
+  color: #FFFFFF;
+  padding: 16px 20px;
+  height: 54px;
+  font-size: 15px;
+  font-weight: 400;
+  border: none;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
 }
 
-.bloom-btn-inner {
+.bloom-btn-wrap .btn-text-track {
   display: flex;
   flex-direction: column;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  height: 20px;
+  overflow: hidden;
 }
 
-.bloom-btn:hover .bloom-btn-inner {
+.bloom-btn-wrap .btn-text-inner {
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.bloom-btn-wrap:hover .btn-text-inner {
   transform: translateY(-50%);
 }
 
-/* Smooth Image hover */
-.project-card-image {
-  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+.bloom-btn-wrap .btn-label {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  line-height: 20px;
 }
 
-.project-card:hover .project-card-image {
-  transform: scale(1.04);
+/* White Button Variant */
+.bloom-btn-white {
+  background-color: #FFFFFF;
+  color: #121212;
+}
+
+.bloom-btn-white:hover {
+  background-color: #F0F0F0;
+}
+
+/* Nav Link Underline on Hover */
+.bloom-nav-link {
+  position: relative;
+  display: inline-block;
+  color: #2E2E2E;
+  transition: color 0.3s ease;
+}
+
+.bloom-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: #2E2E2E;
+  transition: width 0.35s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.bloom-nav-link:hover::after {
+  width: 100%;
 }

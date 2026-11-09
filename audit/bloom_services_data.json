@@ -1,0 +1,905 @@
+{
+  "section": {
+    "class": "section_services",
+    "bgColor": "rgba(0, 0, 0, 0)",
+    "padding": "0px",
+    "height": 1378.78125
+  },
+  "headings": [
+    {
+      "tag": "H2",
+      "class": "services_heading u-h2",
+      "text": "We create 3D visuals that elevate your architectural ideas and\u00a0help your projects stand out",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "57.6px",
+      "letterSpacing": "-0.5px",
+      "textAlign": "center",
+      "color": "rgb(46, 46, 46)",
+      "margin": "0px 0px 128px",
+      "padding": "0px"
+    },
+    {
+      "tag": "H3",
+      "class": "services_card_title u-h3",
+      "text": "3D Modelling (Coming Soon)",
+      "fontSize": "32px",
+      "fontWeight": "500",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "margin": "0px",
+      "padding": "0px"
+    },
+    {
+      "tag": "H3",
+      "class": "services_card_title u-h3",
+      "text": "3D Animation Rendering",
+      "fontSize": "32px",
+      "fontWeight": "500",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "margin": "0px",
+      "padding": "0px"
+    },
+    {
+      "tag": "H3",
+      "class": "services_card_title u-h3",
+      "text": "3D Architectural Visualization",
+      "fontSize": "32px",
+      "fontWeight": "500",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "margin": "0px",
+      "padding": "0px"
+    },
+    {
+      "tag": "H3",
+      "class": "services_card_title u-h3",
+      "text": "3D Interior Visualization",
+      "fontSize": "32px",
+      "fontWeight": "500",
+      "lineHeight": "38.4px",
+      "letterSpacing": "normal",
+      "textAlign": "start",
+      "color": "rgb(255, 255, 255)",
+      "margin": "0px",
+      "padding": "0px"
+    }
+  ],
+  "containerStyles": {
+    "class": "section_services",
+    "perspective": "none",
+    "perspectiveOrigin": "720px 689.391px",
+    "transformStyle": "flat",
+    "overflow": "visible",
+    "display": "block",
+    "parentPerspective": "none",
+    "parentTransformStyle": "flat",
+    "parentOverflow": "visible"
+  },
+  "cardCount": 34,
+  "cards": [
+    {
+      "index": 0,
+      "class": "carousel_card",
+      "width": 24.463958740234375,
+      "height": 423.767578125,
+      "left": -203.07034301757812,
+      "top": 5194.8662109375,
+      "style": {
+        "transform": "matrix3d(0.900969, 0, -0.433884, 0, 0, 1, 0, 0, 0.433884, 0, 0.900969, 0, 475, 0, 986.348, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b45caa1621a6a4f45f0_57d07fcd8391a10c2dfeced6ebdbd7a0_Close-up%203D%20render%20of%20a%20wooden%20terrace%20workspace.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Modelling (Coming Soon)",
+      "desc": "View service",
+      "btnText": "3D Modelling (Coming Soon)View service"
+    },
+    {
+      "index": 1,
+      "class": "services_card w-inline-block",
+      "width": 24.463958740234375,
+      "height": 423.767578125,
+      "left": -203.07034301757812,
+      "top": 5194.8662109375,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b45caa1621a6a4f45f0_57d07fcd8391a10c2dfeced6ebdbd7a0_Close-up%203D%20render%20of%20a%20wooden%20terrace%20workspace.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Modelling (Coming Soon)",
+      "desc": "View service",
+      "btnText": null
+    },
+    {
+      "index": 2,
+      "class": "services_card_title u-h3",
+      "width": 15.28375244140625,
+      "height": 72.611328125,
+      "left": -201.9239044189453,
+      "top": 5519.8525390625,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "151.594px 38.4062px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "4"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 3,
+      "class": "services_card_overlay",
+      "width": 24.463958740234375,
+      "height": 423.767578125,
+      "left": -203.07034301757812,
+      "top": 5194.8662109375,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "3"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 4,
+      "class": "services_card_gradient",
+      "width": 24.463958740234375,
+      "height": 423.767578125,
+      "left": -203.07034301757812,
+      "top": 5194.8662109375,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "2"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 5,
+      "class": "carousel_card_img",
+      "width": 36.013092041015625,
+      "height": 623.8232421875,
+      "left": -203.07034301757812,
+      "top": 5002.419921875,
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 100, -100)",
+        "transformOrigin": "337.5px 337.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "1"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 6,
+      "class": "carousel_card",
+      "width": 226.4134521484375,
+      "height": 455.3291015625,
+      "left": -172.4146728515625,
+      "top": 5179.08544921875,
+      "style": {
+        "transform": "matrix3d(0.62349, 0, -0.781831, 0, 0, 1, 0, 0, 0.781831, 0, 0.62349, 0, 855.92, 0, 682.574, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694128938ed0343a8cf52c38_c0b15daebc55e9592a3b466f11a637bc_3D%20interior%20visualization%20of%20Amrita.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Animation Rendering",
+      "desc": "View service",
+      "btnText": "3D Animation RenderingView service"
+    },
+    {
+      "index": 7,
+      "class": "services_card w-inline-block",
+      "width": 226.4134521484375,
+      "height": 455.3291015625,
+      "left": -172.4146728515625,
+      "top": 5179.08544921875,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/694128938ed0343a8cf52c38_c0b15daebc55e9592a3b466f11a637bc_3D%20interior%20visualization%20of%20Amrita.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Animation Rendering",
+      "desc": "View service",
+      "btnText": null
+    },
+    {
+      "index": 8,
+      "class": "services_card_title u-h3",
+      "width": 141.89291381835938,
+      "height": 77.45068359375,
+      "left": -161.6910400390625,
+      "top": 5529.57373046875,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "151.594px 38.4062px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "4"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 9,
+      "class": "services_card_overlay",
+      "width": 226.4134521484375,
+      "height": 455.3291015625,
+      "left": -172.4146728515625,
+      "top": 5179.08544921875,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "3"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 10,
+      "class": "services_card_gradient",
+      "width": 226.4134521484375,
+      "height": 455.3291015625,
+      "left": -172.4146728515625,
+      "top": 5179.08544921875,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "2"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 11,
+      "class": "carousel_card_img",
+      "width": 331.5654602050781,
+      "height": 666.79541015625,
+      "left": -172.4146728515625,
+      "top": 4974.56787109375,
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 100, -100)",
+        "transformOrigin": "337.5px 337.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "1"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 12,
+      "class": "carousel_card",
+      "width": 404.9283447265625,
+      "height": 474.849609375,
+      "left": 70.45506286621094,
+      "top": 5169.3251953125,
+      "style": {
+        "transform": "matrix3d(0.222521, 0, -0.974928, 0, 0, 1, 0, 0, 0.974928, 0, 0.222521, 0, 1067.32, 0, 243.608, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b6a918d1b41aca0749c_c31b7777ef2ed18fdf7055f6581152d5_Architectural%20exterior%20visualization%20of%20a%20modern%20dark%20wood%20cabin.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Architectural Visualization",
+      "desc": "View service",
+      "btnText": "3D Architectural VisualizationView service"
+    },
+    {
+      "index": 13,
+      "class": "services_card w-inline-block",
+      "width": 404.9283447265625,
+      "height": 474.849609375,
+      "left": 70.45506286621094,
+      "top": 5169.3251953125,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/69413b6a918d1b41aca0749c_c31b7777ef2ed18fdf7055f6581152d5_Architectural%20exterior%20visualization%20of%20a%20modern%20dark%20wood%20cabin.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Architectural Visualization",
+      "desc": "View service",
+      "btnText": null
+    },
+    {
+      "index": 14,
+      "class": "services_card_title u-h3",
+      "width": 255.78619384765625,
+      "height": 79.15966796875,
+      "left": 90.16741943359375,
+      "top": 5538.40380859375,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "151.594px 38.4062px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "4"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 15,
+      "class": "services_card_overlay",
+      "width": 404.9283447265625,
+      "height": 474.849609375,
+      "left": 70.45506286621094,
+      "top": 5169.3251953125,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "3"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 16,
+      "class": "services_card_gradient",
+      "width": 404.9283447265625,
+      "height": 474.849609375,
+      "left": 70.45506286621094,
+      "top": 5169.3251953125,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "2"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 17,
+      "class": "carousel_card_img",
+      "width": 585.2621459960938,
+      "height": 686.32275390625,
+      "left": 70.45506286621094,
+      "top": 4961.9111328125,
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 100, -100)",
+        "transformOrigin": "337.5px 337.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "1"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 18,
+      "class": "carousel_card",
+      "width": 474.9124755859375,
+      "height": 475.326171875,
+      "left": 498.75164794921875,
+      "top": 5169.0869140625,
+      "style": {
+        "transform": "matrix3d(-0.222521, 0, -0.974928, 0, 0, 1, 0, 0, 0.974928, 0, -0.222521, 0, 1067.32, 0, -243.608, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6937f1d7c55b1e39f54a6bbc_f069ebf4a9d9de326e02dbaeed24f0c5_Dramatic%20circular%20pool%20with%20waterfall%20architecture%203D%20visualization.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Interior Visualization",
+      "desc": "View service",
+      "btnText": "3D Interior VisualizationView service"
+    },
+    {
+      "index": 19,
+      "class": "services_card w-inline-block",
+      "width": 474.9124755859375,
+      "height": 475.326171875,
+      "left": 498.75164794921875,
+      "top": 5169.0869140625,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": "https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6937f1d7c55b1e39f54a6bbc_f069ebf4a9d9de326e02dbaeed24f0c5_Dramatic%20circular%20pool%20with%20waterfall%20architecture%203D%20visualization.webp",
+        "objectFit": "cover"
+      },
+      "title": "3D Interior Visualization",
+      "desc": "View service",
+      "btnText": null
+    },
+    {
+      "index": 20,
+      "class": "services_card_title u-h3",
+      "width": 303.243896484375,
+      "height": 76.98388671875,
+      "left": 522.7796020507812,
+      "top": 5543.3974609375,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "151.594px 38.4062px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "4"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 21,
+      "class": "services_card_overlay",
+      "width": 474.9124755859375,
+      "height": 475.326171875,
+      "left": 498.75164794921875,
+      "top": 5169.0869140625,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "3"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 22,
+      "class": "services_card_gradient",
+      "width": 474.9124755859375,
+      "height": 475.326171875,
+      "left": 498.75164794921875,
+      "top": 5169.0869140625,
+      "style": {
+        "transform": "none",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "2"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 23,
+      "class": "carousel_card_img",
+      "width": 674.4723510742188,
+      "height": 675.4638671875,
+      "left": 498.75164794921875,
+      "top": 4968.94921875,
+      "style": {
+        "transform": "matrix(1, 0, 0, 1, 100, -100)",
+        "transformOrigin": "337.5px 337.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "1"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 24,
+      "class": "carousel_card",
+      "width": 395.51776123046875,
+      "height": 474.109375,
+      "left": 996.7675170898438,
+      "top": 5169.6953125,
+      "style": {
+        "transform": "matrix3d(-0.62349, 0, -0.781831, 0, 0, 1, 0, 0, 0.781831, 0, -0.62349, 0, 855.92, 0, -682.574, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 25,
+      "class": "carousel_card",
+      "width": 212.7728271484375,
+      "height": 453.4873046875,
+      "left": 1408.10888671875,
+      "top": 5180.00634765625,
+      "style": {
+        "transform": "matrix3d(-0.900969, 0, -0.433884, 0, 0, 1, 0, 0, 0.433884, 0, -0.900969, 0, 475, 0, -986.348, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 26,
+      "class": "carousel_card",
+      "width": 11.913818359375,
+      "height": 421.4853515625,
+      "left": 1626.3804931640625,
+      "top": 5196.00732421875,
+      "style": {
+        "transform": "matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, -1094.76, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 27,
+      "class": "carousel_card",
+      "width": 149.5838623046875,
+      "height": 387.8447265625,
+      "left": 1484.7984619140625,
+      "top": 5212.82763671875,
+      "style": {
+        "transform": "matrix3d(-0.900969, 0, 0.433884, 0, 0, 1, 0, 0, -0.433884, 0, -0.900969, 0, -475, 0, -986.348, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 28,
+      "class": "carousel_card",
+      "width": 255.9815673828125,
+      "height": 359.48828125,
+      "left": 1218.152099609375,
+      "top": 5227.005859375,
+      "style": {
+        "transform": "matrix3d(-0.62349, 0, 0.781831, 0, 0, 1, 0, 0, -0.781831, 0, -0.62349, 0, -855.92, 0, -682.574, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 29,
+      "class": "carousel_card",
+      "width": 313.2340087890625,
+      "height": 339.85546875,
+      "left": 890.2115478515625,
+      "top": 5236.822265625,
+      "style": {
+        "transform": "matrix3d(-0.222521, 0, 0.974928, 0, 0, 1, 0, 0, -0.974928, 0, -0.222521, 0, -1067.32, 0, -243.608, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 30,
+      "class": "carousel_card",
+      "width": 330.32177734375,
+      "height": 330.5107421875,
+      "left": 543.3677978515625,
+      "top": 5241.49462890625,
+      "style": {
+        "transform": "matrix3d(0.222521, 0, 0.974928, 0, 0, 1, 0, 0, -0.974928, 0, 0.222521, 0, -1067.32, 0, 243.608, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 31,
+      "class": "carousel_card",
+      "width": 310.74639892578125,
+      "height": 340.8603515625,
+      "left": 216.1599884033203,
+      "top": 5236.31982421875,
+      "style": {
+        "transform": "matrix3d(0.62349, 0, 0.781831, 0, 0, 1, 0, 0, -0.781831, 0, 0.62349, 0, -855.92, 0, 682.574, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 32,
+      "class": "carousel_card",
+      "width": 250.52870178222656,
+      "height": 361.1298828125,
+      "left": -48.8806266784668,
+      "top": 5226.18505859375,
+      "style": {
+        "transform": "matrix3d(0.900969, 0, 0.433884, 0, 0, 1, 0, 0, -0.433884, 0, 0.900969, 0, -475, 0, 986.348, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    },
+    {
+      "index": 33,
+      "class": "carousel_card",
+      "width": 140.5264129638672,
+      "height": 389.9794921875,
+      "left": -199.71046447753906,
+      "top": 5211.76025390625,
+      "style": {
+        "transform": "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1094.76, 1)",
+        "transformOrigin": "237.5px 237.5px",
+        "perspective": "none",
+        "borderRadius": "0px",
+        "boxShadow": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "zIndex": "auto"
+      },
+      "img": {
+        "src": null,
+        "objectFit": null
+      },
+      "title": null,
+      "desc": null,
+      "btnText": null
+    }
+  ]
+}

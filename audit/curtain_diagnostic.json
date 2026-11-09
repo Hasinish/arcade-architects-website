@@ -1,0 +1,212 @@
+{
+  "bloom": {
+    "chain": [
+      {
+        "tag": "VIDEO",
+        "class": "hero_video_inner",
+        "id": "",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "overflowX": "clip",
+        "overflowY": "clip",
+        "height": 900,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "hero_video w-embed",
+        "id": "",
+        "position": "absolute",
+        "top": "0px",
+        "zIndex": "1",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 900,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "SECTION",
+        "class": "section_hero",
+        "id": "",
+        "position": "relative",
+        "top": "0px",
+        "zIndex": "1",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 1800,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "id": "smooth-content",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 10824.671875,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "id": "smooth-wrapper",
+        "position": "fixed",
+        "top": "0px",
+        "zIndex": "auto",
+        "overflow": "hidden",
+        "overflowX": "hidden",
+        "overflowY": "hidden",
+        "height": 900,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "BODY",
+        "class": "u-body",
+        "id": "",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 10825,
+        "width": 1440,
+        "topRect": 0
+      }
+    ],
+    "portfolioInfo": {
+      "tag": "SECTION",
+      "class": "section_portfolio",
+      "position": "relative",
+      "top": "0px",
+      "zIndex": "2",
+      "topRect": 900,
+      "height": 3840.46875,
+      "bgColor": "rgb(247, 247, 247)"
+    }
+  },
+  "local": {
+    "chain": [
+      {
+        "tag": "VIDEO",
+        "class": "absolute inset-0 w-full h-full object-cover filter brightness-[0.92] contrast-[1.04]",
+        "id": "",
+        "position": "absolute",
+        "top": "0px",
+        "zIndex": "auto",
+        "overflow": "clip",
+        "overflowX": "clip",
+        "overflowY": "clip",
+        "height": 900,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#121212]",
+        "id": "",
+        "position": "sticky",
+        "top": "0px",
+        "zIndex": "auto",
+        "overflow": "hidden",
+        "overflowX": "hidden",
+        "overflowY": "hidden",
+        "height": 900,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "SECTION",
+        "class": "relative w-full h-[1800px] z-10",
+        "id": "",
+        "position": "relative",
+        "top": "0px",
+        "zIndex": "10",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 1800,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "MAIN",
+        "class": "",
+        "id": "",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 10632.625,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-hidden",
+        "id": "",
+        "position": "relative",
+        "top": "0px",
+        "zIndex": "auto",
+        "overflow": "hidden auto",
+        "overflowX": "hidden",
+        "overflowY": "auto",
+        "height": 11389.625,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "DIV",
+        "class": "",
+        "id": "root",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "visible",
+        "overflowX": "visible",
+        "overflowY": "visible",
+        "height": 11389.625,
+        "width": 1440,
+        "topRect": 0
+      },
+      {
+        "tag": "BODY",
+        "class": "bg-[#F7F7F7] text-[#2E2E2E] antialiased selection:bg-[#2E2E2E] selection:text-white overflow-x-hidden",
+        "id": "",
+        "position": "static",
+        "top": "auto",
+        "zIndex": "auto",
+        "overflow": "hidden auto",
+        "overflowX": "hidden",
+        "overflowY": "auto",
+        "height": 11389.625,
+        "width": 1440,
+        "topRect": 0
+      }
+    ],
+    "portfolioInfo": {
+      "tag": "SECTION",
+      "class": "relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] shadow-[0_-20px_50px_rgba(0,0,0,0.15)]",
+      "position": "relative",
+      "top": "0px",
+      "zIndex": "20",
+      "topRect": 1800,
+      "height": 3009.125,
+      "bgColor": "rgb(247, 247, 247)"
+    }
+  }
+}

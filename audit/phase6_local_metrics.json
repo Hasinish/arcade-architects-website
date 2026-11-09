@@ -1,0 +1,18 @@
+{
+  "cta": {
+    "headingFontSize": "64px",
+    "headingLineHeight": "64px",
+    "headingColor": "rgb(255, 255, 255)",
+    "btnHeight": "54px"
+  },
+  "faq": {
+    "headingFontSize": "48px",
+    "headingColor": "rgb(46, 46, 46)",
+    "itemPadding": "24px 0px"
+  },
+  "footer": {
+    "bg": "rgb(34, 34, 34)",
+    "padding": "76px 76px 40px",
+    "headingFontSize": "32px"
+  }
+}

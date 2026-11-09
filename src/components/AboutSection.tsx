@@ -1,55 +1,94 @@
-import React from 'react';
-import { Award, Compass, Globe, Sparkles } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
 
 export const AboutSection: React.FC = () => {
+  const textRef = useRef<HTMLHeadingElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const manifestoText =
+    "By combining architectural creativity with technical expertise, we ensure every visual reflects a thoughtful and collaborative process shaped by your ideas.";
+
+  const words = manifestoText.split(" ");
+
+  // Genuine studio stats
   const stats = [
-    { value: '350+', label: 'Projects Completed', icon: Award },
-    { value: '85+', label: 'Satisfied Clients', icon: Globe },
-    { value: '10+', label: 'Years of Architecture', icon: Compass },
-    { value: '4.9★', label: 'Google Rating', icon: Sparkles },
+    { value: '25+', label: 'Projects' },
+    { value: '100%', label: 'Satisfaction' },
+    { value: '8+', label: 'Years Experience' },
+    { value: '12', label: 'Team Members' },
   ];
 
+  // Continuous scroll scrubbing for word illumination
+  useEffect(() => {
+    const handleScroll = () => {
+      if (!textRef.current) return;
+      const rect = textRef.current.getBoundingClientRect();
+      const windowHeight = window.innerHeight;
+
+      // Start illuminating when text enters middle of screen, complete when reaching upper third
+      const startTrigger = windowHeight * 0.85;
+      const endTrigger = windowHeight * 0.35;
+      const progress = (startTrigger - rect.top) / (startTrigger - endTrigger);
+      const clamped = Math.max(0, Math.min(1, progress));
+      setScrollProgress(clamped);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
-    <section id="about" className="py-24 px-4 md:px-8 max-w-7xl mx-auto border-t border-white/5">
-      <div className="max-w-4xl mx-auto text-center mb-20">
-        <div className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-[#e45d36] mb-4">
-          <span className="w-1.5 h-1.5 rounded-full bg-[#e45d36]" />
-          Our Philosophy
+    <section id="about" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-24 md:py-36 px-8 md:px-16 lg:px-20">
+      <div className="w-full max-w-[1440px] mx-auto">
+        {/* Large Editorial Manifesto with Word-by-Word Scroll Illumination */}
+        <div className="max-w-[848px] mb-24 md:mb-32">
+          <h2
+            ref={textRef}
+            className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] md:leading-[57.6px] tracking-[-0.5px] select-none"
+          >
+            {words.map((word, idx) => {
+              // Threshold for this specific word
+              const wordThreshold = idx / (words.length - 1);
+              const isIlluminated = scrollProgress >= wordThreshold;
+
+              return (
+                <span
+                  key={idx}
+                  className="inline-block transition-colors duration-150 mr-[0.28em] last:mr-0"
+                  style={{
+                    color: isIlluminated ? 'rgb(46, 46, 46)' : 'rgba(46, 46, 46, 0.18)',
+                  }}
+                >
+                  {word}
+                </span>
+              );
+            })}
+          </h2>
         </div>
 
-        {/* Oversized Bloom3D editorial manifesto */}
-        <h2 className="font-display text-2xl sm:text-4xl md:text-5xl font-bold text-white tracking-tight leading-snug">
-          By combining architectural creativity with photorealistic technical expertise, we ensure every visual reflects a{' '}
-          <span className="text-[#e45d36] underline decoration-white/20 underline-offset-8">
-            thoughtful and collaborative process
-          </span>{' '}
-          shaped by your boldest ideas.
-        </h2>
-      </div>
+        {/* Minimal Horizontal Statistics Strip with Thin Vertical Dividers */}
+        <div className="w-full border-t border-[#E5E5E5] pt-12 md:pt-16">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 items-center justify-between">
+            {stats.map((stat, idx) => (
+              <React.Fragment key={idx}>
+                <div className="flex flex-col items-start lg:px-8 first:lg:pl-0 last:lg:pr-0">
+                  <div className="font-sans text-3xl sm:text-4xl md:text-[40px] font-normal text-[#2E2E2E] leading-none mb-3">
+                    {stat.value}
+                  </div>
+                  <div className="font-sans text-sm sm:text-base text-[#2E2E2E]/60 font-light">
+                    {stat.label}
+                  </div>
+                </div>
 
-      {/* Stats Counter Bar */}
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-        {stats.map((stat, idx) => {
-          const Icon = stat.icon;
-          return (
-            <div
-              key={idx}
-              className="p-6 sm:p-8 rounded-3xl bg-[#141417] border border-white/5 hover:border-white/15 transition-all text-center flex flex-col items-center justify-center group"
-            >
-              <div className="w-10 h-10 rounded-2xl bg-white/5 flex items-center justify-center text-[#e45d36] mb-4 group-hover:scale-110 transition-transform">
-                <Icon className="w-5 h-5" />
-              </div>
-              <div className="font-display text-3xl sm:text-5xl font-extrabold text-white tracking-tight mb-2">
-                {stat.value}
-              </div>
-              <div className="text-xs sm:text-sm text-white/50 font-medium">
-                {stat.label}
-              </div>
-            </div>
-          );
-        })}
+                {/* Thin vertical divider (hidden on last item and on small mobile grids) */}
+                {idx < stats.length - 1 && (
+                  <div className="hidden lg:block w-[1px] h-[64px] bg-[#E5E5E5] self-center" />
+                )}
+              </React.Fragment>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
 };
-

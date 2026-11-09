@@ -1,0 +1,79 @@
+{
+  "local": {
+    "heading": {
+      "text": "We create 3D visuals that elevate your architectural ideas and help your projects stand out",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "40px",
+      "letterSpacing": "-0.5px",
+      "textAlign": "center",
+      "color": "rgb(46, 46, 46)"
+    },
+    "stage": {
+      "perspective": "5000px",
+      "width": "1440px",
+      "height": "560px"
+    },
+    "cylinder": {
+      "transform": "matrix3d(0.390477, 0, 0.920613, 0, 0, 1, 0, 0, -0.920613, 0, 0.390477, 0, 0, 0, -1041, 1)",
+      "transformStyle": "preserve-3d",
+      "width": "475px",
+      "height": "475px"
+    },
+    "cardCount": 14,
+    "firstCard": {
+      "width": "475px",
+      "height": "475px",
+      "transform": "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1041, 1)",
+      "backfaceVisibility": "hidden"
+    }
+  },
+  "bloom": {
+    "heading": {
+      "text": "We create 3D visuals that elevate your architectural ideas and\u00a0help your projects stand out",
+      "fontSize": "48px",
+      "fontWeight": "400",
+      "lineHeight": "57.6px",
+      "letterSpacing": "-0.5px",
+      "textAlign": "center",
+      "color": "rgb(46, 46, 46)"
+    },
+    "stage": {
+      "perspective": "5000px",
+      "width": "1432px",
+      "height": "475px"
+    },
+    "cylinder": {
+      "transform": "matrix3d(-0.154824, 0, 0.987942, 0, 0, 1, 0, 0, -0.987942, 0, -0.154824, 0, 0, 19.0826, -1094.76, 1)",
+      "transformStyle": "preserve-3d",
+      "width": "475px",
+      "height": "475px"
+    },
+    "cardCount": 14,
+    "firstCard": {
+      "width": "475px",
+      "height": "475px",
+      "transform": "matrix3d(0.900969, 0, -0.433884, 0, 0, 1, 0, 0, 0.433884, 0, 0.900969, 0, 475, 0, 986.348, 1)",
+      "backfaceVisibility": "hidden"
+    }
+  },
+  "scroll_frames": [
+    {
+      "delta": 0,
+      "transform": "translate3d(0px, 0px, -1041px) rotateY(-67.0158deg)"
+    },
+    {
+      "delta": 200,
+      "transform": "translate3d(0px, 0px, -1041px) rotateY(-59.238deg)"
+    },
+    {
+      "delta": 400,
+      "transform": "translate3d(0px, 0px, -1041px) rotateY(-51.4602deg)"
+    },
+    {
+      "delta": 600,
+      "transform": "translate3d(0px, 0px, -1041px) rotateY(-43.6825deg)"
+    }
+  ],
+  "drag_rot": "translate3d(0px, 0px, -1041px) rotateY(-88.6825deg)"
+}

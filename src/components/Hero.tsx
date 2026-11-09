@@ -1,5 +1,4 @@
 import React from 'react';
-import { ArrowDown, ArrowUpRight, Sparkles, Play } from 'lucide-react';
 
 interface HeroProps {
   onOpenInquiry: () => void;
@@ -7,107 +6,84 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   return (
-    <section className="relative pt-32 pb-16 md:pt-40 md:pb-24 px-4 md:px-8 max-w-7xl mx-auto overflow-hidden">
-      {/* Glow Orbs in background */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-[#e45d36]/10 blur-[130px] rounded-full pointer-events-none -z-10" />
-
-      {/* Hero Header Content */}
-      <div className="text-center max-w-4xl mx-auto flex flex-col items-center">
-        {/* Studio Badge Pill */}
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-white/80 text-xs font-medium tracking-wide mb-6 backdrop-blur-md">
-          <span className="w-2 h-2 rounded-full bg-[#e45d36] animate-pulse" />
-          <span>Professional Architectural & 3D Visualization Studio</span>
-        </div>
-
-        {/* Main Headline */}
-        <h1 className="font-display text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight text-white leading-[1.08] mb-6">
-          Bring your projects to life with{' '}
-          <span className="bg-gradient-to-r from-white via-white/90 to-white/60 bg-clip-text text-transparent">
-            world-class
-          </span>{' '}
-          3D visualization
-        </h1>
-
-        {/* Subheading */}
-        <p className="text-base sm:text-lg md:text-xl text-white/60 font-light max-w-2xl mb-10 leading-relaxed">
-          Arcade Architects crafts photorealistic architectural renderings, bespoke luxury interiors, and monumental pavilions for forward-thinking developers and architects worldwide.
-        </p>
-
-        {/* Hero Dual Action Buttons */}
-        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
-          <a
-            href="#portfolio"
-            className="bloom-btn h-12 px-7 rounded-full bg-white/10 hover:bg-white/15 text-white text-sm font-medium tracking-wide border border-white/15 backdrop-blur-md"
-          >
-            <div className="bloom-btn-inner h-12">
-              <span className="h-12 flex items-center gap-2">
-                Explore Portfolio <ArrowDown className="w-4 h-4" />
-              </span>
-              <span className="h-12 flex items-center gap-2">
-                View Works <ArrowDown className="w-4 h-4" />
-              </span>
-            </div>
-          </a>
-
-          <button
-            onClick={onOpenInquiry}
-            className="bloom-btn h-12 px-8 rounded-full bg-[#e45d36] hover:bg-[#f16d47] text-white text-sm font-semibold tracking-wide shadow-xl shadow-[#e45d36]/25"
-          >
-            <div className="bloom-btn-inner h-12">
-              <span className="h-12 flex items-center gap-2">
-                Start Project <ArrowUpRight className="w-4 h-4" />
-              </span>
-              <span className="h-12 flex items-center gap-2">
-                Get a Quote <ArrowUpRight className="w-4 h-4" />
-              </span>
-            </div>
-          </button>
-        </div>
-      </div>
-
-      {/* Cinematic Showcase Container */}
-      <div className="relative rounded-3xl overflow-hidden border border-white/10 shadow-2xl shadow-black/80 aspect-[16/9] max-h-[680px] w-full bg-[#151518]">
-        {/* Architectural Video / Loop */}
+    <section className="relative w-full h-[200vh] -mb-[100vh] z-10">
+      {/* Sticky Fullscreen 100vh Viewport */}
+      <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#121212]">
+        {/* Edge-to-Edge Background Architectural Visual / Showreel */}
         <video
           autoPlay
           loop
           muted
           playsInline
           poster="/assets/Exterior/Hazi Bari Project/01.png"
-          className="w-full h-full object-cover filter brightness-95 contrast-105"
+          className="absolute inset-0 w-full h-full object-cover filter brightness-[0.92] contrast-[1.04]"
         >
           <source src="https://bloom-viz.b-cdn.net/Video_calab4k_cler.webm" type="video/webm" />
-          {/* Fallback image */}
           <img
             src="/assets/Exterior/Hazi Bari Project/01.png"
-            alt="Arcade Architects Showreel"
+            alt="Arcade Architects Architecture"
             className="w-full h-full object-cover"
           />
         </video>
 
-        {/* Ambient Gradient Overlays */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d0d0e] via-transparent to-black/30 pointer-events-none" />
-        <div className="absolute inset-0 bg-radial-gradient from-transparent to-black/40 pointer-events-none" />
+        {/* Ambient Dark Overlay Scrim */}
+        <div className="absolute inset-0 bg-black/25 pointer-events-none" />
 
-        {/* Overlay Badges */}
-        <div className="absolute bottom-6 left-6 right-6 flex items-end justify-between pointer-events-none">
-          <div className="glass-card px-4 py-2.5 rounded-2xl flex items-center gap-3 backdrop-blur-md">
-            <div className="w-8 h-8 rounded-xl bg-[#e45d36]/20 border border-[#e45d36]/30 flex items-center justify-center text-[#e45d36]">
-              <Play className="w-4 h-4 fill-current ml-0.5" />
-            </div>
-            <div>
-              <p className="text-xs font-semibold text-white tracking-wide">Arcade Cinematic Showreel</p>
-              <p className="text-[11px] text-white/50">Photorealistic Light & Form Simulation</p>
-            </div>
-          </div>
+        {/* Hero Content Container pinned to bottom-left & bottom-right */}
+        <div className="absolute inset-0 pointer-events-none flex flex-col justify-end">
+          <div className="w-full px-8 md:px-12 lg:px-20 pb-16 md:pb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
+            {/* Bottom-Left: Tag & Headline (Calibrated to 448px matching Bloom3D) */}
+            <div className="w-full max-w-[448px]">
+              <div className="text-sm md:text-base font-normal text-white/80 tracking-normal mb-3">
+                Professional Architectural & 3D Visualization Studio
+              </div>
 
-          <div className="hidden sm:flex items-center gap-2 glass-card px-4 py-2 rounded-full text-xs text-white/70">
-            <Sparkles className="w-3.5 h-3.5 text-[#e45d36]" />
-            <span>4K D5 & Corona Render Architecture</span>
+              <h1 className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] text-white tracking-[-0.5px]">
+                Bring your projects to<br />
+                life with world-class<br />
+                3D visualization
+              </h1>
+            </div>
+
+            {/* Bottom-Right: Dual Minimal Rectangular Buttons */}
+            <div className="pointer-events-auto flex items-center gap-2 self-start md:self-auto">
+              {/* Button 1: Portfolio (Glass Translucent) */}
+              <a
+                href="#portfolio"
+                className="group relative inline-flex items-center justify-center overflow-hidden h-[54px] px-5 bg-white/15 hover:bg-white text-white hover:text-[#222222] backdrop-blur-md transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)]"
+              >
+                <div className="h-5 overflow-hidden flex flex-col">
+                  <div className="flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1/2">
+                    <span className="h-5 flex items-center text-sm md:text-base font-medium">
+                      Portfolio
+                    </span>
+                    <span className="h-5 flex items-center text-sm md:text-base font-medium">
+                      Portfolio
+                    </span>
+                  </div>
+                </div>
+              </a>
+
+              {/* Button 2: Start project (Solid White) */}
+              <button
+                onClick={onOpenInquiry}
+                className="group relative inline-flex items-center justify-center overflow-hidden h-[54px] px-6 bg-[#FFFFFF] hover:bg-[#2A2A2A] text-[#222222] hover:text-white transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
+              >
+                <div className="h-5 overflow-hidden flex flex-col">
+                  <div className="flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1/2">
+                    <span className="h-5 flex items-center text-sm md:text-base font-medium whitespace-nowrap">
+                      Start project
+                    </span>
+                    <span className="h-5 flex items-center text-sm md:text-base font-medium whitespace-nowrap">
+                      Start project
+                    </span>
+                  </div>
+                </div>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </section>
   );
 };
-
