@@ -269,6 +269,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       {/* Horizontal Draggable Gallery Stage */}
       <div
         ref={trackRef}
+        data-cursor="drag"
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}

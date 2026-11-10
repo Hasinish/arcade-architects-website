@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
-import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { useCinematicNavigation } from '../context/PageTransitionContext';
 import { projects } from '../data/projects';
 import { Footer } from '../components/Footer';
 
 export const ProjectDetailPage: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const navigate = useNavigate();
+  const { navigateWithCurtain } = useCinematicNavigation();
 
   // Find current project
   const currentIndex = projects.findIndex((p) => p.id === projectId);
@@ -40,13 +42,19 @@ export const ProjectDetailPage: React.FC = () => {
           
           {/* Top Breadcrumb & Back Link */}
           <div className="pb-6 sm:pb-8 flex items-center justify-between">
-            <Link
-              to="/#portfolio"
-              className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[1.5px] font-medium text-[#2E2E2E]/60 hover:text-[#2E2E2E] transition-colors"
+            <a
+              href="/#portfolio"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey) {
+                  e.preventDefault();
+                  navigateWithCurtain('/#portfolio');
+                }
+              }}
+              className="inline-flex items-center gap-2 text-xs sm:text-sm uppercase tracking-[1.5px] font-medium text-[#2E2E2E]/60 hover:text-[#2E2E2E] transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-3.5 h-3.5" />
               <span>Back to all projects</span>
-            </Link>
+            </a>
 
             <span className="text-xs sm:text-sm font-mono text-[#2E2E2E]/50">
               {String(currentIndex + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
@@ -107,9 +115,9 @@ export const ProjectDetailPage: React.FC = () => {
 
                 {/* Call to Action Trigger */}
                 <div className="mt-8 pt-4">
-                  <Link
-                    to="/contacts"
-                    className="bloom-btn-wrap bloom-btn-black inline-block !w-auto !px-8"
+                  <button
+                    onClick={() => navigateWithCurtain('/contacts')}
+                    className="bloom-btn-wrap bloom-btn-black inline-block !w-auto !px-8 cursor-pointer"
                   >
                     <div className="btn-text-track">
                       <div className="btn-text-inner">
@@ -121,7 +129,7 @@ export const ProjectDetailPage: React.FC = () => {
                         </span>
                       </div>
                     </div>
-                  </Link>
+                  </button>
                 </div>
               </div>
 
@@ -196,20 +204,33 @@ export const ProjectDetailPage: React.FC = () => {
             <span className="text-xs sm:text-sm uppercase tracking-[2px] font-medium text-white/50">
               Next Projects
             </span>
-            <Link
-              to="/#portfolio"
-              className="text-xs sm:text-sm text-white/70 hover:text-white transition-colors"
+            <a
+              href="/#portfolio"
+              onClick={(e) => {
+                if (!e.metaKey && !e.ctrlKey) {
+                  e.preventDefault();
+                  navigateWithCurtain('/#portfolio');
+                }
+              }}
+              className="text-xs sm:text-sm text-white/70 hover:text-white transition-colors cursor-pointer"
             >
               View all works
-            </Link>
+            </a>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
             {nextProjects.map((nextP) => (
-              <Link
+              <a
                 key={nextP.id}
-                to={`/projects/${nextP.id}`}
-                className="group relative aspect-[16/10] overflow-hidden bg-[#222222] block"
+                href={`/projects/${nextP.id}`}
+                data-cursor="view"
+                onClick={(e) => {
+                  if (!e.metaKey && !e.ctrlKey) {
+                    e.preventDefault();
+                    navigateWithCurtain(`/projects/${nextP.id}`);
+                  }
+                }}
+                className="group relative aspect-[16/10] overflow-hidden bg-[#222222] block cursor-pointer"
               >
                 {/* Background Image */}
                 <img
@@ -240,7 +261,7 @@ export const ProjectDetailPage: React.FC = () => {
                     <div className="w-0 group-hover:w-full h-[1.5px] bg-white transition-all duration-400 mt-1" />
                   </div>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
         </div>

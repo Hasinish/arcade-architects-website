@@ -81,12 +81,46 @@
   - [x] Refactored `Hero.tsx`, `CTASection.tsx`, and `Footer.tsx` action buttons to route directly to `/contacts`.
   - [x] Production build passing in 1.57s. Verified live via Playwright with 0 modals mounted and seamless URL navigation.
 
+- [x] **PHASE 7 — CUSTOMIZATION 08: CINEMATIC ROUTE TRANSITION & CONTACT PAGE REDESIGN**:
+  - [x] Engineered `src/context/PageTransitionContext.tsx`:
+    - Fullscreen architectural warm stone (`#F7F7F7`) curtain wipe with custom cubic-bezier `[0.76, 0, 0.24, 1]`.
+    - Automatically stops Lenis momentum, swaps route behind the curtain, and resets scroll to `Y=0` with zero white flash and zero visible scroll jump.
+    - Handled `prefers-reduced-motion` and standard browser back/forward history navigation.
+  - [x] Created `src/config/contact.ts`: centralized verified studio channels, eliminated all fabricated quotes, fake phone numbers, and false delivery claims.
+  - [x] Rebuilt `src/pages/ContactsPage.tsx` matching Bloom3D's authentic editorial architecture:
+    - 2-Column asymmetrical layout: Left column with Swiss typography (`48px` heading), studio philosophy manifesto, dimming social links (`opacity: 0.3` on unhovered), and consultation trigger.
+    - Right column with a continuous vertical monograph of 4 high-res architectural renders (`aspect-[5/6]`) from `public/assets/`.
+    - Transparent non-production form validation notice with direct mailto fallback.
+  - [x] Verified via Playwright at 1440x900 (desktop) and 390x844 (mobile). Captured 5-frame transition filmstrip and side-by-side comparison collages.
+  - [x] Production build clean in 1.24s. ZERO remote pushes.
+
+- [x] **PHASE 7 — CUSTOMIZATION 09: GLOBAL CURTAIN UNIFICATION & ARCHITECTURAL FLUID CURSOR**:
+  - [x] Unified curtain transition across ALL project cards in `PortfolioSection.tsx` and `ProjectDetailPage.tsx`:
+    - Clicking any project card or bottom Next Project card triggers the full-screen warm stone (`#F7F7F7`) curtain wipe.
+    - Zero abrupt page cuts anywhere on the site.
+  - [x] Fixed `Navbar.tsx` pixel luminance contrast engine:
+    - Added `location.pathname` dependency and delayed paint triggers (0ms, 120ms, 450ms).
+    - Contrast switches instantly when navigating between dark and light routes without requiring user scroll or resize.
+  - [x] Engineered `src/components/CustomCursor.tsx`:
+    - Butter-smooth spring follower (`stiffness: 320, damping: 28, mass: 0.5`) with zero lag center dot.
+    - Inverts colors dynamically over dark and light sections via `mix-blend-difference`.
+    - Automatically detects `data-cursor="view"` over project cards and morphs into a high-contrast `"VIEW"` pill.
+    - Automatically detects `data-cursor="drag"` over the Snøhetta services gallery and morphs into a `"↔ DRAG"` pill.
+    - Scales into a subtle magnetic pointer ring over clickable buttons and links.
+    - Gracefully disabled on touch devices (`@media (pointer: coarse)`).
+  - [x] Added OpenGraph and Twitter SEO meta tags to `index.html`.
+  - [x] Fixed OS cursor override: Injected global `@media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }` in `src/index.css`. Completely hides the native Windows arrow/hand while preserving natural `cursor: text` on form inputs and textareas.
+  - [x] Fixed cursor visibility on white/stone backgrounds: Replaced fragile CSS `mix-blend-difference` with **dual-tone architectural contrast**:
+    - Center precision dot has a jet black `#121212` core wrapped in a crisp 1.5px white ring `#FFFFFF`.
+    - Follower ring has a dual dark border (`#121212/75`) and outer white halo (`white/90`).
+    - Guarantees 100% immediate contrast against pure white (`#FFFFFF`), stone (`#F7F7F7`), and pitch-black photo surfaces simultaneously.
+  - [x] Verified via Playwright end-to-end testing: computed cursor is `none` across body, links, buttons, and divs; `text` on inputs. Captured 4-quadrant visual audit in `audit/comparisons/cursor_contrast_verified.png`.
+  - [x] Production build clean in 1.96s. ZERO remote pushes.
+
 ## Last Session (Convo 4bb7da72-16c6-4b32-85de-0824002c2d7b)
-- Audited `bloom3d.studio` live: proved zero popup modals exist.
-- Executed Customization 07: Torched all popup modals and implemented Bloom3D's authentic multi-page editorial routing architecture (`/projects/:projectId`, `/contacts`, `/#portfolio`).
-- Staged all assets, numbered renders, verification scripts, and audit documentation into Git (`82b7d13`).
-- Pushed all 4 commits cleanly to GitHub remote `origin/main` (`https://github.com/Hasinish/arcade-architects-website`). Working tree completely clean and in sync.
+- Implemented Fix 1: Unified curtain transitions across project cards and breadcrumbs, fixed navbar pixel contrast on route change.
+- Implemented Fix 4: Engineered custom fluid architectural cursor with `"VIEW"` and `"DRAG"` morphing states, added social OpenGraph meta tags.
 - Dev server live on `http://localhost:5173/`.
 
 ## Current Blockers & Notes
-- Remote repository fully synchronized and up to date. Ready for Hasin's visual review or next directive.
+- Ready for Hasin's review. Form backend dispatch (Formspree / Telegram) and dead code purge remaining if desired. Zero remote pushes made.

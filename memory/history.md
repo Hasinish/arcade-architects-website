@@ -1,3 +1,51 @@
+# Session Summary — 2026-11-10 (Part 21: High-Contrast Dual-Tone Cursor Geometry & Contrast Verification)
+- Solved cursor invisibility on white/stone backgrounds:
+  - Eliminated CSS `mix-blend-difference` which broke across isolated stacking contexts (`bg-[#F7F7F7] overflow-x-clip`).
+  - Implemented dual-tone high-contrast architectural geometry in `src/components/CustomCursor.tsx`:
+    - Precision center dot: Jet black `#121212` core wrapped in a crisp 1.5px white ring (`#FFFFFF`).
+    - Follower ring: Inner dark charcoal border (`#121212/75`) with an outer crisp white halo ring (`white/90`).
+    - Project / Drag badges: Jet black architectural pills (`#141414`) with crisp hairline border (`white/25`) and white tracking uppercase typography.
+  - Added `.cursor-pointer` detection to hover targets and cleaned up event listener dependency array.
+- Verified visual contrast across 4 distinct surface environments via Playwright at 1440x900:
+  1. `#F7F7F7` stone background: Jet black core is instantly visible with dark follower ring.
+  2. Dark render photo: White halo ring and follower white ring pop with high contrast.
+  3. Project cards: Dark "VIEW" pill displays cleanly over images.
+  4. Services gallery: Dark "↔ DRAG" pill displays cleanly.
+- Saved 4-quadrant visual verification artifact to `cursor_contrast_verified.png`.
+- Production build passes cleanly in 1.96s. Zero git pushes made.
+
+# Session Summary — 2026-11-10 (Part 20: Fix 1 & Fix 4 Complete — Global Curtain Unification & Fluid Architectural Cursor)
+- Executed Fix 1 (Global Navigation Consistency & Navbar Sampling):
+  - Unified `navigateWithCurtain` across all project cards in `PortfolioSection.tsx`, bottom Next Project links in `ProjectDetailPage.tsx`, and breadcrumb back links.
+  - Resolved `Navbar.tsx` pixel luminance contrast delay: added `location.pathname` dependency with delayed paint checks (0ms, 120ms, 450ms). Navbar colors now adapt instantly on route transition without requiring user scroll.
+- Executed Fix 4 (Architectural Interactive Polish & SEO):
+  - Engineered `src/components/CustomCursor.tsx` with Framer Motion spring physics (`damping: 28, stiffness: 320, mass: 0.5`).
+  - Added dynamic state morphing:
+    - Over project cards (`[data-cursor="view"]`): morphs into a white high-contrast `"VIEW"` pill.
+    - Over Snøhetta services gallery (`[data-cursor="drag"]`): morphs into a `"↔ DRAG"` pill.
+    - Over interactive links/buttons: scales into a magnetic pointer ring with `mix-blend-difference` inversion.
+    - Gracefully disabled on touch devices (`@media (pointer: coarse)`).
+  - Enriched `index.html` with OpenGraph (`og:title`, `og:image`, `og:description`) and Twitter summary card tags.
+  - Injected global `@media (pointer: fine) { *, *::before, *::after { cursor: none !important; } }` in `src/index.css` to completely eradicate the native OS arrow/pointer cursor, while preserving clean `cursor: text` on form inputs.
+- Verified live on `http://localhost:5173/` via Playwright; computed cursor verified as `none` on body, a, button, div; `text` on input.
+- Production build cleanly completed in 1.59s. Zero git pushes made.
+
+# Session Summary — 2026-11-10 (Part 19: Cinematic Curtain Route Transition & Complete Contact Page Redesign)
+- Addressed abrupt transition when clicking "Start project" and eliminated the generic AI template appearance of `/contacts`.
+- Engineered `PageTransitionContext.tsx`: Fullscreen architectural warm stone (`#F7F7F7`) curtain reveal engine using Framer Motion with cubic-bezier `[0.76, 0, 0.24, 1]`.
+  - Sweeps upward to cover viewport, pauses Lenis momentum, resets scroll to `Y=0` behind the curtain, swaps routes, and reveals the new page smoothly with zero flash or scroll jump.
+  - Accommodates `prefers-reduced-motion` and standard browser history (`popstate`) navigation.
+- Audited Bloom3D's live contact page (`bloom3d.studio/contacts`) via Playwright at 1440x900 and 390x844:
+  - Discovered true layout is an asymmetrical 2-column flex structure: Left column holds Swiss typography, details, and form, while Right column is a continuous vertical monograph of 4 high-res renders (`aspect-[5/6]`).
+- Created `src/config/contact.ts`: Centralized verified studio channels. Completely eliminated fabricated founder quotes, fake phone numbers, and false delivery claims.
+- Reconstructed `src/pages/ContactsPage.tsx`:
+  - Authentic 2-column editorial monograph matching Bloom3D.
+  - Left column: Swiss typography (`48px` heading), studio philosophy manifesto, dimming social links (`opacity: 0.3` on unhovered items), consultation trigger, and minimal inquiry form with bottom hairline underlines and sliding submit button.
+  - Right column: 4 full-width architectural renders from `public/assets/`.
+  - Transparent client validation indicating honest non-production preview with direct mailto fallback.
+- Captured 5-frame transition filmstrip and side-by-side comparison collages across desktop and mobile. Created audit artifact `contact_redesign_and_transition_audit.md`.
+- Production build passing cleanly in 1.24s. Zero git pushes made.
+
 # Session Summary — 2026-11-10 (Part 18: Phase 7 Customization 07 Bloom3D Editorial Multi-Page Routing Installed)
 - Fully eliminated popup modals from the live application flow.
 - Installed `react-router-dom` v7 and established multi-page routing matching `bloom3d.studio`:

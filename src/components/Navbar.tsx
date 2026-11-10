@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { ChevronDown, ArrowUpRight } from 'lucide-react';
+import { useCinematicNavigation } from '../context/PageTransitionContext';
 
 interface NavbarProps {
   onOpenInquiry?: () => void;
@@ -13,6 +14,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
   const [isBurgerDarkBg, setIsBurgerDarkBg] = useState(true);
   const [servicesExpanded, setServicesExpanded] = useState(false);
   const navigate = useNavigate();
+  const location = useLocation();
+  const { navigateWithCurtain } = useCinematicNavigation();
 
   // Real-time pixel color calculation under Logo and Hamburger
   useEffect(() => {
@@ -77,7 +80,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
       }
 
       // Root default (Near top on home with hero is dark, otherwise light)
-      return window.location.pathname === '/' && window.scrollY < 450;
+      return location.pathname === '/' && window.scrollY < 450;
     };
 
     let rafId: number | null = null;
@@ -98,12 +101,18 @@ export const Navbar: React.FC<NavbarProps> = () => {
     window.addEventListener('resize', calculatePixels);
     calculatePixels();
 
+    // Trigger on route transitions (immediate, 120ms, and 450ms after curtain opens)
+    const t1 = setTimeout(calculatePixels, 120);
+    const t2 = setTimeout(calculatePixels, 450);
+
     return () => {
+      clearTimeout(t1);
+      clearTimeout(t2);
       if (rafId) cancelAnimationFrame(rafId);
       window.removeEventListener('scroll', calculatePixels);
       window.removeEventListener('resize', calculatePixels);
     };
-  }, []);
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -147,6 +156,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
   const handleNavClick = (path: string) => {
     setDrawerOpen(false);
+    if (path === '/contacts') {
+      navigateWithCurtain('/contacts');
+      return;
+    }
+    if (path === '/' && window.location.pathname === '/contacts') {
+      navigateWithCurtain('/');
+      return;
+    }
     if (path.startsWith('/#')) {
       const hash = path.substring(2);
       if (window.location.pathname === '/') {
@@ -160,7 +177,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           }
         }
       } else {
-        navigate(`/#${hash}`);
+        navigateWithCurtain(`/#${hash}`);
       }
     } else {
       navigate(path);
@@ -175,6 +192,12 @@ export const Navbar: React.FC<NavbarProps> = () => {
           {/* Top-Left: Minimal Brand Mark & Wordmark */}
           <Link
             to="/"
+            onClick={(e) => {
+              if (window.location.pathname === '/contacts') {
+                e.preventDefault();
+                navigateWithCurtain('/');
+              }
+            }}
             className={`pointer-events-auto flex items-center gap-3 transition-colors duration-300 ${logoColor}`}
           >
             <div className="w-6 h-6 flex items-center justify-center">

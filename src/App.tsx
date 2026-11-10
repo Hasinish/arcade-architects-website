@@ -4,6 +4,8 @@ import Lenis from 'lenis';
 import 'lenis/dist/lenis.css';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
+import { CustomCursor } from './components/CustomCursor';
+import { PageTransitionProvider } from './context/PageTransitionContext';
 import { HomePage } from './pages/HomePage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { ContactsPage } from './pages/ContactsPage';
@@ -33,31 +35,36 @@ export const App: React.FC = () => {
 
   return (
     <BrowserRouter>
-      {/* Route Change Scroll Reset */}
-      <ScrollToTop />
+      <PageTransitionProvider>
+        {/* Route Change Scroll Reset */}
+        <ScrollToTop />
 
-      <div className="min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-clip">
-        {/* Top Corner-Pinned Minimal Navbar (Real-time Pixel Contrast Engine) */}
-        <Navbar />
+        {/* Fluid Architectural Interactive Cursor */}
+        <CustomCursor />
 
-        {/* Multi-Page Editorial Routes matching Bloom3D (Zero Modals) */}
-        <Routes>
-          {/* Main Home Page */}
-          <Route path="/" element={<HomePage />} />
+        <div className="min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-clip">
+          {/* Top Corner-Pinned Minimal Navbar (Real-time Pixel Contrast Engine) */}
+          <Navbar />
 
-          {/* Dedicated Full-Bleed Editorial Project Case Study */}
-          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
+          {/* Multi-Page Editorial Routes matching Bloom3D (Zero Modals) */}
+          <Routes>
+            {/* Main Home Page */}
+            <Route path="/" element={<HomePage />} />
 
-          {/* Dedicated Architectural Studio Contact Page */}
-          <Route path="/contacts" element={<ContactsPage />} />
+            {/* Dedicated Full-Bleed Editorial Project Case Study */}
+            <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
 
-          {/* Redirect /projects to Portfolio Anchor on Home */}
-          <Route path="/projects" element={<Navigate to="/#portfolio" replace />} />
+            {/* Dedicated Architectural Studio Contact Page */}
+            <Route path="/contacts" element={<ContactsPage />} />
 
-          {/* Catch-all Fallback */}
-          <Route path="*" element={<Navigate to="/" replace />} />
-        </Routes>
-      </div>
+            {/* Redirect /projects to Portfolio Anchor on Home */}
+            <Route path="/projects" element={<Navigate to="/#portfolio" replace />} />
+
+            {/* Catch-all Fallback */}
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </div>
+      </PageTransitionProvider>
     </BrowserRouter>
   );
 };

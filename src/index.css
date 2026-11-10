@@ -104,3 +104,18 @@ body {
 .bloom-nav-link:hover::after {
   width: 100%;
 }
+
+/* Custom Cursor System: Hide default OS cursor on fine pointer (mouse) devices */
+@media (pointer: fine) {
+  *,
+  *::before,
+  *::after {
+    cursor: none !important;
+  }
+
+  /* Preserve natural I-beam text cursor for form inputs & textareas */
+  input,
+  textarea {
+    cursor: text !important;
+  }
+}

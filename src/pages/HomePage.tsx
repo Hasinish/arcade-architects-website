@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCinematicNavigation } from '../context/PageTransitionContext';
 import { Hero } from '../components/Hero';
 import { PortfolioSection } from '../components/PortfolioSection';
 import { ServicesSection } from '../components/ServicesSection';
@@ -10,10 +10,10 @@ import { FAQSection } from '../components/FAQSection';
 import { Footer } from '../components/Footer';
 
 export const HomePage: React.FC = () => {
-  const navigate = useNavigate();
+  const { navigateWithCurtain } = useCinematicNavigation();
 
   const handleGoToContacts = () => {
-    navigate('/contacts');
+    navigateWithCurtain('/contacts');
   };
 
   return (
@@ -47,4 +47,3 @@ export const HomePage: React.FC = () => {
     </main>
   );
 };
-

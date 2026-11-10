@@ -1,9 +1,11 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { useCinematicNavigation } from '../context/PageTransitionContext';
 import type { Project } from '../types';
 import { projects } from '../data/projects';
 
 export const PortfolioSection: React.FC = () => {
+  const { navigateWithCurtain } = useCinematicNavigation();
+
   // Group projects into alternating rows matching Bloom3D: 2, 3, 2, 3
   const row1 = projects.slice(0, 2);
   const row2 = projects.slice(2, 5);
@@ -12,9 +14,16 @@ export const PortfolioSection: React.FC = () => {
 
   const renderProjectCard = (project: Project) => {
     return (
-      <Link
+      <a
         key={project.id}
-        to={`/projects/${project.id}`}
+        href={`/projects/${project.id}`}
+        data-cursor="view"
+        onClick={(e) => {
+          if (!e.metaKey && !e.ctrlKey) {
+            e.preventDefault();
+            navigateWithCurtain(`/projects/${project.id}`);
+          }
+        }}
         className="group relative w-full aspect-[5/6] overflow-hidden bg-[#222222] block cursor-pointer"
         aria-label={`View ${project.title} Case Study`}
       >
@@ -49,7 +58,7 @@ export const PortfolioSection: React.FC = () => {
             </span>
           </div>
         </div>
-      </Link>
+      </a>
     );
   };
 

@@ -1,13 +1,14 @@
 import React from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { ArrowUp } from 'lucide-react';
+import { useCinematicNavigation } from '../context/PageTransitionContext';
 
 interface FooterProps {
   onOpenInquiry?: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({ onOpenInquiry }) => {
-  const navigate = useNavigate();
+  const { navigateWithCurtain } = useCinematicNavigation();
 
   const scrollToTop = () => {
     const lenis = (window as any).lenis;
@@ -22,7 +23,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenInquiry }) => {
     if (onOpenInquiry) {
       onOpenInquiry();
     } else {
-      navigate('/contacts');
+      navigateWithCurtain('/contacts');
     }
   };
 
