@@ -9,6 +9,7 @@ import { PageTransitionProvider } from './context/PageTransitionContext';
 import { HomePage } from './pages/HomePage';
 import { ProjectDetailPage } from './pages/ProjectDetailPage';
 import { ContactsPage } from './pages/ContactsPage';
+import { MenuSandboxPage } from './pages/MenuSandboxPage';
 
 export const App: React.FC = () => {
   // Initialize Lenis for smooth scrolling with subtle stopping inertia
@@ -56,6 +57,9 @@ export const App: React.FC = () => {
 
             {/* Dedicated Architectural Studio Contact Page */}
             <Route path="/contacts" element={<ContactsPage />} />
+
+            {/* Awwwards Navigation Sandbox Lab (All 4 Interactive Options) */}
+            <Route path="/menu-sandbox" element={<MenuSandboxPage />} />
 
             {/* Redirect /projects to Portfolio Anchor on Home */}
             <Route path="/projects" element={<Navigate to="/#portfolio" replace />} />

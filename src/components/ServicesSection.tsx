@@ -91,6 +91,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
     setActiveSlideIndex(((Math.round(progress) % total) + total) % total);
   }, [progress, total]);
 
+  // Eagerly preload all 7 service images on component mount so direct anchor jumps never encounter cold network latency
+  useEffect(() => {
+    services.forEach((service) => {
+      const img = new Image();
+      img.src = service.image;
+    });
+  }, []);
+
   // Viewport breakpoint listener (Snøhetta breakpoint: >= 1200px)
   useEffect(() => {
     const checkBreakpoint = () => {
@@ -177,6 +185,8 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
 
   // Drag Handlers
   const handlePointerDown = (e: React.PointerEvent) => {
+    if (e.button !== 0) return; // Only drag on primary left click
+
     if (animationFrameId.current) {
       cancelAnimationFrame(animationFrameId.current);
       animationFrameId.current = null;
@@ -227,6 +237,14 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
     }
   };
 
+  // Release dragging globally if pointer leaves window
+  useEffect(() => {
+    if (!isDragging) return;
+    const handleGlobalPointerUp = () => setIsDragging(false);
+    window.addEventListener('pointerup', handleGlobalPointerUp);
+    return () => window.removeEventListener('pointerup', handleGlobalPointerUp);
+  }, [isDragging]);
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -252,7 +270,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       id="services"
       data-nav-theme="dark"
       ref={containerRef}
-      className="relative w-full bg-[#000000] text-white pt-24 md:pt-32 pb-24 md:pb-32 overflow-hidden select-none"
+      className="relative z-20 w-full bg-[#000000] text-white pt-24 md:pt-32 pb-24 md:pb-32 overflow-hidden select-none"
     >
       {/* Top Editorial Headline matching Snøhetta's Manifesto */}
       <div className="w-full px-8 md:px-12 lg:px-20 mb-12 md:mb-16">
@@ -330,16 +348,25 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
             >
               {/* Inner Full Image Container */}
               <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#161616]">
+                {/* Architectural subtle skeleton placeholder */}
+                <div className="absolute inset-0 bg-[#1A1A1A] animate-pulse pointer-events-none" />
+
                 <img
                   src={service.image}
                   alt={service.title}
                   draggable={false}
-                  className="w-full h-full object-cover filter brightness-[0.92] contrast-[1.03] transition-transform duration-500 group-hover:scale-[1.02]"
+                  loading="eager"
+                  fetchPriority={isActive ? 'high' : 'auto'}
+                  decoding="async"
+                  onError={(e) => {
+                    (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/1.jpg';
+                  }}
+                  className="relative z-10 w-full h-full object-cover filter brightness-[0.92] contrast-[1.03] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
                 {/* Subtle dark gradient overlay for depth */}
                 <div
-                  className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${
+                  className={`absolute inset-0 z-20 transition-opacity duration-300 pointer-events-none ${
                     isActive ? 'bg-black/0' : 'bg-black/25 group-hover:bg-black/10'
                   }`}
                 />

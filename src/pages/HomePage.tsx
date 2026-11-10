@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { useCinematicNavigation } from '../context/PageTransitionContext';
 import { Hero } from '../components/Hero';
 import { PortfolioSection } from '../components/PortfolioSection';
@@ -11,6 +12,28 @@ import { Footer } from '../components/Footer';
 
 export const HomePage: React.FC = () => {
   const { navigateWithCurtain } = useCinematicNavigation();
+  const location = useLocation();
+
+  // Handle smooth scroll to target section when arriving from cross-page anchor click
+  useEffect(() => {
+    const targetHash = sessionStorage.getItem('arcade_scroll_target') || location.hash.replace('#', '');
+    if (targetHash) {
+      sessionStorage.removeItem('arcade_scroll_target');
+      const timer = setTimeout(() => {
+        const el = document.getElementById(targetHash);
+        if (el) {
+          const lenis = (window as any).lenis;
+          if (lenis) {
+            lenis.start();
+            lenis.scrollTo(el, { offset: 0, duration: 1.2 });
+          } else {
+            el.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 700);
+      return () => clearTimeout(timer);
+    }
+  }, [location.pathname, location.hash]);
 
   const handleGoToContacts = () => {
     navigateWithCurtain('/contacts');

@@ -386,19 +386,15 @@ export const ContactsPage: React.FC = () => {
               ======================================================== */}
           <div className="w-full lg:w-1/2 flex flex-col bg-[#1A1A1A]">
             {galleryShowcase.map((item, idx) => (
-              <motion.div
+              <div
                 key={idx}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                viewport={{ once: true, margin: '-50px' }}
-                transition={{ duration: 0.8 }}
                 className="contacts_img_wrapper relative w-full aspect-[5/6] overflow-hidden group bg-[#161616]"
               >
                 <img
                   src={item.src}
                   alt={item.title}
-                  loading={idx < 2 ? 'eager' : 'lazy'}
-                  className="contacts_img w-full h-full object-cover transition-transform duration-1000 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.03]"
+                  loading="eager"
+                  className="contacts_img w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.03]"
                 />
 
                 {/* Subtle Ambient Vignette for Editorial Depth */}
@@ -413,7 +409,7 @@ export const ContactsPage: React.FC = () => {
                     Arcade Archive
                   </span>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
 

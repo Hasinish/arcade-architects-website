@@ -1,6 +1,14 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] Fix Services Navigation Black Bar Bug:
+  - [x] Diagnosed root cause: Cold network latency on massive 3MB uncompressed image assets combined with Navbar hover image mismatch (`Cafe/1.jpg` was preloaded instead of the primary active slide `CHANDINA PROJECT/3.jpg`).
+  - [x] Web-optimized all 7 service images to progressive JPEGs (reduced from 12.4 MB to 2.3 MB).
+  - [x] Updated `Navbar.tsx` so `hoverImages.services` points to the primary active service (`/assets/Exterior/CHANDINA PROJECT/3.jpg`), ensuring instant browser cache hit upon navigation.
+  - [x] Added eager image preloading on component mount in `ServicesSection.tsx`.
+  - [x] Added `loading="eager"`, `fetchPriority="high"`, `decoding="async"`, and an architectural subtle skeleton placeholder.
+  - [x] Added `relative z-20` to `ServicesSection` and guarded pointer events.
+  - [x] Verified via Playwright across desktop & tablet viewports with non-black center rendering.
 - [x] Baseline Bloom3D Foundation (Phases 1–6 Complete & Audited)
   - [x] Phase 1: Foundations & Shell (Stone `#F7F7F7`, Swiss typography, corner-pinned logo/hamburger, 480px white slide-out drawer)
   - [x] Phase 2: Full-Bleed Hero & Pinned Curtain Scroll (`px-8 pt-8` navbar, `px-20 pb-20` bottom insets, stationary video, rising curtain)
@@ -137,6 +145,34 @@
     - [x] All 6 FAQ items now start cleanly collapsed with geometric `+` icons on page load.
     - [x] Clicking any item toggles open/close with smooth accordion height transition.
     - [x] Verified via Playwright screenshot (`faq_collapsed_default.png`). Clean build. ZERO remote pushes.
+
+  - [x] **PHASE 7 — CUSTOMIZATION 13: REVERT GLASSMORPHIC NAVBAR**:
+    - [x] Reverted experimental glassmorphic navbar in `src/components/Navbar.tsx` back to original minimal transparent pinned top bar (`fixed top-0 px-8 pt-8`, zero backdrop background or borders).
+    - [x] Kept clean real-time pixel luminance contrast sampling engine intact.
+    - [x] Verified `npm run build` in 1.25s with zero errors. Git working tree 100% clean.
+
+  - [x] **PHASE 7 — CUSTOMIZATION 14: AWWWARDS NAVIGATION SANDBOX LAB (4 INTERACTIVE OPTIONS)**:
+    - [x] Engineered dedicated interactive sandbox page at `/menu-sandbox` (`src/pages/MenuSandboxPage.tsx`) to prototype 4 award-winning alternatives to Bloom3D's standard 480px white drawer.
+    - [x] **Option 1 (Obsidian Gallery)**: Fullscreen dark takeover with dynamic hover image previews (Chandina, Cafe, Hazi Bari, Ford), focus typography dimming, live Dhaka clock, and studio coordinates.
+    - [x] **Option 2 (50/50 Dual-Pane Split)**: Left monograph showcase card (`Chandina Residence`) + hard studio metrics; right Swiss index with nested services accordion.
+    - [x] **Option 3 (Brutalist 4-Col Grid)**: Technical architectural specification sheet divided by hairline grid lines into Directory, Scope, Comms, and Execution columns.
+    - [x] **Option 4 (Floating Island Dock)**: Asymmetric top-right frosted carbon glass card with tactile link badges, leaving the page visible behind.
+    - [x] Connected route in `src/App.tsx`, isolated global `Navbar` when on `/menu-sandbox`, verified via Playwright visual audit collage (`audit/menu_4_options_collage.png`). Clean production build in 1.51s. ZERO remote pushes.
+
+  - [x] **PHASE 7 — CUSTOMIZATION 15: CINEMATIC OBSIDIAN GALLERY OVERHAUL (= TO X MORPH, WHITE STROKES, ZERO GREEN)**:
+    - [x] Restored the iconic `=` to `X` morphing animation on the trigger in [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx): 2 parallel horizontal lines that rotate and translate smoothly into a solid white `X` when open, adapting independently to underlying pixel luminance.
+    - [x] Added crisp full-width white horizontal bottom strokes (`divide-y divide-white/20 border-t border-b border-white/20`) to every single menu item row (`01 Portfolio`, `02 Services`, `03 About`, `04 Contacts`).
+    - [x] Completely purged all green colors: numbers `01`–`04` are now in clean architectural muted white (`text-white/40`), zero green dots or badges anywhere.
+    - [x] Retained dynamic background render swapping on hover (Chandina, Cafe, Hazi Bari, Ford) and 25% sibling focus dimming.
+    - [x] Verified via Playwright live desktop (1440px) & mobile (390px) screenshots (`audit/option1_live_audit.png`). Clean production build in 1.30s. ZERO remote pushes.
+
+  - [x] **PHASE 7 — CUSTOMIZATION 16: FULL CROSS-PAGE NAVIGATION REPAIR & CONTACTS BLACK BOX ELIMINATION**:
+    - [x] **Root Cause 1 (Contacts Black Box)**: In `src/pages/ContactsPage.tsx`, the gallery photos were wrapped in `<motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ margin: '-50px' }}>`. Because Lenis smooth-scroll does not trigger standard native DOM scroll events while stopped or initialized, Framer Motion remained stuck at `opacity: 0`, exposing the raw `#161616` container background as a giant black rectangle over the photos. Replaced with standard eager-loading containers; images are now 100% visible immediately.
+    - [x] **Root Cause 2 ("Buttons don't take me nowhere")**:
+      - In `src/components/Navbar.tsx`, when drawer was open, Lenis was stopped. Calling `lenis.scrollTo(el)` while Lenis was stopped silently dropped the scroll request. Fixed by calling `lenis.start()` immediately on click before triggering scroll.
+      - In `src/components/ScrollToTop.tsx`, any route change from `/contacts` to `/` unconditionally forced scroll to `(0, 0)`, clobbering the target section hash (`#portfolio`, `#services`, `#about`). Fixed by checking for `arcade_scroll_target` or `hash`.
+      - In `src/pages/HomePage.tsx`, added cross-page target coordinator: when arriving from another page via curtain transition, it waits for the curtain reveal and smoothly glides to the target section element.
+    - [x] Verified via Playwright end-to-end automation (`scripts/test_navigation_and_contacts.py`): all 4 gallery images verified (`complete: true`, `width > 0`), cross-page Portfolio scroll verified (`scrollY=880`), Services scroll verified (`scrollY=4064`), About scroll verified (`scrollY=5063`), Contacts navigation verified. Clean production build in 2.13s. ZERO remote pushes.
 
 ## Last Session (Convo 4bb7da72-16c6-4b32-85de-0824002c2d7b)
 - Implemented Fix 1: Unified curtain transitions across project cards and breadcrumbs, fixed navbar pixel contrast on route change.

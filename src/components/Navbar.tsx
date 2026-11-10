@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { ChevronDown, ArrowUpRight } from 'lucide-react';
 import { useCinematicNavigation } from '../context/PageTransitionContext';
 
 interface NavbarProps {
@@ -12,10 +11,37 @@ export const Navbar: React.FC<NavbarProps> = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isLogoDarkBg, setIsLogoDarkBg] = useState(true);
   const [isBurgerDarkBg, setIsBurgerDarkBg] = useState(true);
-  const [servicesExpanded, setServicesExpanded] = useState(false);
+  const [hoveredItem, setHoveredItem] = useState<string | null>(null);
+  const [dhakaTime, setDhakaTime] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
   const { navigateWithCurtain } = useCinematicNavigation();
+
+  // Dynamic background renders for Option 1 hover previews (preloads active section visuals)
+  const hoverImages: Record<string, string> = {
+    portfolio: '/assets/Exterior/CHANDINA PROJECT/1.jpg',
+    services: '/assets/Exterior/CHANDINA PROJECT/3.jpg',
+    about: '/assets/Exterior/Hazi Bari Project/1.jpg',
+    contacts: '/assets/Exhibition/Ford/1.jpg',
+  };
+
+  // Real-time Dhaka clock for editorial metadata strip
+  useEffect(() => {
+    const updateClock = () => {
+      const now = new Date();
+      const formatted = new Intl.DateTimeFormat('en-GB', {
+        timeZone: 'Asia/Dhaka',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      }).format(now);
+      setDhakaTime(formatted);
+    };
+    updateClock();
+    const interval = setInterval(updateClock, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // Real-time pixel color calculation under Logo and Hamburger
   useEffect(() => {
@@ -136,58 +162,94 @@ export const Navbar: React.FC<NavbarProps> = () => {
   // Adaptive colors for Logo & Burger based on real-time pixel luminance & drawer state:
   // If pixel under element is dark -> element is LIGHT (white #FFFFFF)
   // If pixel under element is light -> element is DARK (charcoal #2E2E2E)
-  const burgerColor = drawerOpen
-    ? 'bg-[#222222]'
-    : isBurgerDarkBg
-    ? 'bg-[#FFFFFF]'
-    : 'bg-[#2E2E2E]';
-
   const logoColor = drawerOpen
-    ? 'text-[#222222]'
+    ? 'text-white'
     : isLogoDarkBg
     ? 'text-[#FFFFFF]'
     : 'text-[#2E2E2E]';
 
   const logoFilter = drawerOpen
-    ? 'brightness-0'
+    ? 'brightness-100 invert'
     : isLogoDarkBg
     ? 'brightness-100 invert'
     : 'brightness-0';
 
+  const burgerColor = drawerOpen
+    ? 'bg-white'
+    : isBurgerDarkBg
+    ? 'bg-white'
+    : 'bg-[#2E2E2E]';
+
   const handleNavClick = (path: string) => {
+    // 1. Always resume Lenis immediately so scroll is never blocked
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.start();
+    }
     setDrawerOpen(false);
+    setHoveredItem(null);
+
+    // 2. If navigating to /contacts
     if (path === '/contacts') {
+      if (location.pathname === '/contacts') {
+        if (lenis) lenis.scrollTo(0, { immediate: false, duration: 1 });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       navigateWithCurtain('/contacts');
       return;
     }
-    if (path === '/' && window.location.pathname === '/contacts') {
+
+    // 3. If navigating to / (Home top)
+    if (path === '/') {
+      if (location.pathname === '/') {
+        if (lenis) lenis.scrollTo(0, { immediate: false, duration: 1.2 });
+        else window.scrollTo({ top: 0, behavior: 'smooth' });
+        return;
+      }
       navigateWithCurtain('/');
       return;
     }
+
+    // 4. If navigating to an anchor like /#portfolio, /#services, /#about
     if (path.startsWith('/#')) {
       const hash = path.substring(2);
-      if (window.location.pathname === '/') {
+
+      // If ALREADY on Home ('/'):
+      if (location.pathname === '/') {
         const el = document.getElementById(hash);
         if (el) {
-          const lenis = (window as any).lenis;
-          if (lenis) {
-            lenis.scrollTo(el);
-          } else {
-            el.scrollIntoView({ behavior: 'smooth' });
-          }
+          setTimeout(() => {
+            const activeLenis = (window as any).lenis;
+            if (activeLenis) {
+              activeLenis.start();
+              activeLenis.scrollTo(el, { offset: 0, duration: 1.2 });
+            } else {
+              el.scrollIntoView({ behavior: 'smooth' });
+            }
+          }, 60);
         }
-      } else {
-        navigateWithCurtain(`/#${hash}`);
+        return;
       }
-    } else {
-      navigate(path);
+
+      // If on ANOTHER PAGE (e.g. /contacts, /projects/:id):
+      // Store scroll target and navigate to Home with curtain transition
+      sessionStorage.setItem('arcade_scroll_target', hash);
+      navigateWithCurtain(`/#${hash}`);
+      return;
     }
+
+    navigate(path);
   };
+
+  if (location.pathname === '/menu-sandbox') {
+    return null;
+  }
 
   return (
     <>
-      {/* Fixed Top Bar (Exactly at top: 32px, left: 32px, right: 32px) */}
-      <header className="fixed top-0 left-0 right-0 z-[900] px-8 pt-8 pointer-events-none transition-colors duration-300">
+      {/* Fixed Top Bar (Pinned at top: 32px, left: 32px, right: 32px) */}
+      <header className="fixed top-0 left-0 right-0 z-[960] px-8 pt-8 pointer-events-none transition-colors duration-300">
         <div className="w-full flex items-center justify-between">
           {/* Top-Left: Minimal Brand Mark & Wordmark */}
           <Link
@@ -198,13 +260,13 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 navigateWithCurtain('/');
               }
             }}
-            className={`pointer-events-auto flex items-center gap-3 transition-colors duration-300 ${logoColor}`}
+            className={`pointer-events-auto flex items-center gap-3 transition-colors duration-300 ${logoColor} group`}
           >
             <div className="w-6 h-6 flex items-center justify-center">
               <img
                 src="/assets/Logo/Logo.png"
                 alt="Arcade Architects"
-                className={`w-full h-full object-contain transition-all duration-300 ${logoFilter}`}
+                className={`w-full h-full object-contain transition-all duration-300 ${logoFilter} group-hover:scale-105`}
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = '/assets/Logo/Logo_01.png';
                 }}
@@ -215,10 +277,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
             </span>
           </Link>
 
-          {/* Top-Right: 2-Line Minimal Hamburger / Close Button */}
+          {/* Top-Right: Morphing '=' to 'X' Hamburger Button */}
           <button
             onClick={() => setDrawerOpen(!drawerOpen)}
-            className="pointer-events-auto relative w-12 h-12 flex flex-col items-center justify-center p-3 cursor-pointer focus:outline-none z-[910] group"
+            className="pointer-events-auto relative w-12 h-12 flex flex-col items-center justify-center p-3 cursor-pointer focus:outline-none z-[960] group"
             aria-label={drawerOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             aria-expanded={drawerOpen}
           >
@@ -240,140 +302,107 @@ export const Navbar: React.FC<NavbarProps> = () => {
         </div>
       </header>
 
-      {/* Dimmed Backdrop */}
+      {/* Fullscreen Obsidian Architectural Gallery Overlay (Option 1) */}
       <div
-        onClick={() => setDrawerOpen(false)}
-        className={`fixed inset-0 bg-black/60 backdrop-blur-[2px] z-[840] transition-opacity duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] ${
-          drawerOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
-        }`}
-      />
-
-      {/* Off-Canvas Slide-Out White Drawer (Width: 480px, Padding: 48px) */}
-      <aside
         data-lenis-prevent
-        className={`fixed top-0 right-0 bottom-0 w-full sm:w-[480px] bg-[#FFFFFF] text-[#2E2E2E] z-[850] shadow-2xl transition-transform duration-600 ease-[cubic-bezier(0.23,1,0.32,1)] flex flex-col justify-between p-8 sm:p-12 overflow-y-auto ${
-          drawerOpen ? 'translate-x-0' : 'translate-x-full'
+        className={`fixed inset-0 z-[950] bg-[#0A0A0A] text-white flex flex-col justify-between px-8 sm:px-12 md:px-16 pt-28 sm:pt-32 pb-8 sm:pb-12 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+          drawerOpen
+            ? 'opacity-100 pointer-events-auto scale-100'
+            : 'opacity-0 pointer-events-none scale-[0.98]'
         }`}
         aria-hidden={!drawerOpen}
       >
-        {/* Top: Exactly 4 Clean Nav Links */}
-        <div className="pt-4">
-          <nav className="flex flex-col gap-7">
-            <div>
-              <button
-                onClick={() => handleNavClick('/')}
-                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] bloom-nav-link text-left"
-              >
-                Home
-              </button>
+        {/* Dynamic Background Image Layer (Smooth fade on link hover) */}
+        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+          {Object.entries(hoverImages).map(([key, src]) => (
+            <div
+              key={key}
+              className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                hoveredItem === key ? 'opacity-35 scale-100' : 'opacity-0 scale-105'
+              }`}
+              style={{ transitionProperty: 'opacity, transform' }}
+            >
+              <img
+                src={src}
+                alt={key}
+                className="w-full h-full object-cover filter brightness-90 saturate-125"
+              />
+              <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
             </div>
+          ))}
+        </div>
 
-            <div>
-              <button
-                onClick={() => handleNavClick('/#portfolio')}
-                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] bloom-nav-link text-left"
+        {/* Center: Main Nav Links with Crisp White Strokes & Zero Green */}
+        <div className="relative z-10 w-full max-w-[1200px] mx-auto my-auto">
+          <nav className="flex flex-col w-full divide-y divide-white/20 border-t border-b border-white/20">
+            {[
+              { key: 'portfolio', num: '01', label: 'Portfolio', path: '/#portfolio' },
+              { key: 'services', num: '02', label: 'Services', path: '/#services' },
+              { key: 'about', num: '03', label: 'About', path: '/#about' },
+              { key: 'contacts', num: '04', label: 'Contacts', path: '/contacts' },
+            ].map((item) => (
+              <div
+                key={item.key}
+                onMouseEnter={() => setHoveredItem(item.key)}
+                onMouseLeave={() => setHoveredItem(null)}
+                className={`w-full transition-opacity duration-300 ${
+                  hoveredItem && hoveredItem !== item.key ? 'opacity-25' : 'opacity-100'
+                }`}
               >
-                Portfolio
-              </button>
-            </div>
-
-            {/* Services with Accordion Toggle */}
-            <div className="flex flex-col">
-              <button
-                onClick={() => setServicesExpanded(!servicesExpanded)}
-                className="flex items-center gap-2 font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] text-left focus:outline-none group"
-              >
-                <span>Services</span>
-                <ChevronDown
-                  className={`w-5 h-5 text-[#2E2E2E] transition-transform duration-300 ${
-                    servicesExpanded ? 'rotate-180' : ''
-                  }`}
-                />
-              </button>
-
-              {servicesExpanded && (
-                <div className="flex flex-col gap-2.5 pt-3 pl-1 text-[#2E2E2E]/80 animate-in fade-in slide-in-from-top-2 duration-200">
-                  <button
-                    onClick={() => handleNavClick('/#services')}
-                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors text-left"
-                  >
-                    3D interior visualization
-                  </button>
-                  <button
-                    onClick={() => handleNavClick('/#services')}
-                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors text-left"
-                  >
-                    3D architectural visualization
-                  </button>
-                  <button
-                    onClick={() => handleNavClick('/#services')}
-                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors text-left"
-                  >
-                    Exhibition & pavilion architecture
-                  </button>
-                  <button
-                    onClick={() => handleNavClick('/#services')}
-                    className="text-[19px] font-normal py-1 hover:text-[#2E2E2E] transition-colors text-left"
-                  >
-                    3D walkthrough animation
-                  </button>
-                </div>
-              )}
-            </div>
-
-            <div>
-              <button
-                onClick={() => handleNavClick('/contacts')}
-                className="font-sans text-[32px] font-normal leading-[1.2] text-[#2E2E2E] text-left bloom-nav-link"
-              >
-                Contacts
-              </button>
-            </div>
+                <button
+                  onClick={() => handleNavClick(item.path)}
+                  className="w-full py-6 sm:py-8 md:py-10 flex items-baseline justify-between text-left group cursor-pointer focus:outline-none"
+                >
+                  <div className="flex items-baseline gap-6 sm:gap-10 md:gap-14">
+                    <span className="font-mono text-xs sm:text-sm md:text-base text-white/40 group-hover:text-white transition-colors">
+                      {item.num}
+                    </span>
+                    <span className="font-display text-4xl sm:text-6xl md:text-7xl lg:text-[84px] font-light tracking-tight text-white group-hover:translate-x-3 transition-transform duration-300">
+                      {item.label}
+                    </span>
+                  </div>
+                  <span className="font-mono text-sm sm:text-base text-white/30 group-hover:text-white group-hover:translate-x-1 group-hover:-translate-y-1 transition-all">
+                    ↗
+                  </span>
+                </button>
+              </div>
+            ))}
           </nav>
         </div>
 
-        {/* Bottom: Contact & Action Strip (Matching Bloom3D) */}
-        <div className="pt-8 border-t border-black/[0.08] flex flex-col gap-4">
-          <p className="text-[18px] text-[#2E2E2E] font-normal leading-snug">
-            Let’s talk about your next project
-          </p>
+        {/* Bottom Strip: Pure Monochrome Studio Coordinates & Time (Zero Green) */}
+        <div className="relative z-10 w-full max-w-[1200px] mx-auto pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-white/50">
+          <div className="flex items-center gap-6">
+            <span>23.7771° N, 90.3994° E</span>
+            <span>DHAKA {dhakaTime} GMT+6</span>
+          </div>
 
-          <div className="flex items-center gap-2.5">
-            {/* Schedule a Call Button */}
+          <div className="flex items-center gap-6">
             <a
-              href="https://calendly.com"
+              href="https://instagram.com"
               target="_blank"
               rel="noreferrer"
-              onClick={() => setDrawerOpen(false)}
-              className="bloom-btn-wrap flex-1 !h-[54px] !px-4 !bg-[#222222] !text-white text-sm"
+              className="hover:text-white transition-colors"
             >
-              <div className="btn-text-track">
-                <div className="btn-text-inner">
-                  <span className="btn-label flex items-center justify-center">
-                    Schedule a call <ArrowUpRight className="w-4 h-4 ml-0.5" />
-                  </span>
-                  <span className="btn-label flex items-center justify-center">
-                    Schedule a call <ArrowUpRight className="w-4 h-4 ml-0.5" />
-                  </span>
-                </div>
-              </div>
+              Instagram ↗
             </a>
-
-            {/* Discuss the Project Button */}
-            <button
-              onClick={() => handleNavClick('/contacts')}
-              className="bloom-btn-wrap flex-1 !h-[54px] !px-4 !bg-[#222222] !text-white text-sm"
+            <a
+              href="https://t.me"
+              target="_blank"
+              rel="noreferrer"
+              className="hover:text-white transition-colors"
             >
-              <div className="btn-text-track">
-                <div className="btn-text-inner">
-                  <span className="btn-label">Discuss the project</span>
-                  <span className="btn-label">Discuss the project</span>
-                </div>
-              </div>
-            </button>
+              Telegram ↗
+            </a>
+            <a
+              href="mailto:info@arcade-architects.com"
+              className="hover:text-white transition-colors"
+            >
+              Email ↗
+            </a>
           </div>
         </div>
-      </aside>
+      </div>
     </>
   );
 };

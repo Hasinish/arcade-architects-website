@@ -1,3 +1,66 @@
+# Session Summary — 2026-11-10 (Part 30: Forensic Audit & Solution for Services Gallery Black Bar)
+- Forensic investigation of the "black bar in the middle" reported on `#services` after menu navigation:
+  - Root cause: Massive uncompressed image payloads (3MB each, total 12.4 MB) combined with prefetch mismatch in [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx). When opening the menu and hovering "Services", the navbar was prefetching `Cafe/1.jpg` (Slide 5), while the primary active slide was `CHANDINA PROJECT/3.jpg` (Slide 0). Upon jumping to `#services`, Slide 5 and Slide 2 rendered instantly from memory cache while Slide 0, 6, and 1 were stuck downloading over a flooded connection, exposing the raw unlit container background.
+  - Fix 1: Optimized all 7 service images in place to progressive web JPEGs, slashing payload from 12.4 MB down to 2.3 MB (81% bandwidth reduction) with immediate scanline rendering.
+  - Fix 2: Updated `Navbar.tsx` `hoverImages.services` to point directly to `/assets/Exterior/CHANDINA PROJECT/3.jpg`, so hovering "Services" in the menu preloads the active slide before the user even clicks.
+  - Fix 3: In [`src/components/ServicesSection.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/ServicesSection.tsx), added eager preloading of all 7 service images on component mount, added `loading="eager"`, `fetchPriority="high"`, `decoding="async"`, an architectural shimmer placeholder, and `relative z-20` on `<section id="services">`.
+  - Fix 4: Guarded `handlePointerDown` against non-left clicks and added global window `pointerup` release so drag calculations can never freeze or drift.
+- Verified via Playwright across desktop (1440px) and tablet (1024px) viewports (`services_nav_fixed_audit.png`). Center pixels confirmed at valid photo luminance (`RGB(60, 53, 49)`). Clean production build (1.94s, 0 errors). ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 29: Contacts Black Box Elimination & Robust Cross-Page Navigation Engine)
+- Investigated and annihilated the phantom black box on `/contacts` ([`src/pages/ContactsPage.tsx`](file:///D:/Arcade%20Architects%20Website/src/pages/ContactsPage.tsx)):
+  - Root cause: Framer Motion's `<motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ margin: '-50px' }}>` failed to detect Lenis virtual scroll ticks, leaving the second image stuck at `opacity: 0` and exposing its raw `#161616` container background as a giant black rectangle.
+  - Fix: Replaced with clean, eager-loaded image containers. All 4 gallery images now render with 100% visibility instantly.
+- Solved navigation failure ("other buttons don't take me nowhere"):
+  - Root cause A: While the fullscreen menu was open, Lenis was paused (`lenis.stop()`). Clicking any link called `lenis.scrollTo(el)` while Lenis was still frozen, causing Lenis to silently discard the scroll. Fixed in [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx) by explicitly calling `lenis.start()` immediately upon click.
+  - Root cause B: Cross-page anchor navigation (e.g. from `/contacts` to `/#portfolio`) was being overwritten by [`src/components/ScrollToTop.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/ScrollToTop.tsx) unconditionally forcing scroll to `(0, 0)`. Fixed by preserving scroll targets in `sessionStorage` and skipping scroll-to-zero when an anchor is targeted.
+  - Root cause C: Added smooth scroll-to-target coordinator in [`src/pages/HomePage.tsx`](file:///D:/Arcade%20Architects%20Website/src/pages/HomePage.tsx) to smoothly glide to the target section (`Portfolio`, `Services`, or `About`) right as the curtain transition lifts.
+- Automated Playwright end-to-end tests verified all 5 navigation scenarios (`audit/navigation_and_contacts_fixes_collage.png`).
+- Production build passes cleanly in 2.13s with 0 errors. ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 28: Refined Navigation — Morphing = to X, White Bottom Strokes, Zero Green)
+- Executed Hasin's design corrections on [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx):
+  - **Restored `=` to `X` Morphing Icon**: Ditched the pill button. Replaced with the 2-line minimal hamburger that animates smoothly from parallel horizontal lines `=` into a crisp solid white `X` when the menu is open, maintaining independent pixel contrast when closed.
+  - **White Bottom Strokes on Each Item**: Structured the menu list with `divide-y divide-white/20 border-t border-b border-white/20`, so every single navigation item (`01 Portfolio`, `02 Services`, `03 About`, `04 Contacts`) is framed by a razor-sharp white hairline stroke.
+  - **Purged All Green**: Nuked every trace of green/emerald. Numbers `01` through `04` are now in clean muted architectural white (`text-white/40`), illuminating to 100% white on hover.
+  - **Clean Editorial Experience**: Dynamic render swapping remains active on hover with 25% sibling focus dimming, with zero extra subtitles or clutter.
+- Verified via Playwright across desktop & mobile viewports (`audit/option1_live_audit.png`). Production build compiles in 1.30s with 0 errors. ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 27: Official Deployment of Option 1 Obsidian Gallery Navigation — Zero Extra Texts)
+- Replaced Bloom3D's generic 2-line hamburger and 480px white slide card across the entire website with **Option 1: The Cinematic Obsidian Gallery** ([`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx)):
+  - **Menu Trigger**: Swapped 2 horizontal lines for an adaptive capsule pill: `● MENU` with a pulsing emerald status dot. Over dark backgrounds, it renders a luminous translucent pill; over light stone backgrounds, it renders a subtle charcoal pill. Morphs cleanly into `[ Close ✕ ]` when open.
+  - **Fullscreen Obsidian Canvas**: Full-bleed `#0A0A0A` overlay with smooth dynamic background image swapping on hover (hovering `Portfolio` renders Chandina, `Services` renders Cafe Interior, `About` renders Hazi Bari, `Contacts` renders Ford Exhibition).
+  - **Typographic Focus**: Hovering any link dims sibling links to `25%` opacity.
+  - **Zero Extra Texts**: Completely stripped away all subtitles, explanatory text, and verbose badges. Only pure, monumental typography: `01 Portfolio`, `02 Services`, `03 About`, `04 Contacts`.
+  - **Minimal Metadata Strip**: Pinned to the bottom with coordinates `23.7771° N, 90.3994° E`, live Dhaka time ticker, and direct links (`Instagram ↗`, `Telegram ↗`, `Email ↗`).
+- Verified via Playwright automated test (`audit/option1_live_audit.png`). Clean production build in 1.31s with 0 errors. ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 26: Awwwards Navigation Sandbox Lab with 4 Live Interactive Options)
+- Built a dedicated interactive test laboratory page at `/menu-sandbox` ([`src/pages/MenuSandboxPage.tsx`](file:///D:/Arcade%20Architects%20Website/src/pages/MenuSandboxPage.tsx)):
+  - **Option 1: The Obsidian Gallery (Awwwards SOTD / Exo Ape / Snøhetta)**:
+    - Trigger: Capsule pill `● MENU [01]` with pulsing emerald status dot.
+    - Overlay: Fullscreen obsidian takeover with real-time hover image previews (hovering "Portfolio" loads Chandina Residence, "Services" loads Cafe Interior, "Studio" loads Hazi Bari, "Contacts" loads Ford Exhibition), focus typography dimming (inactive items drop to 25% opacity), live Dhaka time ticker, coordinates, and social links.
+  - **Option 2: The 50/50 Dual-Pane Split (Mikado / Wallnut)**:
+    - Trigger: Monograph split tag `[ 04 / INDEX ]`.
+    - Overlay: Two-tone right curtain. Left pane showcases a featured architectural monograph card + verified studio metrics; right pane features Swiss typography with an expandable inline services accordion and direct inquiry CTA.
+  - **Option 3: The Brutalist 4-Column Technical Index (Stewart & Partners)**:
+    - Trigger: Blueprint drafting crosshair `[ + ]`.
+    - Overlay: Fullscreen architectural spec sheet divided by 1px hairline grid lines into Directory, Scope of Work, Communications, and Execution columns with a high-contrast action button.
+  - **Option 4: The Floating Architectural Dock / Island Card**:
+    - Trigger: Floating island capsule `Explore Studio [ ⌘M ]`.
+    - Overlay: Top-right docked frosted carbon glass card leaving the page visible and blurred underneath, with tactile link badges and online response status.
+- Added live environment switcher: test against both Dark Hero and Light Stone backgrounds.
+- Verified compilation with clean `npm run build` in 1.51s (0 errors).
+- Automated Playwright end-to-end test captured all 4 states and generated visual collage artifact: `menu_4_options_collage.png`.
+- ZERO remote pushes made.
+
+# Session Summary — 2026-11-10 (Part 25: Revert Glassmorphic Navbar)
+- Threw the experimental glassmorphism straight into the trash where it belongs! 🗑️
+- Completely reverted [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx) back to the clean, minimal, 100% transparent pinned architectural header (`fixed top-0 px-8 pt-8`).
+- Preserved the independent real-time pixel luminance contrast sampling engine intact.
+- Verified production build via `npm run build` in 1.25s with 0 errors.
+- Git working tree is 100% clean on `main`. ZERO remote pushes.
+
 # Session Summary — 2026-11-10 (Part 24: FAQ Accordion Default State Refinement)
 - Fixed default open state in `src/components/FAQSection.tsx`:
   - Replaced hardcoded `useState<number | null>(0)` with `useState<number | null>(null)`.
