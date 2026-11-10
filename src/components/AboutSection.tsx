@@ -38,7 +38,7 @@ export const AboutSection: React.FC = () => {
   }, []);
 
   return (
-    <section id="about" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-24 md:py-36 px-8 md:px-16 lg:px-20">
+    <section id="about" data-nav-theme="light" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-24 md:py-36 px-8 md:px-16 lg:px-20">
       <div className="w-full max-w-[1440px] mx-auto">
         {/* Large Editorial Manifesto with Word-by-Word Scroll Illumination */}
         <div className="max-w-[848px] mb-24 md:mb-32">

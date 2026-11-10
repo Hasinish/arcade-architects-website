@@ -1,3 +1,126 @@
+# Session Summary — 2026-11-10 (Part 18: Phase 7 Customization 07 Bloom3D Editorial Multi-Page Routing Installed)
+- Fully eliminated popup modals from the live application flow.
+- Installed `react-router-dom` v7 and established multi-page routing matching `bloom3d.studio`:
+  - `src/pages/ProjectDetailPage.tsx` (`/projects/:projectId`): Full-bleed widescreen hero render, Swiss specifications table (Year, Location, Typology, Scale, Status), editorial design narrative, vertical stacked render gallery, and `section_project_nav` Next Project teaser cards.
+  - `src/pages/ContactsPage.tsx` (`/contacts`): 2-column asymmetrical studio layout, Directorate quote, direct studio channels, dimming social links, Calendly consultation booking trigger, and editorial architectural inquiry form with sliding Bloom button.
+  - `src/components/ScrollToTop.tsx`: Ensures Lenis resets scroll to top immediately across route transitions.
+  - Updated `src/components/PortfolioSection.tsx`: Project cards are native `<Link>` elements routing directly to `/projects/:projectId`.
+  - Updated `src/components/Navbar.tsx`: Off-canvas drawer and brand logo link to `/`, `/#portfolio`, `/#services`, and `/contacts`.
+  - Updated `Hero.tsx`, `CTASection.tsx`, and `Footer.tsx` CTA buttons to navigate to `/contacts`.
+- Verified live on `http://localhost:5173/` via Playwright: verified 0 modals mounted in DOM, project navigation, next-project exploration, and contacts page.
+- Production build cleanly completed in 1.57s. Generated audit artifact `bloom3d_editorial_routing_audit.md`.
+
+# Session Summary — 2026-11-10 (Part 17: Bloom3D Architecture Audit - Zero Modals Discovery)
+- Hasin called out the architectural discrepancy: Bloom3D does NOT use popup modals anywhere.
+- Conducted live Playwright audit of `https://www.bloom3d.studio/`:
+  - Confirmed ZERO popup modals on the entire site.
+  - Portfolio project cards link directly to dedicated editorial case study pages (`href="/projects/<slug>"` e.g. `/projects/morven`, `/projects/amrita`).
+  - Action buttons ("Discuss the project", "Start project", "Get personal offer") navigate to dedicated editorial contact page (`href="/contacts"`).
+  - Project case study layout: full-bleed hero render (`project_hero_img`), minimalist Swiss project info block (Year, Location, Typology), rich narrative text, multi-angle high-res vertical render sequence, and Next Project link card.
+  - Contacts layout: 2-column editorial format with CBDO quote, contact info, socials, calendar booking prompt, and clean form.
+- Planned elimination of popup modals in favor of Bloom3D's authentic editorial multi-page routing.
+
+# Session Summary — 2026-11-10 (Part 16: Phase 7 Customization 06 High-End Architectural Rebuild of All 3 Modals)
+- Completely reconstructed all 3 modals (`ProjectModal.tsx`, `InquiryModal.tsx`, `ScheduleCallModal.tsx`) to eliminate legacy SaaS styling, orange badges `#e45d36`, generic rounded bubbles, and confetti.
+- Engineered luxury architectural presentation language matching Bloom3D & Snøhetta:
+  - Deep `#161616` container with crisp 1px hairline `#2A2A2A` borders and Plus Jakarta Sans typography.
+  - `ProjectModal`: 16:9 widescreen render showcase, Swiss monospace counter (`01 / 04`), thumbnail strip, keyboard arrow navigation (`ArrowLeft` / `ArrowRight` gallery stepping, `Escape` to close), architectural specs card (Typology, Square Footage, Materials, Status), and Bloom3D double-layer sliding inquiry button.
+  - `InquiryModal`: Clean architectural proposal brief form with minimal category and budget cards, dark focus-ring inputs, Bloom3D sliding submit button, and refined editorial confirmation screen.
+  - `ScheduleCallModal`: Minimal consultation booking with date/time pickers and meeting format pills.
+- Verified live on `http://localhost:5173/` via Playwright; generated visual comparison collage at `audit/comparisons/modals_architectural_audit.png`.
+- Production build passed in 1.99s with bundle size reduction (removed canvas-confetti from bundle).
+
+# Session Summary — 2026-11-10 (Part 15: Phase 7 Customization 05 Complete Decoupling of Resources & Assets)
+- Reverted `vite.config.ts` to standard clean configuration per Hasin's request: removed all sync plugins, watchers, and file copy hooks.
+- `public/assets/` is now the sole, dedicated single source of truth for the live website.
+- `Resources/` is completely separate and independent as his personal archive/source folder; nothing in the build tool or server touches or monitors it.
+- Verified clean build (`npm run build`) passing in 2.50s.
+
+# Session Summary — 2026-11-10 (Part 14: Phase 7 Customization 05 Upgraded to Bi-Directional Asset Sync)
+- Answered Hasin's query regarding directly modifying `public/assets/`.
+- Upgraded `syncResourcesPlugin()` in `vite.config.ts` into a true timestamp-aware bi-directional synchronization engine:
+  - Compares `mtimeMs` and file size before copying: only copies if the source is newer or changed.
+  - Watches BOTH `Resources/` and `public/assets/` simultaneously.
+  - If Hasin edits in `public/assets/`, Vite immediately syncs the changes back to `Resources/` and updates the browser.
+  - If Hasin edits in `Resources/`, Vite immediately mirrors them to `public/assets/` and updates the browser.
+  - On dev startup and build (`npm run build`), newer files take priority, guaranteeing zero overwriting of fresh work regardless of which folder he edits.
+- Tested production build passes cleanly in 6.29s.
+
+# Session Summary — 2026-11-10 (Part 13: Phase 7 Customization 05 Automatic Resources-to-Public Watcher Sync)
+- Diagnosed root cause of changed Ford images not appearing: Hasin replaced files in root `Resources/Exhibition/Ford/` at 11:59 PM (2.4MB files), while Vite serves client-side assets from `public/assets/Exhibition/Ford/` (which still had the 10:36 PM 620KB files).
+- Immediately synced the 4 modified Ford images into `public/assets/Exhibition/Ford/` (`1.jpg` through `4.jpg`).
+- Built a permanent automated fix in `vite.config.ts`: engineered `syncResourcesPlugin()` which watches `Resources/**` via Vite's internal chokidar watcher on the dev server and mirrors any added/changed/deleted files to `public/assets/` instantly while dispatching a full browser reload over WebSocket.
+- Verified live on `http://localhost:5173/` via Playwright: Ford Motor Exhibition Pavilion card and modal gallery display the new 1672x941 high-res Ford Bronco renders (`audit/comparisons/ford_updated_modal.png`).
+- Production build passes cleanly in 10.8s.
+
+# Session Summary — 2026-11-09 (Part 12: Phase 7 Customization 04 Numbered Project Photos Migration)
+- Converted and renamed all project photos across all 10 project directories in `Resources/` and `public/assets/` to sequential clean numbered format (`1.jpg`, `2.jpg`, `3.jpg`, `4.jpg`...).
+- Cleaned and organized every project folder:
+  - `Exterior/Hazi Bari Project`: `1.jpg` - `4.jpg`
+  - `Exhibition/Ford`: `1.jpg` - `4.jpg`
+  - `Interior/Cafe`: `1.jpg` - `8.jpg`
+  - `Exterior/CHANDINA PROJECT`: `1.jpg` - `3.jpg`
+  - `Interior/Appart/New folder`: `1.jpg` - `5.jpg`
+  - `Exterior/USA`: `1.jpg` - `4.jpg`
+  - `Exterior/KOTBARI PROJECT`: `1.jpg` - `3.jpg`
+  - `Exterior/Laksam Project`: `1.jpg` - `4.jpg`
+  - `Interior/Appart/New folder (2)`: `1.jpg` - `5.jpg`
+  - `Interior/Resi`: `1.jpg` - `7.jpg`
+  - Preserved brand logos in `Resources/Logo/` (`Logo.png`, `Logo_01.png`).
+- Updated all codebase references across `src/data/projects.ts`, `src/data/services.ts`, `src/components/Hero.tsx`, `src/components/CTASection.tsx`, `src/components/WhyUsSection.tsx`, and `src/components/ServicesSection.tsx`.
+- Verified all 74 asset references resolve on disk.
+- Audited live page via Playwright: 24 on-page images loaded with 0 broken images, 0 network errors, and modal gallery fully operational. Production build passed in 9.8s.
+
+# Session Summary — 2026-11-09 (Part 11: Phase 7 Customization 03 Subtle Inertia Smooth Scrolling)
+- Integrated `lenis` smooth scrolling engine in `src/App.tsx` and `src/components/Navbar.tsx` to provide buttery-smooth scrolling with natural exponential deceleration when wheel input stops.
+- Architectural motion parameters:
+  - `duration: 1.25s`
+  - Easing: `(t) => Math.min(1, 1.001 - Math.pow(2, -10 * t))` (exponential deceleration creating 50+ frames of subtle inertial glide after wheel release)
+  - `smoothWheel: true`, `wheelMultiplier: 0.95`, `touchInertiaExponent: 1.6`, `anchors: true`
+- Seamless cross-feature integration:
+  - `position: sticky` Hero curtain and Advantages 300vh stage function natively without any jumping or desync.
+  - Real-time navbar pixel sampling continues updating frame-by-frame during the inertial glide.
+  - Modal and drawer handling: Lenis pauses automatically (`lenis.stop()`) when InquiryModal, ScheduleCallModal, or the 480px navigation drawer is open, and resumes on close (`lenis.start()`).
+  - Added `data-lenis-prevent` to drawer and modal containers to prevent background scroll interference.
+- Verified via Playwright velocity tracking: captures 93 frames showing velocity decaying smoothly from `1575 px/s -> 666 px/s -> 241 px/s -> 61 px/s -> 0 px/s`. Visual deceleration chart generated at `audit/comparisons/scroll_inertia_curve.png`.
+- Production build passes cleanly with zero errors. Dev server live on `http://localhost:5173/`.
+
+# Session Summary — 2026-11-09 (Part 10: Phase 7 Customization 02 True Real-Time Pixel Color Calculation Navbar)
+- Replaced static section tagging with a genuine real-time pixel extraction engine in `src/components/Navbar.tsx`, mimicking how custom cursors invert or contrast against whatever pixel is physically underneath them.
+- Engineered an in-memory 1x1 `<canvas>` with `ctx.getImageData()` running in `requestAnimationFrame` on scroll and resize:
+  - Takes coordinates `(64, 48)` for Logo and `(innerWidth - 48, 48)` for Hamburger.
+  - Inspects elements via `document.elementsFromPoint(x, y)`.
+  - For `<img>` elements: maps screen coords `(rx, ry)` to natural image coordinates `(sx, sy)`, draws 1px to canvas, reads RGB, and computes ITU-R BT.709 relative luminance `(0.2126*R + 0.7152*G + 0.0722*B) / 255`.
+  - For `<video>` elements (Hero, showreel): detects dark media.
+  - For computed CSS background colors: computes luminance if opacity > 0.08.
+- Logo and Hamburger adapt **INDIVIDUALLY AND INDEPENDENTLY**:
+  - Dark pixel underneath (< 0.5) -> Element becomes pure WHITE (`#FFFFFF`).
+  - Light pixel underneath (>= 0.5) -> Element becomes DARK charcoal (`#2E2E2E`).
+  - When Logo is over bright facade while Hamburger is over dark building shadow (e.g. Y=1500px in Portfolio Row 1), Logo turns DARK and Hamburger turns WHITE simultaneously.
+  - When Logo is over black space while Hamburger is over bright slide (e.g. Y=4800px in Snøhetta Services), Logo turns WHITE and Hamburger turns DARK.
+- Off-canvas drawer open state override preserved (Hamburger stays dark `#222222` over white drawer).
+- Verified via Playwright across 8 sections and intermediate image positions; generated high-resolution collage at `audit/comparisons/navbar_pixel_calculation_audit.png`. Production build passes cleanly with zero errors.
+
+# Session Summary — 2026-11-09 (Part 9: Phase 7 Customization 02 Adaptive Navbar Contrast)
+- Replaced rigid hero scroll threshold in `Navbar.tsx` with dynamic, real-time background luminance & section detection using `document.elementsFromPoint(64, 48)` and `data-nav-theme` tagging across all 8 homepage sections.
+- When background is dark (Hero video `#121212`, Snøhetta Services `#000000`, CTA showreel `#121212`, Footer `#222222`), Navbar automatically switches to **WHITE / LIGHT** (`text-white`, `brightness-100 invert` logo mark, and `bg-white` 2-line hamburger).
+- When background is light (Portfolio stone `#F7F7F7`, About Manifesto `#F7F7F7`, Advantages `#F7F7F7`, FAQ `#F7F7F7`), Navbar automatically switches to **DARK / CHARCOAL** (`text-[#2E2E2E]`, `brightness-0` logo mark, and `bg-[#2E2E2E]` hamburger).
+- Drawer state preserved: when the off-canvas drawer is toggled open, hamburger remains dark `#222222` to maintain maximum contrast over the white drawer panel.
+- Verified across all sections with Playwright (`audit/navbar_adaptive_audit.json` and visual collage `audit/comparisons/navbar_adaptive_comparison.png`). Zero build errors.
+- Dev server live on `http://localhost:5173/`. Awaiting user review.
+
+# Session Summary — 2026-11-09 (Part 8: Phase 7 Customization 01 Snøhetta Services Gallery)
+- Replaced Bloom3D 3D cylindrical services carousel with Snøhetta-identical horizontally draggable variable-scale gallery in `src/components/ServicesSection.tsx`.
+- Reverse-engineered Snøhetta's client-side `FrontpageSlideshow` module (`R` and `$` scaling formulas):
+  - Desktop: Active slide = `36%` width (`518.4px`), center left = `32%` (`460.8px`); Tier 1 neighbors = `24%` (`345.6px`); Outer neighbors = `16%` (`230.4px`).
+  - Mobile (390px): Active slide = `68%` width (`265.2px`), center left = `16%` (`62.4px`); Tier 1 neighbors = `50%` (`195px`).
+  - Geometry: Exact `3:2` aspect ratio, flush `top: 0` alignment, zero-pixel gap between adjacent slides.
+- Implemented real-time continuous interpolation during drag (slides expand/contract continuously as they approach/leave viewport center), quintic ease-out snap settling, flick velocity detection, and click vs drag discrimination.
+- Styled in Snøhetta editorial visual language: pure `#000000` deep black background, top studio manifesto headline, active title, description, category indicator, and direct modal inquiry action.
+- Verified with Playwright: captured initial state, intermediate drag state, post-drag settled state, and mobile 390px state. Generated side-by-side comparison images in `audit/comparisons/` (`phase7_services_initial_comparison.png`, `phase7_services_dragging_comparison.png`, `phase7_services_settled_comparison.png`, `phase7_services_mobile_comparison.png`).
+- Maintained strict isolation: all other sections (Navbar, Hero, Curtain, Portfolio, About, Advantages, CTA, FAQ, Footer) preserved with zero regression. Zero remote pushes.
+- Dev server live on `http://localhost:5173/`. Awaiting user review.
+
 # Session Summary — 2026-11-09 (Part 7: Phase 7 Customization Mode Initiation)
 - Reached full baseline parity with Bloom3D across Phases 1 through 6.
 - Created local baseline Git commit snapshot (`70ddb77 feat(baseline): complete phase 1-6 bloom3d foundation snapshot`) without any remote pushes.
@@ -54,4 +177,4 @@
 
 # history.md — Conversation Log History
 <!-- IMPORTANT FOR AGENTS: Always prepend new conversation log entries to the top of this list (most recent first). Do not append to the bottom. -->
-- **[2026-11-09] Convo 4bb7da72-16c6-4b32-85de-0824002c2d7b**: Rebuilt Phase 6 (Fullscreen Parallax CTA, Editorial Minimal FAQ Accordion, and Dark Studio Footer). Ran Playwright comparisons, verified responsive layout, and validated subpixel alignment. Switched to Phase 7 Customization Mode.
+- **[2026-11-09] Convo 4bb7da72-16c6-4b32-85de-0824002c2d7b**: Implemented automatic dynamic background sensing for the fixed navbar across dark and light sections with subpixel luminance probing and Playwright verification.

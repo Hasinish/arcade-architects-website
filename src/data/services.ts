@@ -12,7 +12,7 @@ export const services: ServiceItem[] = [
       'Architectural Facade Detailing & Material Selection',
       'Site Integration & Landscape Visualization'
     ],
-    image: '/assets/Exterior/Hazi Bari Project/01.png',
+    image: '/assets/Exterior/Hazi Bari Project/1.jpg',
     tag: 'Architecture & Exterior',
   },
   {
@@ -26,7 +26,7 @@ export const services: ServiceItem[] = [
       'Custom Joinery, Millwork & Lighting Schedules',
       'Furniture, Fixture & Equipment (FF&E) Specifications'
     ],
-    image: '/assets/Interior/Cafe/nidasheena (1).jpg',
+    image: '/assets/Interior/Cafe/1.jpg',
     tag: 'Interior & Hospitality',
   },
   {
@@ -40,7 +40,7 @@ export const services: ServiceItem[] = [
       'Integrated Digital Display & Architectural Lighting',
       'Fabrication & On-Site Assembly Guidelines'
     ],
-    image: '/assets/Exhibition/Ford/01_Photo - 10 (FILEminimizer).jpg',
+    image: '/assets/Exhibition/Ford/1.jpg',
     tag: 'Brand Environments',
   },
   {
@@ -54,7 +54,7 @@ export const services: ServiceItem[] = [
       'Bill of Quantities (BOQ) & Material Estimates',
       'Site Supervision & Execution Quality Control'
     ],
-    image: '/assets/Exterior/USA/001_10 - Photo.jpg',
+    image: '/assets/Exterior/USA/1.jpg',
     tag: 'Turnkey Execution',
   },
 ];

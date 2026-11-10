@@ -9,7 +9,7 @@ export const FAQSection: React.FC = () => {
   };
 
   return (
-    <section id="faq" className="w-full bg-[#F7F7F7] py-24 md:py-32 px-8 md:px-12 lg:px-20 border-t border-[#EFEFEF]">
+    <section id="faq" data-nav-theme="light" className="w-full bg-[#F7F7F7] py-24 md:py-32 px-8 md:px-12 lg:px-20 border-t border-[#EFEFEF]">
       <div className="w-full max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
         {/* Left Column: Heading (Width ~424px on 1440px, 4 cols) */}
         <div className="lg:col-span-4">

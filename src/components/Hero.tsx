@@ -6,7 +6,7 @@ interface HeroProps {
 
 export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   return (
-    <section className="relative w-full h-[200vh] -mb-[100vh] z-10">
+    <section data-nav-theme="dark" className="relative w-full h-[200vh] -mb-[100vh] z-10">
       {/* Sticky Fullscreen 100vh Viewport */}
       <div className="sticky top-0 left-0 w-full h-screen overflow-hidden bg-[#121212]">
         {/* Edge-to-Edge Background Architectural Visual / Showreel */}
@@ -15,12 +15,12 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           loop
           muted
           playsInline
-          poster="/assets/Exterior/Hazi Bari Project/01.png"
+          poster="/assets/Exterior/Hazi Bari Project/1.jpg"
           className="absolute inset-0 w-full h-full object-cover filter brightness-[0.92] contrast-[1.04]"
         >
           <source src="https://bloom-viz.b-cdn.net/Video_calab4k_cler.webm" type="video/webm" />
           <img
-            src="/assets/Exterior/Hazi Bari Project/01.png"
+            src="/assets/Exterior/Hazi Bari Project/1.jpg"
             alt="Arcade Architects Architecture"
             className="w-full h-full object-cover"
           />

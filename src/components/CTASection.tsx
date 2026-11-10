@@ -30,6 +30,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ onOpenInquiry, onOpenSch
   return (
     <section
       id="cta"
+      data-nav-theme="dark"
       ref={sectionRef}
       className="relative w-full h-[120vh] min-h-[750px] max-h-[1350px] overflow-hidden bg-[#121212] flex flex-col justify-end"
     >
@@ -45,7 +46,7 @@ export const CTASection: React.FC<CTASectionProps> = ({ onOpenInquiry, onOpenSch
           alt="Arcade Architects Ubud Architecture"
           className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.05]"
           onError={(e) => {
-            (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/01.png';
+            (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/1.jpg';
           }}
         />
         {/* Subtle Dark Vignette Overlay for Crisp Contrast */}

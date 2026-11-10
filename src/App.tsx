@@ -1,76 +1,64 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Lenis from 'lenis';
+import 'lenis/dist/lenis.css';
 import { Navbar } from './components/Navbar';
-import { Hero } from './components/Hero';
-import { PortfolioSection } from './components/PortfolioSection';
-import { ServicesSection } from './components/ServicesSection';
-import { AboutSection } from './components/AboutSection';
-import { WhyUsSection } from './components/WhyUsSection';
-import { CTASection } from './components/CTASection';
-import { FAQSection } from './components/FAQSection';
-import { Footer } from './components/Footer';
-import { InquiryModal } from './components/InquiryModal';
-import { ScheduleCallModal } from './components/ScheduleCallModal';
+import { ScrollToTop } from './components/ScrollToTop';
+import { HomePage } from './pages/HomePage';
+import { ProjectDetailPage } from './pages/ProjectDetailPage';
+import { ContactsPage } from './pages/ContactsPage';
 
 export const App: React.FC = () => {
-  const [inquiryOpen, setInquiryOpen] = useState(false);
-  const [scheduleOpen, setScheduleOpen] = useState(false);
-  const [selectedProjectForInquiry, setSelectedProjectForInquiry] = useState<string | undefined>(undefined);
+  // Initialize Lenis for smooth scrolling with subtle stopping inertia
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.25,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)), // Exponential deceleration curve for subtle inertial glide
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 0.95,
+      touchInertiaExponent: 1.6,
+      anchors: true,
+      autoRaf: true,
+    });
 
-  const handleOpenInquiry = (projectName?: string) => {
-    setSelectedProjectForInquiry(projectName);
-    setInquiryOpen(true);
-  };
+    (window as any).lenis = lenis;
+
+    return () => {
+      lenis.destroy();
+      delete (window as any).lenis;
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-clip">
-      {/* Top Corner-Pinned Minimal Navbar */}
-      <Navbar
-        onOpenInquiry={() => handleOpenInquiry()}
-        onOpenSchedule={() => setScheduleOpen(true)}
-      />
+    <BrowserRouter>
+      {/* Route Change Scroll Reset */}
+      <ScrollToTop />
 
-      {/* Main Content Sections Reconstructed in Bloom3D Sequence */}
-      <main>
-        {/* Phase 2: Full-Bleed Pinned Hero */}
-        <Hero onOpenInquiry={() => handleOpenInquiry()} />
+      <div className="min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-clip">
+        {/* Top Corner-Pinned Minimal Navbar (Real-time Pixel Contrast Engine) */}
+        <Navbar />
 
-        {/* Phase 3: Pinned Curtain Rising Portfolio Grid */}
-        <PortfolioSection onOpenInquiryWithProject={(name) => handleOpenInquiry(name)} />
+        {/* Multi-Page Editorial Routes matching Bloom3D (Zero Modals) */}
+        <Routes>
+          {/* Main Home Page */}
+          <Route path="/" element={<HomePage />} />
 
-        {/* Phase 4: 3D Cylindrical Perspective Services Carousel */}
-        <ServicesSection onOpenInquiry={() => handleOpenInquiry()} />
+          {/* Dedicated Full-Bleed Editorial Project Case Study */}
+          <Route path="/projects/:projectId" element={<ProjectDetailPage />} />
 
-        {/* Phase 5A: Manifesto Word-by-Word Scroll Scrub About Section */}
-        <AboutSection />
+          {/* Dedicated Architectural Studio Contact Page */}
+          <Route path="/contacts" element={<ContactsPage />} />
 
-        {/* Phase 5B: 300vh Sticky Stage Pinned Advantages Section */}
-        <WhyUsSection onOpenInquiry={() => handleOpenInquiry()} />
+          {/* Redirect /projects to Portfolio Anchor on Home */}
+          <Route path="/projects" element={<Navigate to="/#portfolio" replace />} />
 
-        {/* Phase 6A: Fullscreen Architectural Parallax CTA */}
-        <CTASection
-          onOpenInquiry={() => handleOpenInquiry()}
-          onOpenSchedule={() => setScheduleOpen(true)}
-        />
-
-        {/* Phase 6B: Editorial 2-Column Minimal FAQ Accordion */}
-        <FAQSection />
-      </main>
-
-      {/* Phase 6C: High-Fidelity Architectural Studio Footer */}
-      <Footer onOpenInquiry={() => handleOpenInquiry()} />
-
-      {/* Interactive Inquiries & Consultation Modals */}
-      <InquiryModal
-        isOpen={inquiryOpen}
-        onClose={() => setInquiryOpen(false)}
-        prefilledProject={selectedProjectForInquiry}
-      />
-
-      <ScheduleCallModal
-        isOpen={scheduleOpen}
-        onClose={() => setScheduleOpen(false)}
-      />
-    </div>
+          {/* Catch-all Fallback */}
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 

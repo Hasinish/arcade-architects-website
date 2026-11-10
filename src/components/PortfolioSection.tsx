@@ -1,15 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import type { Project } from '../types';
 import { projects } from '../data/projects';
-import { ProjectModal } from './ProjectModal';
 
-interface PortfolioSectionProps {
-  onOpenInquiryWithProject: (projectName: string) => void;
-}
-
-export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenInquiryWithProject }) => {
-  const [activeModalProject, setActiveModalProject] = useState<Project | null>(null);
-
+export const PortfolioSection: React.FC = () => {
   // Group projects into alternating rows matching Bloom3D: 2, 3, 2, 3
   const row1 = projects.slice(0, 2);
   const row2 = projects.slice(2, 5);
@@ -18,10 +12,11 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenInquir
 
   const renderProjectCard = (project: Project) => {
     return (
-      <div
+      <Link
         key={project.id}
-        onClick={() => setActiveModalProject(project)}
-        className="group relative w-full aspect-[5/6] overflow-hidden bg-[#222222] cursor-pointer"
+        to={`/projects/${project.id}`}
+        className="group relative w-full aspect-[5/6] overflow-hidden bg-[#222222] block cursor-pointer"
+        aria-label={`View ${project.title} Case Study`}
       >
         {/* Full-Bleed Architectural Visual */}
         <img
@@ -54,12 +49,12 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenInquir
             </span>
           </div>
         </div>
-      </div>
+      </Link>
     );
   };
 
   return (
-    <section id="portfolio" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E]">
+    <section id="portfolio" data-nav-theme="light" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E]">
       {/* Centered Portfolio Heading */}
       <div className="pt-28 md:pt-36 pb-14 md:pb-20 px-4 text-center">
         <h2 className="font-sans text-4xl sm:text-5xl md:text-[64px] font-normal leading-[1.1] text-center text-[#2E2E2E] tracking-[-1.5px]">
@@ -97,16 +92,6 @@ export const PortfolioSection: React.FC<PortfolioSectionProps> = ({ onOpenInquir
           </div>
         )}
       </div>
-
-      {/* Modal for Project Deep Dive */}
-      <ProjectModal
-        project={activeModalProject}
-        onClose={() => setActiveModalProject(null)}
-        onInquire={(projectName) => {
-          setActiveModalProject(null);
-          onOpenInquiryWithProject(projectName);
-        }}
-      />
     </section>
   );
 };

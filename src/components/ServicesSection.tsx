@@ -1,235 +1,383 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 
 interface ServicesSectionProps {
   onOpenInquiry: (serviceName?: string) => void;
 }
 
-interface ServiceCardData {
+interface ServiceItem {
   id: string;
   title: string;
+  description: string;
   image: string;
-  subtitle: string;
+  category: string;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry }) => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
 
-  // 7 Unique Architectural Services mapped onto a 14-card continuous 360-degree cylinder
-  const baseServices: ServiceCardData[] = [
+  // 7 Architectural Services for Arcade Architects
+  const services: ServiceItem[] = [
     {
       id: 'exterior-viz',
       title: 'Architectural Exterior Visualization',
-      image: '/assets/Exterior/Hazi Bari Project/01.png',
-      subtitle: 'View service',
+      description: 'Photorealistic exterior stills, atmospheric daylight and dusk studies, and rich environmental context.',
+      image: '/assets/Exterior/CHANDINA PROJECT/3.jpg',
+      category: 'Visualization',
     },
     {
-      id: 'interior-design',
-      title: '3D Interior Visualization & Styling',
-      image: '/assets/Interior/Cafe/nidasheena (1).jpg',
-      subtitle: 'View service',
+      id: 'interior-viz',
+      title: 'Bespoke Interior Visualization',
+      description: 'Tactile material curation, bespoke millwork, atmospheric artificial lighting, and luxury residential styling.',
+      image: '/assets/Interior/Resi/5.jpg',
+      category: 'Interior Design',
     },
     {
-      id: 'exhibition-pavilion',
-      title: 'Exhibition Pavilions & Brand Architecture',
-      image: '/assets/Exhibition/Ford/01_Photo - 10 (FILEminimizer).jpg',
-      subtitle: 'View service',
+      id: 'cinematic-3d',
+      title: 'Cinematic 3D Showreels & Walkthroughs',
+      description: '4K architectural films, continuous drone flyovers, fluid camera choreography, and spatial showreels.',
+      image: '/assets/Exterior/Hazi Bari Project/1.jpg',
+      category: 'Animation',
     },
     {
-      id: 'concept-modeling',
-      title: 'Architectural Planning & Concept Modeling',
-      image: '/assets/Exterior/CHANDINA PROJECT/D.V-02.png',
-      subtitle: 'View service',
+      id: 'masterplanning',
+      title: 'Architectural Design & Masterplanning',
+      description: 'From initial conceptual massing and schematic sketches to comprehensive permit-ready drawing packages.',
+      image: '/assets/Exterior/USA/2.jpg',
+      category: 'Architecture',
     },
     {
-      id: 'cinematic-animation',
-      title: 'Cinematic 3D Animation & Showreels',
-      image: '/assets/Exterior/USA/001_10 - Photo.jpg',
-      subtitle: 'View service',
+      id: 'exhibition-brand',
+      title: 'Commercial & Brand Pavilions',
+      description: 'Monumental corporate flagships, automotive expo pavilions, and immersive public exhibition structures.',
+      image: '/assets/Exhibition/Ford/2.jpg',
+      category: 'Commercial',
     },
     {
-      id: 'commercial-facade',
-      title: 'Commercial Mixed-Use Facade Design',
-      image: '/assets/Exterior/Laksam Project/01.png',
-      subtitle: 'View service',
+      id: 'hospitality',
+      title: 'Hospitality & Cafe Architecture',
+      description: 'Experiential hospitality environments, acoustic considerations, and curated commercial dining destinations.',
+      image: '/assets/Interior/Cafe/1.jpg',
+      category: 'Hospitality',
     },
     {
-      id: 'residential-villa',
-      title: 'Bespoke Residential Villa Architecture',
-      image: '/assets/Exterior/KOTBARI PROJECT/01.png',
-      subtitle: 'View service',
+      id: 'construction-oversight',
+      title: 'Turnkey Construction & Site Oversight',
+      description: 'Comprehensive structural coordination, statutory clearance oversight, and hands-on site management in Bangladesh.',
+      image: '/assets/Exterior/KOTBARI PROJECT/1.jpg',
+      category: 'Construction',
     },
   ];
 
-  // 14 cards arranged on the 3D ring
-  const cards: ServiceCardData[] = [...baseServices, ...baseServices];
-  const totalCards = 14;
-  const innerAngle = 360 / totalCards; // 25.7142857 deg
+  const total = services.length;
 
-  // Dynamic responsive dimensions
-  const [itemWidth, setItemWidth] = useState(475);
-  const [rotation, setRotation] = useState(-102); // Initial rotation matching Bloom3D
+  // Active progress state (continuous float for drag interpolation, snapped to integer index on settle)
+  const [progress, setProgress] = useState(0);
+  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDragging, setIsDragging] = useState(false);
+  const [activeSlideIndex, setActiveSlideIndex] = useState(0);
 
-  // Drag interaction state
-  const isDraggingRef = useRef(false);
-  const startXRef = useRef(0);
-  const startRotRef = useRef(-102);
-  const hasDraggedRef = useRef(false);
+  // Drag interaction refs
+  const dragStartX = useRef(0);
+  const dragStartProgress = useRef(0);
+  const dragStartTime = useRef(0);
+  const currentProgressRef = useRef(0);
+  const animationFrameId = useRef<number | null>(null);
+  const targetProgressRef = useRef(0);
 
-  // Update card width and cylinder radius on resize
+  // Sync ref with state
   useEffect(() => {
-    const handleResize = () => {
-      const w = window.innerWidth;
-      if (w < 640) {
-        setItemWidth(Math.min(340, w - 48));
-      } else if (w < 1024) {
-        setItemWidth(400);
+    currentProgressRef.current = progress;
+    setActiveSlideIndex(((Math.round(progress) % total) + total) % total);
+  }, [progress, total]);
+
+  // Viewport breakpoint listener (Snøhetta breakpoint: >= 1200px)
+  useEffect(() => {
+    const checkBreakpoint = () => {
+      setIsDesktop(window.innerWidth >= 1200);
+    };
+    checkBreakpoint();
+    window.addEventListener('resize', checkBreakpoint);
+    return () => window.removeEventListener('resize', checkBreakpoint);
+  }, []);
+
+  // Snøhetta Mathematical Layout Formula
+  // R: Slide Width Percentage
+  const getSlideWidth = useCallback(
+    (slideIdx: number, baseIdx: number, desktop: boolean) => {
+      const active = ((baseIdx % total) + total) % total;
+      if (slideIdx === active) return desktop ? 36 : 68;
+      let diff = Math.abs(slideIdx - active);
+      if (diff > total / 2) diff = total - diff;
+      if (diff === 1) return desktop ? 24 : 50;
+      return desktop ? 16 : 50;
+    },
+    [total]
+  );
+
+  // $: Slide Left Position Percentage
+  const getSlideLeft = useCallback(
+    (slideIdx: number, baseIdx: number, desktop: boolean) => {
+      const activeWidth = desktop ? 36 : 68;
+      const centerLeft = (100 - activeWidth) / 2;
+      const active = ((baseIdx % total) + total) % total;
+      if (slideIdx === active) return centerLeft;
+
+      let diff = slideIdx - active;
+      if (diff < -total / 2) diff += total;
+      else if (diff > total / 2) diff -= total;
+
+      const neighborWidth = desktop ? 24 : 50;
+      const outerWidth = desktop ? 16 : 50;
+
+      let offset = 0;
+      if (diff > 0) {
+        offset = activeWidth;
+        if (Math.abs(diff) > 1) offset += neighborWidth;
+        if (Math.abs(diff) > 2) offset += outerWidth * (Math.abs(diff) - 2);
       } else {
-        setItemWidth(475);
+        offset = neighborWidth;
+        if (Math.abs(diff) > 1) offset += outerWidth * (Math.abs(diff) - 1);
+      }
+
+      return centerLeft + (diff > 0 ? 1 : -1) * offset;
+    },
+    [total]
+  );
+
+  // Smooth Snap Animation Loop
+  const animateTo = useCallback((target: number, duration: number = 400) => {
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
+    }
+
+    const startProgress = currentProgressRef.current;
+    const startTime = performance.now();
+    targetProgressRef.current = target;
+
+    const tick = (now: number) => {
+      const elapsed = now - startTime;
+      const t = Math.min(1, elapsed / duration);
+      // Quintic ease-out: 1 - (1 - t)^5
+      const ease = 1 - Math.pow(1 - t, 5);
+      const nextProgress = startProgress + (target - startProgress) * ease;
+
+      setProgress(nextProgress);
+
+      if (t < 1) {
+        animationFrameId.current = requestAnimationFrame(tick);
+      } else {
+        setProgress(target);
+        animationFrameId.current = null;
       }
     };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+
+    animationFrameId.current = requestAnimationFrame(tick);
   }, []);
 
-  // Cylinder radius based on exact geometry: (width / 2) / tan(innerAngle / 2)
-  const halfAngleRad = (innerAngle / 2) * (Math.PI / 180);
-  const radius = Math.round((itemWidth / 2) / Math.tan(halfAngleRad)); // ~1095px for 475px width
-
-  // Scroll scrub listener matching Bloom3D's ScrollTrigger
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!sectionRef.current || isDraggingRef.current) return;
-      const rect = sectionRef.current.getBoundingClientRect();
-      const windowHeight = window.innerHeight;
-
-      // Section progress from entering viewport (top = windowHeight) to exiting (bottom = 0)
-      const totalDistance = rect.height + windowHeight;
-      const currentProgress = (windowHeight - rect.top) / totalDistance;
-      const clampedProgress = Math.max(0, Math.min(1, currentProgress));
-
-      // Bloom3D scrolls from approx -102deg to -25deg across the section
-      const targetRotation = -102 + clampedProgress * 77;
-      setRotation(targetRotation);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  // Drag handlers for mouse & touch interaction
+  // Drag Handlers
   const handlePointerDown = (e: React.PointerEvent) => {
-    isDraggingRef.current = true;
-    startXRef.current = e.clientX;
-    startRotRef.current = rotation;
-    hasDraggedRef.current = false;
+    if (animationFrameId.current) {
+      cancelAnimationFrame(animationFrameId.current);
+      animationFrameId.current = null;
+    }
+
+    setIsDragging(true);
+    dragStartX.current = e.clientX;
+    dragStartProgress.current = currentProgressRef.current;
+    dragStartTime.current = performance.now();
+
+    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDraggingRef.current) return;
-    const deltaX = e.clientX - startXRef.current;
-    if (Math.abs(deltaX) > 5) {
-      hasDraggedRef.current = true;
-    }
-    // Sensitivity factor: 0.15 deg per px
-    setRotation(startRotRef.current + deltaX * 0.15);
+    if (!isDragging) return;
+
+    const deltaX = e.clientX - dragStartX.current;
+    const containerWidth = containerRef.current?.offsetWidth || window.innerWidth;
+    // Step sensitivity: 30% of container width per slide
+    const stepSize = containerWidth * (isDesktop ? 0.3 : 0.6);
+    const deltaProgress = -deltaX / stepSize;
+
+    setProgress(dragStartProgress.current + deltaProgress);
   };
 
-  const handlePointerUp = () => {
-    isDraggingRef.current = false;
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!isDragging) return;
+    setIsDragging(false);
+
+    const deltaX = e.clientX - dragStartX.current;
+    const elapsed = performance.now() - dragStartTime.current;
+    const velocity = deltaX / Math.max(1, elapsed); // px/ms
+
+    // Determine snap target
+    let target = Math.round(currentProgressRef.current);
+
+    // Flick recognition
+    if (Math.abs(velocity) > 0.4 && Math.abs(deltaX) > 20) {
+      target = velocity > 0 ? Math.floor(currentProgressRef.current) : Math.ceil(currentProgressRef.current);
+    }
+
+    animateTo(target, 450);
+
+    try {
+      (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
+    } catch {
+      // Ignore capture release errors
+    }
   };
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+      if (e.key === 'ArrowLeft') {
+        animateTo(Math.round(currentProgressRef.current) - 1);
+      } else if (e.key === 'ArrowRight') {
+        animateTo(Math.round(currentProgressRef.current) + 1);
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [animateTo]);
+
+  // Compute slide transforms for current progress
+  const baseIndex = Math.floor(progress);
+  const fraction = progress - baseIndex;
+
+  const activeService = services[activeSlideIndex] || services[0];
 
   return (
     <section
-      ref={sectionRef}
       id="services"
-      className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-28 md:py-36 overflow-hidden select-none"
+      data-nav-theme="dark"
+      ref={containerRef}
+      className="relative w-full bg-[#000000] text-white pt-24 md:pt-32 pb-24 md:pb-32 overflow-hidden select-none"
     >
-      {/* Centered Editorial Heading */}
-      <div className="w-full max-w-[980px] mx-auto px-6 mb-20 md:mb-28 text-center">
-        <h2 className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] md:leading-[57.6px] text-[#2E2E2E] tracking-[-0.5px]">
-          We create 3D visuals that elevate your architectural ideas and help your projects stand out
-        </h2>
+      {/* Top Editorial Headline matching Snøhetta's Manifesto */}
+      <div className="w-full px-8 md:px-12 lg:px-20 mb-12 md:mb-16">
+        <div className="max-w-4xl">
+          <p className="text-xs uppercase tracking-widest text-[#898989] mb-4">
+            Studio Disciplines
+          </p>
+          <h2 className="font-display text-2xl sm:text-4xl lg:text-[46px] font-light leading-[1.2] tracking-[-0.8px] text-white">
+            Arcade Architects is a transdisciplinary practice crafting spatial experiences across all scales.
+          </h2>
+        </div>
       </div>
 
-      {/* 3D Perspective Stage Container */}
+      {/* Horizontal Draggable Gallery Stage */}
       <div
-        className="w-full h-[520px] md:h-[560px] flex items-center justify-center relative touch-pan-y cursor-grab active:cursor-grabbing"
-        style={{
-          perspective: '5000px',
-          perspectiveOrigin: '50% 50%',
-        }}
+        ref={trackRef}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
-        onPointerLeave={handlePointerUp}
+        onPointerCancel={handlePointerUp}
+        className={`relative w-full overflow-hidden touch-none ${
+          isDragging ? 'cursor-grabbing' : 'cursor-grab'
+        }`}
+        style={{
+          // Height matches active image aspect ratio: 36vw on desktop * 0.6667 = 24vw
+          height: isDesktop ? 'clamp(260px, 24vw, 420px)' : 'clamp(200px, 45.3vw, 340px)',
+        }}
       >
-        {/* The 3D Rotating Cylinder */}
-        <div
-          ref={carouselRef}
-          className="relative transition-transform ease-out"
-          style={{
-            width: `${itemWidth}px`,
-            height: `${itemWidth}px`,
-            transformStyle: 'preserve-3d',
-            transform: `translate3d(0px, 0px, -${radius}px) rotateY(${rotation}deg)`,
-            transitionDuration: isDraggingRef.current ? '0ms' : '150ms',
-          }}
-        >
-          {cards.map((card, idx) => {
-            const cardAngle = idx * innerAngle;
+        {services.map((service, index) => {
+          // Linear interpolation between floor and ceil
+          const w0 = getSlideWidth(index, baseIndex, isDesktop);
+          const w1 = getSlideWidth(index, baseIndex + 1, isDesktop);
+          const l0 = getSlideLeft(index, baseIndex, isDesktop);
+          const l1 = getSlideLeft(index, baseIndex + 1, isDesktop);
 
-            return (
-              <div
-                key={`${card.id}-${idx}`}
-                className="absolute inset-0 group overflow-hidden bg-[#222222] shadow-2xl transition-all duration-300"
-                style={{
-                  width: `${itemWidth}px`,
-                  height: `${itemWidth}px`,
-                  backfaceVisibility: 'hidden',
-                  WebkitBackfaceVisibility: 'hidden',
-                  transform: `rotateY(${cardAngle}deg) translate3d(0px, 0px, ${radius}px)`,
-                }}
-                onClick={(e) => {
-                  if (hasDraggedRef.current) {
-                    e.preventDefault();
-                    return;
+          // Handle wrapping boundary jump
+          let currentLeft: number;
+          if (Math.abs(l1 - l0) > 50) {
+            // Crossed the circular boundary
+            currentLeft = fraction < 0.5 ? l0 : l1;
+          } else {
+            currentLeft = l0 + (l1 - l0) * fraction;
+          }
+
+          const currentWidth = w0 + (w1 - w0) * fraction;
+          const isActive = index === activeSlideIndex;
+
+          return (
+            <div
+              key={service.id}
+              onClick={(e) => {
+                if (Math.abs(e.clientX - dragStartX.current) < 6) {
+                  if (isActive) {
+                    onOpenInquiry(service.title);
+                  } else {
+                    // Clicking adjacent slide centers it
+                    const currentInt = Math.round(progress);
+                    let diff = index - ((currentInt % total) + total) % total;
+                    if (diff < -total / 2) diff += total;
+                    else if (diff > total / 2) diff -= total;
+                    animateTo(currentInt + diff);
                   }
-                  onOpenInquiry(card.title);
-                }}
-              >
-                {/* Background Architectural Visual */}
+                }
+              }}
+              className="absolute top-0 flex-none will-change-transform group transition-opacity duration-300"
+              style={{
+                left: `${currentLeft}%`,
+                width: `${currentWidth}%`,
+                // Exact 3:2 Aspect Ratio via percentage padding trick
+                height: 0,
+                paddingBottom: `${currentWidth * 0.666667}%`,
+                zIndex: isActive ? 20 : 10,
+              }}
+            >
+              {/* Inner Full Image Container */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#161616]">
                 <img
-                  src={card.image}
-                  alt={card.title}
+                  src={service.image}
+                  alt={service.title}
                   draggable={false}
-                  className="w-full h-full object-cover filter brightness-[0.88] transition-transform duration-700 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:scale-[1.04]"
+                  className="w-full h-full object-cover filter brightness-[0.92] contrast-[1.03] transition-transform duration-500 group-hover:scale-[1.02]"
                 />
 
-                {/* Ambient Dark Overlay */}
-                <div className="absolute inset-0 bg-black/20 group-hover:bg-black/35 transition-colors duration-400 pointer-events-none" />
-
-                {/* Bottom Legibility Gradient */}
-                <div className="absolute inset-x-0 bottom-0 h-48 bg-gradient-to-t from-black/85 via-black/40 to-transparent pointer-events-none" />
-
-                {/* Service Card Content */}
-                <div className="absolute inset-0 p-8 sm:p-10 flex flex-col justify-end pointer-events-none z-10">
-                  <h3 className="font-sans text-2xl sm:text-[32px] font-medium leading-[1.2] text-white tracking-normal mb-3">
-                    {card.title}
-                  </h3>
-
-                  {/* View Service Underline Button */}
-                  <div className="inline-flex items-center gap-1 text-white/90 group/btn">
-                    <span className="font-sans text-base font-normal tracking-wide">
-                      {card.subtitle}
-                    </span>
-                    <div className="w-0 group-hover:w-16 h-[1.5px] bg-white transition-all duration-400 ease-out mt-1" />
-                  </div>
-                </div>
+                {/* Subtle dark gradient overlay for depth */}
+                <div
+                  className={`absolute inset-0 transition-opacity duration-300 pointer-events-none ${
+                    isActive ? 'bg-black/0' : 'bg-black/25 group-hover:bg-black/10'
+                  }`}
+                />
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Understated Caption Area Aligned Directly Under Active Image */}
+      <div className="w-full px-8 md:px-12 lg:px-20 mt-8 md:mt-10">
+        <div
+          className="transition-all duration-300"
+          style={{
+            marginLeft: isDesktop ? '32%' : '16%',
+            width: isDesktop ? '36%' : '68%',
+            maxWidth: isDesktop ? 'none' : '100%',
+          }}
+        >
+          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-3 mb-3">
+            <h3 className="font-display text-lg sm:text-xl font-normal text-white tracking-tight">
+              {activeService.title}
+            </h3>
+            <span className="text-xs font-mono uppercase tracking-widest text-[#898989]">
+              0{activeSlideIndex + 1} / 0{total}
+            </span>
+          </div>
+
+          <p className="text-sm sm:text-base font-light text-[#949494] leading-relaxed mb-4">
+            {activeService.description}
+          </p>
+
+          <button
+            onClick={() => onOpenInquiry(activeService.title)}
+            className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-white hover:text-[#DFDFDF] transition-colors cursor-pointer group"
+          >
+            <span>Inquire for {activeService.category}</span>
+            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+          </button>
         </div>
       </div>
     </section>

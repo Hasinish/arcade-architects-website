@@ -14,28 +14,28 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
       title: 'Endless creative potential for bold ideas',
       description:
         'Your vision sets the scale – we match it. Whether shaping a skyline, launching a commercial flagship, or building a bespoke luxury residence, our 3D visualization and design pipelines scale with your ambition.',
-      image: '/assets/Exterior/Hazi Bari Project/01.png',
+      image: '/assets/Exterior/Hazi Bari Project/1.jpg',
     },
     {
       number: '02',
       title: 'Fast delivery. Clear process. No surprises',
       description:
         'Our efficient workflows and transparent communication ensure fast turnaround with no unexpected delays. You stay informed about milestones, camera angles, lighting passes, and final delivery.',
-      image: '/assets/Interior/Cafe/nidasheena (1).jpg',
+      image: '/assets/Interior/Cafe/1.jpg',
     },
     {
       number: '03',
       title: 'Global vision. Local architectural insight',
       description:
         'With clients and projects worldwide, we bring a global perspective while respecting regional context. From local materials to international architectural standards, we craft visuals that speak to your market.',
-      image: '/assets/Exhibition/Ford/01_Photo - 10 (FILEminimizer).jpg',
+      image: '/assets/Exhibition/Ford/1.jpg',
     },
     {
       number: '04',
       title: 'Architectural expertise at our foundation',
       description:
         'With registered architects and 3D visualizers leading our team, we understand structural volume, spatial circulation, and authentic materiality – bringing your vision to life with depth and precision.',
-      image: '/assets/Exterior/CHANDINA PROJECT/D.V-02.png',
+      image: '/assets/Exterior/CHANDINA PROJECT/1.jpg',
     },
   ];
 
@@ -74,6 +74,7 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
     <section
       ref={sectionRef}
       id="advantages"
+      data-nav-theme="light"
       className="relative z-20 w-full h-[300vh] bg-[#F7F7F7] text-[#2E2E2E]"
     >
       {/* Sticky Fullscreen Viewport Stage */}

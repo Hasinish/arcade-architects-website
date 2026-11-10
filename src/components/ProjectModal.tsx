@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Maximize2, CheckCircle2, ArrowUpRight } from 'lucide-react';
+import { X, ChevronLeft, ChevronRight, Calendar, MapPin, Maximize2, Check, ArrowUpRight } from 'lucide-react';
 import type { Project } from '../types';
 
 interface ProjectModalProps {
@@ -15,9 +15,26 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
     setActiveImageIndex(0);
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
+      if (e.key === 'ArrowRight' && project) {
+        const total = (project.gallery && project.gallery.length > 0 ? project.gallery : [project.coverImage]).length;
+        setActiveImageIndex((prev) => (prev + 1) % total);
+      }
+      if (e.key === 'ArrowLeft' && project) {
+        const total = (project.gallery && project.gallery.length > 0 ? project.gallery : [project.coverImage]).length;
+        setActiveImageIndex((prev) => (prev - 1 + total) % total);
+      }
     };
     window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+
+    const lenis = (window as any).lenis;
+    if (project) {
+      lenis?.stop();
+    }
+
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+      lenis?.start();
+    };
   }, [project, onClose]);
 
   if (!project) return null;
@@ -33,70 +50,67 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
   };
 
   return (
-    <div className="fixed inset-0 z-[950] flex items-center justify-center p-3 sm:p-6 bg-black/90 backdrop-blur-xl animate-in fade-in duration-200">
+    <div
+      data-lenis-prevent
+      className="fixed inset-0 z-[950] flex items-center justify-center p-3 sm:p-6 md:p-8 bg-black/85 backdrop-blur-md animate-in fade-in duration-200"
+      onClick={onClose}
+    >
       <div
-        className="relative w-full max-w-5xl max-h-[92vh] bg-[#121214] border border-white/10 rounded-3xl overflow-hidden flex flex-col shadow-2xl"
+        data-lenis-prevent
+        className="relative w-full max-w-5xl max-h-[92vh] bg-[#161616] text-[#E0E0E0] border border-[#2A2A2A] shadow-2xl overflow-hidden flex flex-col"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top Header Bar */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-white/10 bg-[#151518]">
-          <div className="flex items-center gap-3">
-            <span className="px-3 py-1 rounded-full text-[11px] font-semibold uppercase tracking-wider bg-[#e45d36]/20 text-[#e45d36] border border-[#e45d36]/30">
+        <div className="flex items-center justify-between px-6 sm:px-8 py-5 border-b border-[#262626] bg-[#141414]">
+          <div className="flex items-baseline gap-4">
+            <span className="font-mono text-[11px] uppercase tracking-[1.5px] text-[#888888]">
               {project.category}
             </span>
-            <h3 className="font-display text-lg sm:text-xl font-bold text-white truncate max-w-md">
+            <h3 className="font-sans text-lg sm:text-xl font-normal tracking-[-0.5px] text-white truncate max-w-md sm:max-w-xl">
               {project.title}
             </h3>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-full bg-white/5 hover:bg-white/10 text-white/70 hover:text-white transition-colors"
-            aria-label="Close modal"
+            className="w-9 h-9 rounded-full border border-white/10 hover:border-white/40 flex items-center justify-center text-white/70 hover:text-white transition-all bg-white/5 hover:bg-white/10 cursor-pointer"
+            aria-label="Close project modal"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
         {/* Modal Scrollable Body */}
-        <div className="overflow-y-auto flex-1 p-4 sm:p-6 space-y-6">
+        <div className="overflow-y-auto flex-1 p-6 sm:p-8 space-y-8">
           {/* Main Image Lightbox Viewer */}
-          <div className="relative aspect-[16/10] sm:aspect-[16/9] rounded-2xl overflow-hidden bg-black/50 border border-white/10 group">
+          <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden bg-[#0D0D0D] border border-[#262626] group">
             <img
               src={images[activeImageIndex]}
-              alt={`${project.title} preview ${activeImageIndex + 1}`}
-              className="w-full h-full object-contain sm:object-cover transition-all duration-300"
+              alt={`${project.title} render ${activeImageIndex + 1}`}
+              className="w-full h-full object-contain sm:object-cover transition-opacity duration-300"
             />
 
-            {/* Carousel navigation controls if multiple images */}
+            {/* Navigation Controls */}
             {images.length > 1 && (
               <>
                 <button
                   onClick={prevImage}
-                  className="absolute left-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all"
-                  aria-label="Previous image"
+                  className="absolute left-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/70 hover:bg-black text-white border border-white/20 backdrop-blur-md transition-all cursor-pointer opacity-80 hover:opacity-100"
+                  aria-label="Previous render"
                 >
                   <ChevronLeft className="w-5 h-5" />
                 </button>
                 <button
                   onClick={nextImage}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 p-2.5 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 backdrop-blur-sm transition-all"
-                  aria-label="Next image"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 w-11 h-11 flex items-center justify-center bg-black/70 hover:bg-black text-white border border-white/20 backdrop-blur-md transition-all cursor-pointer opacity-80 hover:opacity-100"
+                  aria-label="Next render"
                 >
                   <ChevronRight className="w-5 h-5" />
                 </button>
 
-                {/* Dots indicator */}
-                <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-black/60 backdrop-blur-md border border-white/15">
-                  {images.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setActiveImageIndex(idx)}
-                      className={`h-1.5 rounded-full transition-all ${
-                        idx === activeImageIndex ? 'w-5 bg-[#e45d36]' : 'w-1.5 bg-white/40'
-                      }`}
-                    />
-                  ))}
+                {/* Swiss Minimal Image Counter */}
+                <div className="absolute bottom-4 right-4 px-3 py-1.5 bg-black/75 border border-white/15 text-[11px] font-mono tracking-widest text-white backdrop-blur-md">
+                  {String(activeImageIndex + 1).padStart(2, '0')} / {String(images.length).padStart(2, '0')}
                 </div>
               </>
             )}
@@ -104,43 +118,49 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
 
           {/* Thumbnail Strip */}
           {images.length > 1 && (
-            <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-thin">
+            <div className="flex gap-2.5 overflow-x-auto pb-1 scrollbar-thin">
               {images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImageIndex(idx)}
-                  className={`relative flex-shrink-0 w-24 h-16 rounded-xl overflow-hidden border-2 transition-all ${
-                    idx === activeImageIndex ? 'border-[#e45d36] opacity-100 scale-95' : 'border-transparent opacity-60 hover:opacity-100'
+                  className={`relative flex-shrink-0 w-24 h-16 overflow-hidden border transition-all cursor-pointer ${
+                    idx === activeImageIndex
+                      ? 'border-white opacity-100'
+                      : 'border-[#262626] opacity-40 hover:opacity-85'
                   }`}
+                  aria-label={`Select image ${idx + 1}`}
                 >
-                  <img src={img} alt="thumb" className="w-full h-full object-cover" />
+                  <img src={img} alt="thumbnail" className="w-full h-full object-cover" />
                 </button>
               ))}
             </div>
           )}
 
           {/* Project Details Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
-            {/* Left 2 Cols: Description & Scope */}
-            <div className="lg:col-span-2 space-y-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 pt-2">
+            {/* Left 7 Columns: Manifesto & Scope */}
+            <div className="lg:col-span-7 space-y-6">
               <div>
-                <h4 className="text-xl font-display font-semibold text-white mb-2">
+                <h4 className="font-sans text-xl sm:text-2xl font-normal leading-snug tracking-[-0.5px] text-white mb-3">
                   {project.subtitle}
                 </h4>
-                <p className="text-sm sm:text-base text-white/70 leading-relaxed">
+                <p className="font-sans text-sm sm:text-[15px] font-light text-white/70 leading-relaxed">
                   {project.description}
                 </p>
               </div>
 
               {/* Scope Checklist */}
               <div>
-                <h5 className="text-xs uppercase tracking-wider font-semibold text-white/40 mb-3">
+                <h5 className="font-mono text-[11px] uppercase tracking-[1.5px] text-[#888888] mb-4">
                   Scope of Architectural Services
                 </h5>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                   {project.scope.map((item, idx) => (
-                    <div key={idx} className="flex items-center gap-2 text-xs sm:text-sm text-white/80 bg-white/5 p-2.5 rounded-xl border border-white/5">
-                      <CheckCircle2 className="w-4 h-4 text-[#e45d36] flex-shrink-0" />
+                    <div
+                      key={idx}
+                      className="flex items-center gap-2.5 text-xs sm:text-[13px] text-white/85 bg-[#1B1B1B] p-3 border border-[#262626]"
+                    >
+                      <Check className="w-3.5 h-3.5 text-white/90 flex-shrink-0" />
                       <span>{item}</span>
                     </div>
                   ))}
@@ -148,51 +168,68 @@ export const ProjectModal: React.FC<ProjectModalProps> = ({ project, onClose, on
               </div>
             </div>
 
-            {/* Right 1 Col: Specs Sheet & Action */}
-            <div className="bg-[#17171a] border border-white/5 p-5 rounded-2xl flex flex-col justify-between space-y-4">
-              <div className="space-y-3.5">
-                <h5 className="text-xs uppercase tracking-wider font-semibold text-white/40 border-b border-white/10 pb-2">
+            {/* Right 5 Columns: Specs Sheet & Action */}
+            <div className="lg:col-span-5 bg-[#191919] border border-[#262626] p-6 flex flex-col justify-between space-y-6">
+              <div className="space-y-4">
+                <h5 className="font-mono text-[11px] uppercase tracking-[1.5px] text-[#888888] border-b border-[#262626] pb-3">
                   Project Specifications
                 </h5>
-                
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-white/50 flex items-center gap-1.5"><MapPin className="w-3.5 h-3.5" /> Location</span>
+
+                <div className="flex items-center justify-between text-xs py-1 border-b border-[#222222]">
+                  <span className="text-white/50 flex items-center gap-1.5">
+                    <MapPin className="w-3.5 h-3.5" /> Location
+                  </span>
                   <span className="text-white font-medium">{project.location}</span>
                 </div>
-                
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-white/50 flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5" /> Year</span>
+
+                <div className="flex items-center justify-between text-xs py-1 border-b border-[#222222]">
+                  <span className="text-white/50 flex items-center gap-1.5">
+                    <Calendar className="w-3.5 h-3.5" /> Year
+                  </span>
                   <span className="text-white font-medium">{project.year}</span>
                 </div>
 
                 {project.specs.area && (
-                  <div className="flex items-center justify-between text-xs">
-                    <span className="text-white/50 flex items-center gap-1.5"><Maximize2 className="w-3.5 h-3.5" /> Total Area</span>
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-[#222222]">
+                    <span className="text-white/50 flex items-center gap-1.5">
+                      <Maximize2 className="w-3.5 h-3.5" /> Total Area
+                    </span>
                     <span className="text-white font-medium">{project.specs.area}</span>
                   </div>
                 )}
 
                 {project.specs.type && (
-                  <div className="flex items-center justify-between text-xs">
+                  <div className="flex items-center justify-between text-xs py-1 border-b border-[#222222]">
                     <span className="text-white/50">Typology</span>
                     <span className="text-white font-medium text-right">{project.specs.type}</span>
                   </div>
                 )}
 
-                <div className="flex items-center justify-between text-xs">
-                  <span className="text-white/50">Status</span>
-                  <span className="text-[#e45d36] font-medium">{project.specs.status}</span>
+                <div className="flex items-center justify-between text-xs py-1">
+                  <span className="text-white/50">Project Status</span>
+                  <span className="text-white font-medium">{project.specs.status}</span>
                 </div>
               </div>
 
+              {/* Bloom3D Double-Layer Sliding White Button */}
               <button
                 onClick={() => {
                   onClose();
                   onInquire(project.title);
                 }}
-                className="w-full py-3 rounded-full bg-[#e45d36] hover:bg-[#f16d47] text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-[#e45d36]/20 transition-all"
+                className="bloom-btn-wrap bloom-btn-white w-full !h-[50px] !text-xs !font-medium"
+                aria-label="Inquire about this project"
               >
-                Inquire About Similar Project <ArrowUpRight className="w-4 h-4" />
+                <div className="btn-text-track">
+                  <div className="btn-text-inner">
+                    <span className="btn-label">
+                      Inquire About Similar Project <ArrowUpRight className="w-4 h-4 ml-1" />
+                    </span>
+                    <span className="btn-label">
+                      Inquire About Similar Project <ArrowUpRight className="w-4 h-4 ml-1" />
+                    </span>
+                  </div>
+                </div>
               </button>
             </div>
           </div>
