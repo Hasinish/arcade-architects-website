@@ -1,0 +1,58 @@
+[
+  {
+    "section": "hero",
+    "scrollY": 0,
+    "logoColor": "rgb(255, 255, 255)",
+    "burgerBg": "rgb(255, 255, 255)",
+    "mode": "WHITE / LIGHT"
+  },
+  {
+    "section": "portfolio",
+    "scrollY": 1100,
+    "logoColor": "rgb(46, 46, 46)",
+    "burgerBg": "rgb(46, 46, 46)",
+    "mode": "DARK / CHARCOAL"
+  },
+  {
+    "section": "services",
+    "scrollY": 4264.40625,
+    "logoColor": "rgb(255, 255, 255)",
+    "burgerBg": "rgb(255, 255, 255)",
+    "mode": "WHITE / LIGHT"
+  },
+  {
+    "section": "about",
+    "scrollY": 5263,
+    "logoColor": "rgb(46, 46, 46)",
+    "burgerBg": "rgb(46, 46, 46)",
+    "mode": "DARK / CHARCOAL"
+  },
+  {
+    "section": "advantages",
+    "scrollY": 6183.96875,
+    "logoColor": "rgb(46, 46, 46)",
+    "burgerBg": "rgb(46, 46, 46)",
+    "mode": "DARK / CHARCOAL"
+  },
+  {
+    "section": "cta",
+    "scrollY": 8883.96875,
+    "logoColor": "rgb(255, 255, 255)",
+    "burgerBg": "rgb(255, 255, 255)",
+    "mode": "WHITE / LIGHT"
+  },
+  {
+    "section": "faq",
+    "scrollY": 9963.96875,
+    "logoColor": "rgb(46, 46, 46)",
+    "burgerBg": "rgb(46, 46, 46)",
+    "mode": "DARK / CHARCOAL"
+  },
+  {
+    "section": "footer",
+    "scrollY": 10520,
+    "logoColor": "rgb(46, 46, 46)",
+    "burgerBg": "rgb(46, 46, 46)",
+    "mode": "DARK / CHARCOAL"
+  }
+]

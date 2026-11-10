@@ -1,0 +1,244 @@
+[
+  {
+    "scrollY": 0,
+    "data": {
+      "sampleLeft": {
+        "target": "video",
+        "lum": 0.1,
+        "isUnderneathDark": true
+      },
+      "sampleRight": {
+        "target": "video",
+        "lum": 0.1,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 500,
+    "data": {
+      "sampleLeft": {
+        "target": "video",
+        "lum": 0.1,
+        "isUnderneathDark": true
+      },
+      "sampleRight": {
+        "target": "video",
+        "lum": 0.1,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 1000,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      }
+    }
+  },
+  {
+    "scrollY": 1500,
+    "data": {
+      "sampleLeft": {
+        "target": "image",
+        "rgb": [
+          161,
+          156,
+          173
+        ],
+        "lum": 0.6207466666666667,
+        "isUnderneathDark": false
+      },
+      "sampleRight": {
+        "target": "image",
+        "rgb": [
+          39,
+          48,
+          65
+        ],
+        "lum": 0.18554509803921568,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 2500,
+    "data": {
+      "sampleLeft": {
+        "target": "image",
+        "rgb": [
+          53,
+          21,
+          10
+        ],
+        "lum": 0.10591764705882353,
+        "isUnderneathDark": true
+      },
+      "sampleRight": {
+        "target": "image",
+        "rgb": [
+          92,
+          70,
+          53
+        ],
+        "lum": 0.28803843137254903,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 4200,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "lum": 0,
+        "isUnderneathDark": true
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          0,
+          0,
+          0
+        ],
+        "lum": 0,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 5200,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      }
+    }
+  },
+  {
+    "scrollY": 6500,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      }
+    }
+  },
+  {
+    "scrollY": 8800,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          18,
+          18,
+          18
+        ],
+        "lum": 0.07058823529411766,
+        "isUnderneathDark": true
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          18,
+          18,
+          18
+        ],
+        "lum": 0.07058823529411766,
+        "isUnderneathDark": true
+      }
+    }
+  },
+  {
+    "scrollY": 10000,
+    "data": {
+      "sampleLeft": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      },
+      "sampleRight": {
+        "target": "bg",
+        "tag": "SECTION",
+        "rgb": [
+          247,
+          247,
+          247
+        ],
+        "lum": 0.9686274509803922,
+        "isUnderneathDark": false
+      }
+    }
+  }
+]

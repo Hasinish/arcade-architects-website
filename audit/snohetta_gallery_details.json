@@ -1,0 +1,389 @@
+{
+  "gallerySection": {
+    "tag": "DIV",
+    "class": "flex no-js:overflow-auto w-full pb-8",
+    "style": {
+      "display": "flex",
+      "position": "static",
+      "overflow": "visible",
+      "touchAction": "auto",
+      "cursor": "auto",
+      "backgroundColor": "rgba(0, 0, 0, 0)"
+    },
+    "rect": {
+      "x": 0,
+      "y": 308,
+      "width": 1440,
+      "height": 354,
+      "top": 308,
+      "right": 1440,
+      "bottom": 662,
+      "left": 0
+    }
+  },
+  "itemsCount": 8,
+  "items": [
+    {
+      "index": 0,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 460.53765869140625,
+        "y": 308,
+        "width": 518.9090576171875,
+        "height": 345.9393310546875,
+        "top": 308,
+        "right": 979.4467163085938,
+        "bottom": 653.9393310546875,
+        "left": 460.53765869140625
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "518.391px",
+        "height": "345.594px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 1,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 979.0147094726562,
+        "y": 308,
+        "width": 345.93939208984375,
+        "height": 230.62103271484375,
+        "top": 308,
+        "right": 1324.9541015625,
+        "bottom": 538.6210327148438,
+        "left": 979.0147094726562
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "345.594px",
+        "height": "230.391px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 2,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 1324.681640625,
+        "y": 308,
+        "width": 230.62109375,
+        "height": 153.731689453125,
+        "top": 308,
+        "right": 1555.302734375,
+        "bottom": 461.731689453125,
+        "left": 1324.681640625
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "230.391px",
+        "height": "153.578px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 3,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 1555.072265625,
+        "y": 308,
+        "width": 230.62109375,
+        "height": 153.731689453125,
+        "top": 308,
+        "right": 1785.693359375,
+        "bottom": 461.731689453125,
+        "left": 1555.072265625
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "230.391px",
+        "height": "153.578px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 4,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 1785.478515625,
+        "y": 308,
+        "width": 230.62109375,
+        "height": 153.731689453125,
+        "top": 308,
+        "right": 2016.099609375,
+        "bottom": 461.731689453125,
+        "left": 1785.478515625
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "230.391px",
+        "height": "153.578px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 5,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": -345.7089538574219,
+        "y": 308,
+        "width": 230.62103271484375,
+        "height": 153.731689453125,
+        "top": 308,
+        "right": -115.08792114257812,
+        "bottom": 461.731689453125,
+        "left": -345.7089538574219
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "230.391px",
+        "height": "153.578px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 6,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": -115.30270385742188,
+        "y": 308,
+        "width": 230.62103271484375,
+        "height": 153.731689453125,
+        "top": 308,
+        "right": 115.31832885742188,
+        "bottom": 461.731689453125,
+        "left": -115.30270385742188
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "230.391px",
+        "height": "153.578px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    },
+    {
+      "index": 7,
+      "tag": "DIV",
+      "class": "w-68 l:w-36 flex-none gpu",
+      "rect": {
+        "x": 115.01469421386719,
+        "y": 308,
+        "width": 345.9393310546875,
+        "height": 230.62103271484375,
+        "top": 308,
+        "right": 460.9540252685547,
+        "bottom": 538.6210327148438,
+        "left": 115.01469421386719
+      },
+      "style": {
+        "display": "block",
+        "position": "absolute",
+        "transform": "matrix(1.001, 0, 0, 1.001, 0, 0)",
+        "width": "345.594px",
+        "height": "230.391px"
+      },
+      "imgSrc": "data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%27http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%27%20width%3D%27500%27%20height%3D%27333%27%20style%3D%27background%3Atransparent%27%2F%3E"
+    }
+  ],
+  "textNodes": [
+    {
+      "tag": "DIV",
+      "class": "text-14 leading-18 m:text-18 m:leading-24 mt-8 js:sr-only",
+      "text": "Laerdal Medical\n\nNew life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 459.5366516113281,
+        "y": 652.9383544921875,
+        "width": 1.001007080078125,
+        "height": 1.0009765625,
+        "top": 652.9383544921875,
+        "right": 460.53765869140625,
+        "bottom": 653.9393310546875,
+        "left": 459.5366516113281
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "P",
+      "class": "",
+      "text": "Laerdal Medical",
+      "rect": {
+        "x": 459.5366516113281,
+        "y": 652.9383544921875,
+        "width": 1.001007080078125,
+        "height": 24.0240478515625,
+        "top": 652.9383544921875,
+        "right": 460.53765869140625,
+        "bottom": 676.96240234375,
+        "left": 459.5366516113281
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "P",
+      "class": "text-grey-2",
+      "text": "New life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 459.5366516113281,
+        "y": 676.96240234375,
+        "width": 1.001007080078125,
+        "height": 24.02392578125,
+        "top": 676.96240234375,
+        "right": 460.53765869140625,
+        "bottom": 700.986328125,
+        "left": 459.5366516113281
+      },
+      "style": {
+        "color": "rgb(148, 148, 148)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "DIV",
+      "class": "col-start-1 row-start-1 opacity-0 [&.active]:opacity-100 active transition-opacity duration-300",
+      "text": "Laerdal Medical\n\nNew life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 0,
+        "y": 662,
+        "width": 1440,
+        "height": 72,
+        "top": 662,
+        "right": 1440,
+        "bottom": 734,
+        "left": 0
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "22px",
+        "fontWeight": "300",
+        "lineHeight": "31.9px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "DIV",
+      "class": "w-68 l:w-36 mx-auto",
+      "text": "Laerdal Medical\n\nNew life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 460.796875,
+        "y": 662,
+        "width": 518.390625,
+        "height": 72,
+        "top": 662,
+        "right": 979.1875,
+        "bottom": 734,
+        "left": 460.796875
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "22px",
+        "fontWeight": "300",
+        "lineHeight": "31.9px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "DIV",
+      "class": "text-14 leading-18 m:text-18 m:leading-24",
+      "text": "Laerdal Medical\n\nNew life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 460.796875,
+        "y": 662,
+        "width": 518.390625,
+        "height": 72,
+        "top": 662,
+        "right": 979.1875,
+        "bottom": 734,
+        "left": 460.796875
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "P",
+      "class": "text-pretty max-w-[50ch]",
+      "text": "Laerdal Medical",
+      "rect": {
+        "x": 460.796875,
+        "y": 662,
+        "width": 518.390625,
+        "height": 24,
+        "top": 662,
+        "right": 979.1875,
+        "bottom": 686,
+        "left": 460.796875
+      },
+      "style": {
+        "color": "rgb(0, 0, 0)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    },
+    {
+      "tag": "P",
+      "class": "text-grey-2 text-pretty max-w-[50ch]",
+      "text": "New life to the home of the world's leading provider of first aid training gear",
+      "rect": {
+        "x": 460.796875,
+        "y": 686,
+        "width": 518.390625,
+        "height": 48,
+        "top": 686,
+        "right": 979.1875,
+        "bottom": 734,
+        "left": 460.796875
+      },
+      "style": {
+        "color": "rgb(148, 148, 148)",
+        "fontSize": "18px",
+        "fontWeight": "300",
+        "lineHeight": "24px",
+        "letterSpacing": "normal"
+      }
+    }
+  ]
+}
