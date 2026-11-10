@@ -1,3 +1,38 @@
+# Session Summary — 2026-11-10 (Part 24: FAQ Accordion Default State Refinement)
+- Fixed default open state in `src/components/FAQSection.tsx`:
+  - Replaced hardcoded `useState<number | null>(0)` with `useState<number | null>(null)`.
+  - All 6 FAQ items now load cleanly in their collapsed state with plus `+` icons.
+  - Clicking any item smoothly toggles open and rotates the icon into an `x`.
+- Verified via Playwright screenshot artifact: `faq_collapsed_default.png`.
+- Production build passes cleanly in 1.89s. ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 23: Why Work With Us Animated Top Stroke Progression & 120fps GPU Overhaul)
+- Replicated Bloom3D's animated top divider stroke in `src/components/WhyUsSection.tsx`:
+  - Positioned a base hairline border (`#E5E5E5`) and an animated high-contrast stroke (`#161616`, `1.5px`) on top of EACH advantage item (01, 02, 03, 04).
+  - Solved "stucky / not smooth" stutter:
+    - Root cause: CSS `transition: width 150ms ease-out` was fighting high-frequency scroll ticks (interrupting and restarting easing curves every 8ms), while React was re-rendering the entire component tree on every single pixel.
+    - Engineered high-performance 120fps direct DOM ref engine: uses GPU-accelerated `transform: scaleX(...)` with `transform-origin: left` and `will-change: transform, opacity`.
+    - Hooked directly into Lenis's `scroll` ticker and `requestAnimationFrame`. React only re-renders when the active index boundary crosses.
+    - Scrolling backwards cleanly reverses stroke widths.
+    - Clicking any item smoothly scrolls window to that item's runway segment.
+    - Added bottom closing border to properly frame the accordion.
+- Verified via Playwright end-to-end tests across 4 sequential scroll positions (`audit/strokes/stroke_01_drawing.png` through `stroke_04_drawing.png`) and saved 4-stage collage artifact (`animated_stroke_progression.png`).
+- Production build passes cleanly in 1.79s. ZERO remote pushes.
+
+# Session Summary — 2026-11-10 (Part 22: About Section Statistics Strip Redesign & Data Audit)
+- Identified root cause of the broken 2x2 layout in `src/components/AboutSection.tsx`: Extra divider elements `<div className="hidden lg:block w-[1px] h-[64px] bg-[#E5E5E5]..." />` were rendered as direct children of the `lg:grid-cols-4` grid, occupying full grid columns and forcing stats 3 and 4 onto row 2.
+- Refactored layout to pure 4-column balanced grid with border dividers:
+  - Eliminated phantom divider children; grid has exactly 4 children.
+  - Desktop: 4 evenly distributed columns (`25%` width each) with thin hairline right dividers (`border-r border-[#E5E5E5]`) on all items except the last.
+  - Mobile (390px): Clean responsive 2-column layout (`grid-cols-2`) with vertical center divider and balanced vertical spacing.
+- Compacted excessive vertical whitespace between manifesto text and statistics strip:
+  - Reduced manifesto wrapper `mb-24 md:mb-32` to `mb-12 md:mb-16`.
+  - Reduced statistics strip `pt-12 md:pt-16` to `pt-8 md:pt-12`.
+  - Total vertical distance reduced from 192px to ~104px (matching Bloom3D's 105px).
+- Locked in Hasin's chosen studio metrics: `25+ Projects`, `100% Satisfaction`, `8+ Years Experience`, and `2 Team Members` (matching Bloom3D's tight core boutique size).
+- Captured desktop (1440px) and mobile (390px) screenshots: `about_stats_desktop_1440.png`, `about_stats_mobile_390.png`.
+- Production build passes cleanly in 1.92s. ZERO remote pushes.
+
 # Session Summary — 2026-11-10 (Part 21: High-Contrast Dual-Tone Cursor Geometry & Contrast Verification)
 - Solved cursor invisibility on white/stone backgrounds:
   - Eliminated CSS `mix-blend-difference` which broke across isolated stacking contexts (`bg-[#F7F7F7] overflow-x-clip`).

@@ -7,6 +7,14 @@ interface WhyUsSectionProps {
 export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOpenInquiry }) => {
   const sectionRef = useRef<HTMLElement>(null);
   const [activeIndex, setActiveIndex] = useState(0);
+  const activeIndexRef = useRef(0);
+
+  // Direct DOM refs for 120fps GPU transform updates — zero React re-render lag!
+  const strokeRef0 = useRef<HTMLDivElement>(null);
+  const strokeRef1 = useRef<HTMLDivElement>(null);
+  const strokeRef2 = useRef<HTMLDivElement>(null);
+  const strokeRef3 = useRef<HTMLDivElement>(null);
+  const strokeRefs = [strokeRef0, strokeRef1, strokeRef2, strokeRef3];
 
   const advantages = [
     {
@@ -39,9 +47,11 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
     },
   ];
 
-  // Scroll listener tracking the 300vh runway to activate 01, 02, 03, 04 sequentially
+  // High-performance RAF scroll engine synced directly to Lenis & native scroll
   useEffect(() => {
-    const handleScroll = () => {
+    let rafId: number | null = null;
+
+    const updateStrokes = () => {
       if (!sectionRef.current) return;
       const rect = sectionRef.current.getBoundingClientRect();
       const windowHeight = window.innerHeight;
@@ -53,22 +63,78 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
       const scrolledInside = -rect.top;
       const progress = Math.max(0, Math.min(1, scrolledInside / stickyRunway));
 
-      // 4 steps corresponding to the 4 items
-      if (progress < 0.25) {
-        setActiveIndex(0);
-      } else if (progress < 0.5) {
-        setActiveIndex(1);
-      } else if (progress < 0.75) {
-        setActiveIndex(2);
-      } else {
-        setActiveIndex(3);
+      // 1. Update stroke DOM nodes directly (GPU accelerated scaleX, zero layout reflow, 120fps)
+      strokeRefs.forEach((ref, idx) => {
+        if (!ref.current) return;
+        const itemStart = idx * 0.25;
+        const itemEnd = (idx + 1) * 0.25;
+
+        let scale = 0;
+        let opacity = 0;
+
+        if (progress >= itemEnd) {
+          scale = 1;
+          opacity = idx === activeIndexRef.current ? 1 : 0.35;
+        } else if (progress >= itemStart) {
+          scale = (progress - itemStart) / 0.25;
+          opacity = 1;
+        } else {
+          scale = 0;
+          opacity = 0;
+        }
+
+        ref.current.style.transform = `scaleX(${scale})`;
+        ref.current.style.opacity = `${opacity}`;
+      });
+
+      // 2. Only trigger React state change when active item boundary changes!
+      const nextIndex = Math.min(3, Math.floor(progress / 0.25));
+      if (nextIndex !== activeIndexRef.current) {
+        activeIndexRef.current = nextIndex;
+        setActiveIndex(nextIndex);
       }
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener('scroll', handleScroll);
+    const onScroll = () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(updateStrokes);
+    };
+
+    // Listen to Lenis smooth scroll ticker for instantaneous momentum response
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.on('scroll', onScroll);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    updateStrokes();
+
+    return () => {
+      if (rafId) cancelAnimationFrame(rafId);
+      if (lenis) {
+        lenis.off('scroll', onScroll);
+      }
+      window.removeEventListener('scroll', onScroll);
+    };
   }, []);
+
+  const handleItemClick = (idx: number) => {
+    activeIndexRef.current = idx;
+    setActiveIndex(idx);
+
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const stickyRunway = rect.height - windowHeight;
+    if (stickyRunway <= 0) return;
+
+    const targetScroll = window.scrollY + rect.top + (idx * 0.25 + 0.12) * stickyRunway;
+    const lenis = (window as any).lenis;
+    if (lenis) {
+      lenis.scrollTo(targetScroll, { duration: 0.8 });
+    } else {
+      window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+    }
+  };
 
   return (
     <section
@@ -93,11 +159,25 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
                 return (
                   <div
                     key={adv.number}
-                    onClick={() => setActiveIndex(idx)}
-                    className="cursor-pointer border-b border-[#E5E5E5] py-4 sm:py-5 group transition-colors"
+                    onClick={() => handleItemClick(idx)}
+                    className="relative cursor-pointer py-4 sm:py-5 group transition-colors"
                   >
+                    {/* Base static hairline divider on top */}
+                    <div className="absolute top-0 left-0 right-0 h-[1px] bg-[#E5E5E5]" />
+
+                    {/* Animated dynamic stroke on top — 120fps GPU scaleX, zero layout reflow, zero lag */}
+                    <div
+                      ref={strokeRefs[idx]}
+                      className="absolute top-0 left-0 right-0 h-[1.5px] bg-[#161616] pointer-events-none origin-left"
+                      style={{
+                        transform: 'scaleX(0)',
+                        opacity: 0,
+                        willChange: 'transform, opacity',
+                      }}
+                    />
+
                     {/* Advantage Header */}
-                    <div className="flex items-center gap-4 sm:gap-6">
+                    <div className="flex items-center gap-4 sm:gap-6 pt-1">
                       <div
                         className={`font-mono text-sm sm:text-base font-normal transition-colors duration-300 ${
                           isActive ? 'text-[#2E2E2E]' : 'text-[#2E2E2E]/40'
@@ -128,6 +208,9 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
                   </div>
                 );
               })}
+
+              {/* Bottom closing border */}
+              <div className="w-full h-[1px] bg-[#E5E5E5]" />
             </div>
           </div>
 

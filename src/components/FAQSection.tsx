@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { faqList } from '../data/faq';
 
 export const FAQSection: React.FC = () => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  // All FAQ items closed by default on page load; click to toggle
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleIndex = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);

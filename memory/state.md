@@ -115,7 +115,28 @@
     - Follower ring has a dual dark border (`#121212/75`) and outer white halo (`white/90`).
     - Guarantees 100% immediate contrast against pure white (`#FFFFFF`), stone (`#F7F7F7`), and pitch-black photo surfaces simultaneously.
   - [x] Verified via Playwright end-to-end testing: computed cursor is `none` across body, links, buttons, and divs; `text` on inputs. Captured 4-quadrant visual audit in `audit/comparisons/cursor_contrast_verified.png`.
-  - [x] Production build clean in 1.96s. ZERO remote pushes.
+  - [x] Pushed Fix 1, Fix 4, and contacts redesign to GitHub prod (`commit e5d8c20`).
+  - [x] **PHASE 7 — CUSTOMIZATION 10: ABOUT SECTION STATISTICS STRIP REDESIGN & DATA AUDIT**:
+    - [x] Fixed phantom grid item layout bug in `src/components/AboutSection.tsx`: eliminated extra divider nodes that broke `lg:grid-cols-4` into an awkward 2x2 cluster with empty right column space.
+    - [x] Distributed 4 columns evenly across desktop container width with thin vertical hairline dividers (`border-r border-[#E5E5E5]`) and zero right-edge divider.
+    - [x] Engineered responsive 2-column mobile layout (`grid-cols-2`) with centered vertical divider and balanced vertical spacing.
+    - [x] Compacted vertical whitespace between manifesto text and stats strip (~104px total, matching Bloom3D's 105px).
+    - [x] Locked in Hasin's chosen studio metrics: `25+ Projects`, `100% Satisfaction`, `8+ Years Experience`, `2 Team Members`.
+    - [x] Verified via Playwright screenshots at 1440px desktop (`about_stats_desktop_1440.png`) and 390px mobile (`about_stats_mobile_390.png`). Clean production build (1.92s). ZERO remote pushes.
+  - [x] **PHASE 7 — CUSTOMIZATION 11: WHY WORK WITH US ANIMATED STROKE PROGRESSION**:
+    - [x] Engineered continuous scroll-scrubbing top stroke dividers in `src/components/WhyUsSection.tsx`:
+      - Base hairline divider (`#E5E5E5`) and animated high-contrast stroke (`#161616`, `1.5px`) on top of EACH item (01, 02, 03, 04).
+      - Solved "stucky / not smooth" stutter: eliminated 150ms CSS transition conflict with scroll ticks and full React component re-renders. Replaced with direct DOM `ref` GPU `scaleX` transforms hooked directly to Lenis's `scroll` ticker and `requestAnimationFrame`. Zero layout reflow, 120fps liquid gliding.
+      - Completed items remain fully drawn at 100% width with subtle dimmed opacity (`0.35`) matching Bloom3D's GSAP interaction.
+      - Clicking any item smoothly glides scroll position to that item's runway segment.
+      - Added bottom closing border to cleanly frame the list.
+    - [x] Captured 4-stage scroll progression collage (`animated_stroke_progression.png`) and full viewport capture (`full_viewport_stroke.png`).
+    - [x] Clean production build in 1.84s. ZERO remote pushes.
+  - [x] **PHASE 7 — CUSTOMIZATION 12: FAQ DEFAULT COLLAPSED ACCORDION STATE**:
+    - [x] In `src/components/FAQSection.tsx`, changed `openIndex` default state from `0` to `null`.
+    - [x] All 6 FAQ items now start cleanly collapsed with geometric `+` icons on page load.
+    - [x] Clicking any item toggles open/close with smooth accordion height transition.
+    - [x] Verified via Playwright screenshot (`faq_collapsed_default.png`). Clean build. ZERO remote pushes.
 
 ## Last Session (Convo 4bb7da72-16c6-4b32-85de-0824002c2d7b)
 - Implemented Fix 1: Unified curtain transitions across project cards and breadcrumbs, fixed navbar pixel contrast on route change.

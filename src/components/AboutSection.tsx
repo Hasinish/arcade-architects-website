@@ -9,12 +9,12 @@ export const AboutSection: React.FC = () => {
 
   const words = manifestoText.split(" ");
 
-  // Genuine studio stats
+  // Studio statistics
   const stats = [
     { value: '25+', label: 'Projects' },
     { value: '100%', label: 'Satisfaction' },
     { value: '8+', label: 'Years Experience' },
-    { value: '12', label: 'Team Members' },
+    { value: '2', label: 'Team Members' },
   ];
 
   // Continuous scroll scrubbing for word illumination
@@ -41,7 +41,7 @@ export const AboutSection: React.FC = () => {
     <section id="about" data-nav-theme="light" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E] py-24 md:py-36 px-8 md:px-16 lg:px-20">
       <div className="w-full max-w-[1440px] mx-auto">
         {/* Large Editorial Manifesto with Word-by-Word Scroll Illumination */}
-        <div className="max-w-[848px] mb-24 md:mb-32">
+        <div className="max-w-[848px] mb-12 md:mb-16">
           <h2
             ref={textRef}
             className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] md:leading-[57.6px] tracking-[-0.5px] select-none"
@@ -67,24 +67,28 @@ export const AboutSection: React.FC = () => {
         </div>
 
         {/* Minimal Horizontal Statistics Strip with Thin Vertical Dividers */}
-        <div className="w-full border-t border-[#E5E5E5] pt-12 md:pt-16">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-0 items-center justify-between">
+        <div className="w-full border-t border-[#E5E5E5] pt-8 md:pt-12">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-y-10 lg:gap-y-0">
             {stats.map((stat, idx) => (
-              <React.Fragment key={idx}>
-                <div className="flex flex-col items-start lg:px-8 first:lg:pl-0 last:lg:pr-0">
-                  <div className="font-sans text-3xl sm:text-4xl md:text-[40px] font-normal text-[#2E2E2E] leading-none mb-3">
-                    {stat.value}
-                  </div>
-                  <div className="font-sans text-sm sm:text-base text-[#2E2E2E]/60 font-light">
-                    {stat.label}
-                  </div>
+              <div
+                key={idx}
+                className={`flex flex-col justify-center ${
+                  idx % 2 === 0
+                    ? 'border-r border-[#E5E5E5] pr-6 sm:pr-10'
+                    : 'pl-6 sm:pl-10'
+                } ${
+                  idx < 3
+                    ? 'lg:border-r lg:border-[#E5E5E5]'
+                    : 'lg:border-r-0'
+                } lg:px-10 first:lg:pl-0 last:lg:pr-0`}
+              >
+                <div className="font-sans text-3xl sm:text-4xl lg:text-[42px] font-normal text-[#2E2E2E] leading-none tracking-tight mb-2 sm:mb-2.5">
+                  {stat.value}
                 </div>
-
-                {/* Thin vertical divider (hidden on last item and on small mobile grids) */}
-                {idx < stats.length - 1 && (
-                  <div className="hidden lg:block w-[1px] h-[64px] bg-[#E5E5E5] self-center" />
-                )}
-              </React.Fragment>
+                <div className="font-sans text-xs sm:text-sm text-[#2E2E2E]/60 font-light tracking-wide">
+                  {stat.label}
+                </div>
+              </div>
             ))}
           </div>
         </div>
