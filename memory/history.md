@@ -1,3 +1,29 @@
+# Session Summary — 2026-11-11 (Part 31: Forensic Audit & Permanent Fix for Global Navigation Glitches)
+- **Investigated and Permanently Resolved Global Website Glitches Triggered by Navigation Menu**:
+  - **Confirmed Root Causes**:
+    1. **Persistent GPU Composited RenderLayer (`z-[950]`)**: The fullscreen Obsidian menu overlay in [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx) stayed permanently mounted in the DOM even when closed (`opacity-0 pointer-events-none scale-[0.98]`). The CSS transform `scale(0.98)` forced Chromium's compositor to retain a persistent GPU hardware layer across the entire 1440x900 viewport containing 4 high-res preview images (`scale-105`, filters). When the user hovered over images on the underlying page (`ContactsPage`, `PortfolioSection`, `ServicesSection`), the child `group-hover:scale-[1.03]` triggered a texture occlusion hazard in Chrome's Skia GPU compositor beneath the scaled overlay, dropping the image texture and exposing the solid container background (`#161616`) as a black rectangle.
+    2. **Lenis / Curtain Transition Race Condition**: In [`Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx), `handleNavClick` called `setDrawerOpen(false)` and `navigateWithCurtain`. `navigateWithCurtain` stopped Lenis, but `setDrawerOpen(false)` fired a `useEffect([drawerOpen])` that immediately unpaused Lenis (`lenis.start()`). This broke the screen wipe, causing virtual scroll desynchronization, animation freezing, and stutters.
+    3. **Canvas Pixel Luminance Pipeline Leak**: In `Navbar.tsx`, `samplePixelDarkness` was querying `elementsFromPoint()` across hidden menu elements and calling `ctx.getImageData()`, causing synchronous GPU-CPU pipeline flushes.
+  - **Implemented Permanent Fixes**:
+    - In [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx):
+      - Created controlled mounting/unmounting lifecycle: `isMenuMounted` mounts the overlay on open; when closed, after the 500ms fade/scale transition completes, the element is completely unmounted from the DOM. Zero lingering GPU compositing layers or background images.
+      - Fixed Lenis synchronization: only calls `lenis.start()` when `drawerOpen === false` AND `curtainPhase === 'idle'`.
+      - Excluded `[data-navbar-menu]` and `[data-lenis-prevent]` from `samplePixelDarkness`.
+    - In [`src/context/PageTransitionContext.tsx`](file:///D:/Arcade%20Architects%20Website/src/context/PageTransitionContext.tsx):
+      - Added fallback watchdog timers (900ms) for `'covering'` and `'revealing'` phases to guarantee `curtainPhase` never gets stuck.
+      - Set `pointer-events-none` on the curtain during the `'revealing'` phase.
+  - **Comprehensive 7-Flow Playwright Verification in Real Chrome**:
+    1. `Home -> Menu -> Contacts -> Hover 4 Images`: 0.00% black pixels on images 0 and 3; <0.11% on images 1 and 2. Zero black rectangles.
+    2. `Home -> Menu -> Portfolio -> Hover Project Cards`: 10 project cards, 0 artifacts.
+    3. `Home -> Menu -> Services -> Drag & Hover`: Active slide image verified complete with `naturalWidth: 1365px`. Zero missing images.
+    4. `Home -> Menu -> About -> Scroll Scrub`: Word illumination verified.
+    5. `Contacts -> Menu -> About`: Cross-page curtain transition to in-page anchor at `scrollY: 4987px`.
+    6. `Repeated Open/Close (3 cycles) & Navigation`: Clean mounting and unmounting, 0 lingering overlays.
+    7. `Browser Back/Forward Navigation`: Back to Home, Forward to Contacts, 0.00% black pixels.
+    - Console errors: 0 (`console_errors: []`).
+    - Build: `npm run build` compiled with 0 errors in 17.78s.
+    - Snapshot branch: `snapshot/pre-nav-glitch-fix` preserved locally. ZERO remote git pushes.
+
 # Session Summary — 2026-11-10 (Part 30: Forensic Audit & Solution for Services Gallery Black Bar)
 - Forensic investigation of the "black bar in the middle" reported on `#services` after menu navigation:
   - Root cause: Massive uncompressed image payloads (3MB each, total 12.4 MB) combined with prefetch mismatch in [`src/components/Navbar.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/Navbar.tsx). When opening the menu and hovering "Services", the navbar was prefetching `Cafe/1.jpg` (Slide 5), while the primary active slide was `CHANDINA PROJECT/3.jpg` (Slide 0). Upon jumping to `#services`, Slide 5 and Slide 2 rendered instantly from memory cache while Slide 0, 6, and 1 were stuck downloading over a flooded connection, exposing the raw unlit container background.

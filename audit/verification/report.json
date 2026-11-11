@@ -1,0 +1,78 @@
+{
+  "console_errors": [],
+  "flows": {
+    "flow1": {
+      "status": "PASSED",
+      "menu_unmounted": true,
+      "images": [
+        {
+          "index": 0,
+          "black_22_pixels": 0,
+          "black_pct": 0.0,
+          "center_pixel": [
+            18,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 1,
+          "black_22_pixels": 7,
+          "black_pct": 0.10802469135802469,
+          "center_pixel": [
+            18,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 2,
+          "black_22_pixels": 2,
+          "black_pct": 0.030864197530864196,
+          "center_pixel": [
+            18,
+            18,
+            18
+          ]
+        },
+        {
+          "index": 3,
+          "black_22_pixels": 0,
+          "black_pct": 0.0,
+          "center_pixel": [
+            18,
+            18,
+            18
+          ]
+        }
+      ]
+    },
+    "flow2": {
+      "status": "PASSED",
+      "cards_tested": 3
+    },
+    "flow3": {
+      "status": "PASSED",
+      "active_img": {
+        "complete": true,
+        "naturalWidth": 1365,
+        "src": "http://localhost:5173/assets/Interior/Resi/5.jpg"
+      }
+    },
+    "flow4": {
+      "status": "PASSED",
+      "manifesto_spans": 0
+    },
+    "flow5": {
+      "status": "PASSED",
+      "final_scrollY": 4987
+    },
+    "flow6": {
+      "status": "PASSED",
+      "stress_cycles": 3
+    },
+    "flow7": {
+      "status": "PASSED"
+    }
+  }
+}

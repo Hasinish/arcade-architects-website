@@ -9,13 +9,15 @@ interface NavbarProps {
 
 export const Navbar: React.FC<NavbarProps> = () => {
   const [drawerOpen, setDrawerOpen] = useState(false);
+  const [isMenuMounted, setIsMenuMounted] = useState(false);
+  const [isMenuVisible, setIsMenuVisible] = useState(false);
   const [isLogoDarkBg, setIsLogoDarkBg] = useState(true);
   const [isBurgerDarkBg, setIsBurgerDarkBg] = useState(true);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
   const [dhakaTime, setDhakaTime] = useState<string>('');
   const navigate = useNavigate();
   const location = useLocation();
-  const { navigateWithCurtain } = useCinematicNavigation();
+  const { navigateWithCurtain, curtainPhase } = useCinematicNavigation();
 
   // Dynamic background renders for Option 1 hover previews (preloads active section visuals)
   const hoverImages: Record<string, string> = {
@@ -56,7 +58,13 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
       for (const el of elements) {
         // Skip navbar itself, drawer, and modals
-        if (el.closest('header') || el.closest('aside') || el.closest('[role="dialog"]')) continue;
+        if (
+          el.closest('header') ||
+          el.closest('aside') ||
+          el.closest('[role="dialog"]') ||
+          el.closest('[data-navbar-menu]') ||
+          el.closest('[data-lenis-prevent]')
+        ) continue;
 
         // 1. Real-time Image pixel extraction via Canvas
         const img = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
@@ -148,16 +156,44 @@ export const Navbar: React.FC<NavbarProps> = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Control Lenis smooth scroll when drawer toggles
+  // Controlled mounting/unmounting lifecycle: ensures closed overlay leaves ZERO GPU compositing layer
+  useEffect(() => {
+    let timer: ReturnType<typeof setTimeout>;
+    let raf1: number;
+    let raf2: number;
+
+    if (drawerOpen) {
+      setIsMenuMounted(true);
+      // Double requestAnimationFrame ensures initial closed styling is painted before animating open
+      raf1 = requestAnimationFrame(() => {
+        raf2 = requestAnimationFrame(() => {
+          setIsMenuVisible(true);
+        });
+      });
+    } else {
+      setIsMenuVisible(false);
+      timer = setTimeout(() => {
+        setIsMenuMounted(false);
+      }, 500);
+    }
+
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(raf1);
+      cancelAnimationFrame(raf2);
+    };
+  }, [drawerOpen]);
+
+  // Control Lenis smooth scroll when drawer toggles: only start if curtain is idle
   useEffect(() => {
     const lenis = (window as any).lenis;
     if (!lenis) return;
     if (drawerOpen) {
       lenis.stop();
-    } else {
+    } else if (curtainPhase === 'idle') {
       lenis.start();
     }
-  }, [drawerOpen]);
+  }, [drawerOpen, curtainPhase]);
 
   // Adaptive colors for Logo & Burger based on real-time pixel luminance & drawer state:
   // If pixel under element is dark -> element is LIGHT (white #FFFFFF)
@@ -181,11 +217,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
     : 'bg-[#2E2E2E]';
 
   const handleNavClick = (path: string) => {
-    // 1. Always resume Lenis immediately so scroll is never blocked
     const lenis = (window as any).lenis;
-    if (lenis) {
-      lenis.start();
-    }
     setDrawerOpen(false);
     setHoveredItem(null);
 
@@ -303,34 +335,37 @@ export const Navbar: React.FC<NavbarProps> = () => {
       </header>
 
       {/* Fullscreen Obsidian Architectural Gallery Overlay (Option 1) */}
-      <div
-        data-lenis-prevent
-        className={`fixed inset-0 z-[950] bg-[#0A0A0A] text-white flex flex-col justify-between px-8 sm:px-12 md:px-16 pt-28 sm:pt-32 pb-8 sm:pb-12 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-          drawerOpen
-            ? 'opacity-100 pointer-events-auto scale-100'
-            : 'opacity-0 pointer-events-none scale-[0.98]'
-        }`}
-        aria-hidden={!drawerOpen}
-      >
-        {/* Dynamic Background Image Layer (Smooth fade on link hover) */}
-        <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
-          {Object.entries(hoverImages).map(([key, src]) => (
-            <div
-              key={key}
-              className={`absolute inset-0 transition-opacity duration-700 ease-out ${
-                hoveredItem === key ? 'opacity-35 scale-100' : 'opacity-0 scale-105'
-              }`}
-              style={{ transitionProperty: 'opacity, transform' }}
-            >
-              <img
-                src={src}
-                alt={key}
-                className="w-full h-full object-cover filter brightness-90 saturate-125"
-              />
-              <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
-            </div>
-          ))}
-        </div>
+      {isMenuMounted && (
+        <div
+          data-navbar-menu
+          data-lenis-prevent
+          className={`fixed inset-0 z-[950] bg-[#0A0A0A] text-white flex flex-col justify-between px-8 sm:px-12 md:px-16 pt-28 sm:pt-32 pb-8 sm:pb-12 overflow-hidden transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
+            isMenuVisible
+              ? 'opacity-100 pointer-events-auto scale-100'
+              : 'opacity-0 pointer-events-none scale-[0.98]'
+          }`}
+          aria-hidden={!drawerOpen}
+        >
+          {/* Dynamic Background Image Layer (Smooth fade on link hover) */}
+          <div className="absolute inset-0 pointer-events-none z-0 overflow-hidden">
+            {drawerOpen &&
+              Object.entries(hoverImages).map(([key, src]) => (
+                <div
+                  key={key}
+                  className={`absolute inset-0 transition-opacity duration-700 ease-out ${
+                    hoveredItem === key ? 'opacity-35 scale-100' : 'opacity-0 scale-105'
+                  }`}
+                  style={{ transitionProperty: 'opacity, transform' }}
+                >
+                  <img
+                    src={src}
+                    alt={key}
+                    className="w-full h-full object-cover filter brightness-90 saturate-125"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-[#0A0A0A] via-[#0A0A0A]/70 to-transparent" />
+                </div>
+              ))}
+          </div>
 
         {/* Center: Main Nav Links with Crisp White Strokes & Zero Green */}
         <div className="relative z-10 w-full max-w-[1200px] mx-auto my-auto">
@@ -403,6 +438,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
           </div>
         </div>
       </div>
+      )}
     </>
   );
 };

@@ -105,6 +105,21 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
     }
   }, [curtainPhase]);
 
+  // Fallback watchdog timer so curtainPhase can never stay stuck if onAnimationComplete is dropped
+  useEffect(() => {
+    if (curtainPhase === 'covering') {
+      const watchdog = setTimeout(() => {
+        handleCoverComplete();
+      }, 900);
+      return () => clearTimeout(watchdog);
+    } else if (curtainPhase === 'revealing') {
+      const watchdog = setTimeout(() => {
+        handleRevealComplete();
+      }, 900);
+      return () => clearTimeout(watchdog);
+    }
+  }, [curtainPhase, handleCoverComplete, handleRevealComplete]);
+
   return (
     <PageTransitionContext.Provider value={{ navigateWithCurtain, curtainPhase }}>
       {children}
@@ -131,7 +146,9 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
                 handleRevealComplete();
               }
             }}
-            className="fixed inset-0 z-[9999] bg-[#F7F7F7] flex flex-col items-center justify-center pointer-events-auto border-t border-[#2E2E2E]/10"
+            className={`fixed inset-0 z-[9999] bg-[#F7F7F7] flex flex-col items-center justify-center border-t border-[#2E2E2E]/10 ${
+              curtainPhase === 'covering' ? 'pointer-events-auto' : 'pointer-events-none'
+            }`}
             style={{ willChange: 'transform' }}
           >
             {/* Minimal Subtle Studio Monogram in Center */}

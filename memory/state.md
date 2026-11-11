@@ -1,6 +1,31 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **URGENT PERMANENT FIX — GLOBAL WEBSITE GLITCHES CAUSED BY NAVIGATION MENU**:
+  - [x] Git Snapshot: Created local branch `snapshot/pre-nav-glitch-fix` on commit `f122716` before code edits.
+  - [x] Root Cause Confirmed:
+    1. Persistent GPU Compositing RenderLayer: Fullscreen Obsidian menu overlay remained permanently mounted in DOM at `z-[950]` with `scale-[0.98]` and 4 full-bleed background preview images (`scale-105`, filters), creating texture occlusion hazards under Chrome's Skia GPU compositor when hovering child scaled images (`group-hover:scale-[1.03]`), dropping texture and exposing container background (`#161616`).
+    2. Lenis / Curtain Race Condition: `handleNavClick` and `useEffect([drawerOpen])` called `lenis.start()` while `navigateWithCurtain` was stopping Lenis during curtain wipe, causing desynchronization and frame drops.
+    3. Canvas Pixel Sampling: `samplePixelDarkness` traversed hidden menu elements calling `ctx.getImageData()`, causing synchronous GPU-CPU pipeline stalls.
+  - [x] Implemented Permanent Lifecycle Fix in `src/components/Navbar.tsx`:
+    - Controlled mounting/unmounting lifecycle: `isMenuMounted` mounts overlay on open; unmounts completely after 500ms close transition, removing the entire GPU layer and all background images from DOM when closed.
+    - Synchronized Lenis control: only calls `lenis.start()` when `drawerOpen === false` AND `curtainPhase === 'idle'`.
+    - Excluded `[data-navbar-menu]` and `[data-lenis-prevent]` from `samplePixelDarkness`.
+  - [x] Implemented Safety Guards in `src/context/PageTransitionContext.tsx`:
+    - Added fallback watchdog timers (900ms) for both `'covering'` and `'revealing'` phases to guarantee `curtainPhase` never stays stuck.
+    - Set `pointer-events-none` on curtain during `'revealing'` phase.
+  - [x] Mandatory Verification (Step 5):
+    - Executed all 7 mandatory verification flows in real Chrome via Playwright (`scripts/verify_all_flows.py`):
+      1. Home -> Menu -> Contacts -> Hover 4 images: 0.00% black pixels on images 0 and 3, <0.11% on images 1 and 2. Zero black rectangles.
+      2. Home -> Menu -> Portfolio -> Hover cards: 10 cards found, 0 artifacts.
+      3. Home -> Menu -> Services -> Drag and hover: active slide image fully rendered (complete: true, naturalWidth: 1365px). Zero missing images.
+      4. Home -> Menu -> About -> Scroll scrub: word illumination verified.
+      5. Contacts -> Menu -> About: cross-page curtain transition to in-page anchor at `scrollY: 4987px`.
+      6. Repeated Open/Close (3 cycles) & navigation: clean mounting/unmounting with 0 lingering overlays.
+      7. Browser Back/Forward: Back to Home, Forward to Contacts, 0.00% black pixels.
+    - Console errors: 0 (`console_errors: []`).
+    - Build: `npm run build` compiled cleanly with 0 errors.
+
 - [x] Fix Services Navigation Black Bar Bug:
   - [x] Diagnosed root cause: Cold network latency on massive 3MB uncompressed image assets combined with Navbar hover image mismatch (`Cafe/1.jpg` was preloaded instead of the primary active slide `CHANDINA PROJECT/3.jpg`).
   - [x] Web-optimized all 7 service images to progressive JPEGs (reduced from 12.4 MB to 2.3 MB).
