@@ -49,7 +49,7 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
 
   // High-performance RAF scroll engine synced directly to Lenis & native scroll
   useEffect(() => {
-    let rafId: number | null = null;
+    let isTicking = false;
 
     const updateStrokes = () => {
       if (!sectionRef.current) return;
@@ -96,8 +96,13 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
     };
 
     const onScroll = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(updateStrokes);
+      if (!isTicking) {
+        isTicking = true;
+        requestAnimationFrame(() => {
+          updateStrokes();
+          isTicking = false;
+        });
+      }
     };
 
     // Listen to Lenis smooth scroll ticker for instantaneous momentum response
@@ -109,7 +114,6 @@ export const WhyUsSection: React.FC<WhyUsSectionProps> = ({ onOpenInquiry: _onOp
     updateStrokes();
 
     return () => {
-      if (rafId) cancelAnimationFrame(rafId);
       if (lenis) {
         lenis.off('scroll', onScroll);
       }

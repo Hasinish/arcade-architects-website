@@ -1,3 +1,22 @@
+# Session Summary — 2026-11-11 (Part 32: Forensic Audit & Fix for Why Us Section RAF Starvation)
+- **Diagnosed and Resolved Animation Freezing on "Why work with us?" ([`src/components/WhyUsSection.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/WhyUsSection.tsx))**:
+  - **The Glitch**: When navigating back to the home page from Contacts and scrolling to "Why work with us", the progress stroke animation froze completely, failing to draw sequentially or cross-fade images while scrolling, and jumping abruptly only when scrolling stopped (as captured in Hasin's screenshot showing Item 04 snapped open with a frozen stroke at 19%).
+  - **Root Cause**: Classic `requestAnimationFrame` starvation. In `WhyUsSection.tsx`, `onScroll` was debounced using `if (rafId) cancelAnimationFrame(rafId); rafId = requestAnimationFrame(updateStrokes);`. Because both Lenis smooth momentum and native window scroll emit events in rapid succession every few milliseconds, each new scroll tick cancelled the previous RAF before the browser could paint. As a result, `updateStrokes()` was starved during active scrolling and only executed when scrolling ceased.
+  - **Fix**: Replaced the debouncing `cancelAnimationFrame` with a true RAF throttle lock `isTicking`:
+    ```tsx
+    const onScroll = () => {
+      if (!isTicking) {
+        isTicking = true;
+        requestAnimationFrame(() => {
+          updateStrokes();
+          isTicking = false;
+        });
+      }
+    };
+    ```
+  - **Verification**: Verified in real Chrome via Playwright (`scripts/test_about_to_advantages.py`). Stokes now draw continuously and smoothly at 60/120fps (`scaleX: 0.017 -> 0.322 -> 0.640 -> 0.951 -> 1.000`) across all 4 advantage items, updating dynamically on both scroll and click.
+  - **Build**: `npm run build` compiled cleanly with 0 errors.
+
 # Session Summary — 2026-11-11 (Part 31: Forensic Audit & Permanent Fix for Global Navigation Glitches)
 - **Investigated and Permanently Resolved Global Website Glitches Triggered by Navigation Menu**:
   - **Confirmed Root Causes**:

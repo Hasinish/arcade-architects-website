@@ -1,6 +1,23 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **FIX WHY-WORK-WITH-US RAF ANIMATION STARVATION BUG** ([`src/components/WhyUsSection.tsx`](file:///d:/Arcade%20Architects%20Website/src/components/WhyUsSection.tsx)):
+  - [x] Root Cause: In `WhyUsSection.tsx`, `onScroll` had a debounce pattern `if (rafId) cancelAnimationFrame(rafId); rafId = requestAnimationFrame(updateStrokes);`. Because both Lenis and native window scroll emit events in rapid succession on every frame during smooth scroll, `cancelAnimationFrame` was continuously cancelling pending RAF frames before the browser could paint, causing the entire progress stroke and accordion animation to freeze completely during active scrolling, snapping abruptly only when scrolling stopped.
+  - [x] Solution: Replaced the debouncing `cancelAnimationFrame` with a true RAF throttle lock `isTicking`:
+    ```tsx
+    const onScroll = () => {
+      if (!isTicking) {
+        isTicking = true;
+        requestAnimationFrame(() => {
+          updateStrokes();
+          isTicking = false;
+        });
+      }
+    };
+    ```
+  - [x] Verification: Verified via Playwright test script (`scripts/test_about_to_advantages.py`). Stokes now draw progressively and uninterruptedly at 60/120fps (`scaleX(0.017) -> 0.322 -> 0.640 -> 0.951 -> 1.000`), advancing through items 01 -> 02 -> 03 -> 04 seamlessly with zero freezing.
+  - [x] Build: `npm run build` compiled cleanly with 0 errors.
+
 - [x] **URGENT PERMANENT FIX — GLOBAL WEBSITE GLITCHES CAUSED BY NAVIGATION MENU**:
   - [x] Git Snapshot: Created local branch `snapshot/pre-nav-glitch-fix` on commit `f122716` before code edits.
   - [x] Root Cause Confirmed:
