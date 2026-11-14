@@ -262,36 +262,42 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             {/* Centered Minimal Editorial CTAs (pure white) */}
             <div
               data-hero-actions
-              className={`relative pointer-events-auto flex items-center justify-center gap-6 sm:gap-8 mt-6 md:mt-7 text-white ${
+              className={`relative pointer-events-auto flex items-center justify-center gap-6 sm:gap-9 mt-6 md:mt-7 text-white ${
                 isIntroActive ? 'z-[945]' : 'z-10'
               }`}
             >
-              <a
-                href="#portfolio"
-                className="group inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-normal tracking-[0.14em] uppercase"
-              >
-                <span>Explore Projects</span>
-                <span
-                  aria-hidden="true"
-                  className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                >
-                  ↗
-                </span>
-              </a>
+              {[
+                { label: 'Explore Projects', href: '#portfolio', primary: false },
+                { label: 'Start a Project', onClick: onOpenInquiry, primary: true },
+              ].map((cta) => {
+                const inner = (
+                  <>
+                    <span className="hero-cta-track">
+                      <span className="hero-cta-roller">
+                        <span>{cta.label}</span>
+                        <span aria-hidden="true">{cta.label}</span>
+                      </span>
+                    </span>
+                    <span aria-hidden="true" className="hero-cta-arrow">
+                      <span>↗</span>
+                      <span>↗</span>
+                    </span>
+                  </>
+                );
+                const cls = `hero-cta ${
+                  cta.primary ? 'hero-cta-primary font-medium' : 'font-normal'
+                } text-[11px] sm:text-xs tracking-[0.14em] uppercase`;
 
-              <button
-                type="button"
-                onClick={onOpenInquiry}
-                className="group relative inline-flex items-center gap-1.5 pb-1 border-b border-current text-[11px] sm:text-xs font-medium tracking-[0.14em] uppercase cursor-pointer"
-              >
-                <span>Start a Project</span>
-                <span
-                  aria-hidden="true"
-                  className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                >
-                  ↗
-                </span>
-              </button>
+                return cta.href ? (
+                  <a key={cta.label} href={cta.href} className={cls}>
+                    {inner}
+                  </a>
+                ) : (
+                  <button key={cta.label} type="button" onClick={cta.onClick} className={`${cls} cursor-pointer`}>
+                    {inner}
+                  </button>
+                );
+              })}
             </div>
           </div>
         </div>

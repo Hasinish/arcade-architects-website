@@ -130,6 +130,108 @@ body::-webkit-scrollbar {
   margin-inline: auto;
 }
 
+/* Editorial Hero CTA Hover Choreography (Rolling Label + Shoot-Through Arrow + Directional Hairline) */
+.hero-cta {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding-bottom: 0.3rem;
+}
+
+.hero-cta-track {
+  display: inline-flex;
+  flex-direction: column;
+  height: 1.25em;
+  overflow: hidden;
+  line-height: 1.25em;
+}
+
+.hero-cta-roller {
+  display: inline-flex;
+  flex-direction: column;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-cta:hover .hero-cta-roller,
+.hero-cta:focus-visible .hero-cta-roller {
+  transform: translateY(-50%);
+}
+
+.hero-cta-arrow {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05em;
+  height: 1.05em;
+  overflow: hidden;
+}
+
+.hero-cta-arrow > span {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-cta-arrow > span:last-child {
+  transform: translate(-115%, 115%);
+}
+
+.hero-cta:hover .hero-cta-arrow > span:first-child,
+.hero-cta:focus-visible .hero-cta-arrow > span:first-child {
+  transform: translate(115%, -115%);
+}
+
+.hero-cta:hover .hero-cta-arrow > span:last-child,
+.hero-cta:focus-visible .hero-cta-arrow > span:last-child {
+  transform: translate(0, 0);
+}
+
+.hero-cta::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: right center;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.hero-cta:hover::after,
+.hero-cta:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left center;
+}
+
+/* Primary CTA keeps a resting hairline that sweeps out and back on hover */
+.hero-cta-primary::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background-color: currentColor;
+  opacity: 0.45;
+  transform: scaleX(1);
+  transform-origin: left center;
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.3s ease;
+}
+
+.hero-cta-primary:hover::before,
+.hero-cta-primary:focus-visible::before {
+  transform: scaleX(0);
+  transform-origin: right center;
+  opacity: 0;
+}
+
 @supports not (mix-blend-mode: difference) {
   .hero-negative,
   .hero-negative-header {
