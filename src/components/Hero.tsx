@@ -18,7 +18,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
           poster="/assets/Exterior/Hazi Bari Project/1.jpg"
           className="absolute inset-0 w-full h-full object-cover filter brightness-[0.92] contrast-[1.04]"
         >
-          <source src="https://bloom-viz.b-cdn.net/Video_calab4k_cler.webm" type="video/webm" />
+          <source src="/assets/hero.mp4" type="video/mp4" />
           <img
             src="/assets/Exterior/Hazi Bari Project/1.jpg"
             alt="Arcade Architects Architecture"

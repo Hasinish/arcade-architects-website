@@ -1,6 +1,8 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **HERO BACKGROUND VIDEO SWAP (`public/assets/hero.mp4`)** ([`src/components/Hero.tsx`](file:///d:/arcade-architects-website/src/components/Hero.tsx#L21)):
+  - [x] Replaced external Bloom3D video (`https://bloom-viz.b-cdn.net/Video_calab4k_cler.webm`, `type="video/webm"`) with local `/assets/hero.mp4` (`type="video/mp4"`).
 - [x] **FIX WHY-WORK-WITH-US RAF ANIMATION STARVATION BUG** ([`src/components/WhyUsSection.tsx`](file:///d:/Arcade%20Architects%20Website/src/components/WhyUsSection.tsx)):
   - [x] Root Cause: In `WhyUsSection.tsx`, `onScroll` had a debounce pattern `if (rafId) cancelAnimationFrame(rafId); rafId = requestAnimationFrame(updateStrokes);`. Because both Lenis and native window scroll emit events in rapid succession on every frame during smooth scroll, `cancelAnimationFrame` was continuously cancelling pending RAF frames before the browser could paint, causing the entire progress stroke and accordion animation to freeze completely during active scrolling, snapping abruptly only when scrolling stopped.
   - [x] Solution: Replaced the debouncing `cancelAnimationFrame` with a true RAF throttle lock `isTicking`:
