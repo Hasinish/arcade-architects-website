@@ -256,7 +256,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             >
               At Arcade,
               <br />
-              imagination becomes architecture.
+              imagination becomes reality.
             </h1>
 
             {/* Centered Minimal Editorial CTAs (pure white) */}

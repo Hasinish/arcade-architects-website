@@ -60,10 +60,10 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
   // Dynamic background renders for Option 1 hover previews (preloads active section visuals)
   const hoverImages: Record<string, string> = {
-    portfolio: '/assets/Exterior/CHANDINA PROJECT/1.jpg',
-    services: '/assets/Exterior/CHANDINA PROJECT/3.jpg',
-    about: '/assets/Exterior/Hazi Bari Project/1.jpg',
-    contacts: '/assets/Exhibition/Ford/1.jpg',
+    portfolio: '/assets/Random/1.png',
+    services: '/assets/Random/7.png',
+    about: '/assets/Random/22.png',
+    contacts: '/assets/Random/10.png',
   };
 
   // GSAP intro entrance coordinated at `reveal+0.5s`

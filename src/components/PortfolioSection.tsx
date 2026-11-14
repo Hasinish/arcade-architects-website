@@ -24,7 +24,7 @@ export const PortfolioSection: React.FC = () => {
             navigateWithCurtain(`/projects/${project.id}`);
           }
         }}
-        className="group relative w-full aspect-[5/6] overflow-hidden bg-[#222222] block cursor-pointer"
+        className="group relative w-full aspect-[5/6] overflow-hidden rounded-xl sm:rounded-2xl bg-[#222222] block cursor-pointer"
         aria-label={`View ${project.title} Case Study`}
       >
         {/* Full-Bleed Architectural Visual */}
@@ -63,40 +63,86 @@ export const PortfolioSection: React.FC = () => {
   };
 
   return (
-    <section id="portfolio" data-nav-theme="light" className="relative z-20 w-full bg-[#F7F7F7] text-[#2E2E2E]">
-      {/* Centered Portfolio Heading */}
-      <div className="pt-28 md:pt-36 pb-14 md:pb-20 px-4 text-center">
-        <h2 className="font-sans text-4xl sm:text-5xl md:text-[64px] font-normal leading-[1.1] text-center text-[#2E2E2E] tracking-[-1.5px]">
-          Featured Projects
-        </h2>
+    <section id="portfolio" data-nav-theme="light" className="relative w-full bg-transparent text-[#2E2E2E]">
+      {/* Solid #F7F7F7 Header with Negative-Inverted (Difference) Cutout Lettering Only */}
+      <div className="relative w-full h-44 sm:h-52 md:h-64 overflow-hidden flex items-center justify-center select-none">
+        {/* Transparent frosted glass layer inset from edges so zero subpixel dark seam bleeds at borders */}
+        <div
+          aria-hidden="true"
+          className="absolute inset-2 z-10 bg-white/10 backdrop-blur-md backdrop-saturate-150 pointer-events-none"
+        />
+
+        {/* Solid #F7F7F7 rectangle with letter cutouts in the exact Hero font */}
+        <svg
+          className="relative z-20 w-full h-full pointer-events-none"
+          aria-hidden="true"
+        >
+          <defs>
+            <mask id="featured-projects-cutout-mask">
+              <rect width="100%" height="100%" fill="white" />
+              <text
+                x="50%"
+                y="50%"
+                textAnchor="middle"
+                dominantBaseline="central"
+                fill="black"
+                className="font-sans font-normal tracking-[-0.03em] text-[42px] sm:text-[58px] md:text-[76px]"
+              >
+                Featured Projects
+              </text>
+            </mask>
+          </defs>
+
+          <rect
+            width="100%"
+            height="100%"
+            fill="#F7F7F7"
+            mask="url(#featured-projects-cutout-mask)"
+          />
+          {/* Subtle frosted glass sheen & crisp edge rim inside the letters */}
+          <text
+            x="50%"
+            y="50%"
+            textAnchor="middle"
+            dominantBaseline="central"
+            fill="rgba(255, 255, 255, 0.06)"
+            stroke="rgba(37, 37, 37, 0.14)"
+            strokeWidth="0.9"
+            className="font-sans font-normal tracking-[-0.03em] text-[42px] sm:text-[58px] md:text-[76px]"
+          >
+            Featured Projects
+          </text>
+        </svg>
+
+        <h2 className="sr-only">Featured Projects</h2>
       </div>
 
-      {/* Full-Bleed Edge-to-Edge Grid with 2px Gaps */}
-      <div className="w-full px-[2px] pb-[4px]">
-        {/* Row 1: Dual 50% Full-Bleed Cards */}
+      {/* Architectural Grid with Comfortable Breathing Room & Rounded Frames (-mt-px eliminates SVG subpixel seam) */}
+      <div className="relative z-20 -mt-px w-full bg-[#F7F7F7] px-4 sm:px-8 md:px-12 pb-16 md:pb-24">
+        {/* Row 1: Dual 50% Cards */}
         {row1.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] mb-[2px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5 mb-3 sm:mb-4 md:mb-5">
             {row1.map(renderProjectCard)}
           </div>
         )}
 
-        {/* Row 2: Triple 33.3% Full-Bleed Cards */}
+        {/* Row 2: Triple 33.3% Cards */}
         {row2.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2px] mb-[2px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5 mb-3 sm:mb-4 md:mb-5">
             {row2.map(renderProjectCard)}
           </div>
         )}
 
-        {/* Row 3: Dual 50% Full-Bleed Cards */}
+        {/* Row 3: Dual 50% Cards */}
         {row3.length > 0 && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-[2px] mb-[2px]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4 md:gap-5 mb-3 sm:mb-4 md:mb-5">
             {row3.map(renderProjectCard)}
           </div>
         )}
 
-        {/* Row 4: Triple 33.3% Full-Bleed Cards */}
+        {/* Row 4: Triple 33.3% Cards */}
         {row4.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-[2px]">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 md:gap-5">
             {row4.map(renderProjectCard)}
           </div>
         )}
