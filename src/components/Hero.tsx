@@ -13,6 +13,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
   const mediaRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const scrimRef = useRef<HTMLDivElement>(null);
+  const introLogoRef = useRef<HTMLDivElement>(null);
   const { register, status, shouldRunIntro, registerHeroStage } = useIntro();
   const isIntroActive = shouldRunIntro && status !== 'done';
 
@@ -22,6 +23,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       mediaWrap: mediaRef.current,
       video: videoRef.current,
       scrim: scrimRef.current,
+      introLogo: introLogoRef.current,
     });
     return () => registerHeroStage(null);
   }, [registerHeroStage]);
@@ -66,7 +68,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
       const actions = el.querySelector<HTMLElement>('[data-hero-actions]');
       if (!content || !heading || !sub || !actions) return;
 
-      if (!shouldRunIntro) {
+      if (!shouldRunIntro || status === 'done') {
         gsap.set(
           [mediaRef.current, videoRef.current, scrimRef.current, content, actions].filter(Boolean),
           { clearProps: 'all' },
@@ -194,84 +196,101 @@ export const Hero: React.FC<HeroProps> = ({ onOpenInquiry }) => {
             muted
             playsInline
             preload="auto"
-            className="w-full h-full object-cover filter brightness-[0.92] contrast-[1.04]"
+            className="w-full h-full object-cover"
           >
             <source src="/assets/hero.mp4" type="video/mp4" />
           </video>
 
-          {/* Ambient Dark Overlay Scrim */}
+          {/* Transparent Scrim Anchor (preserves 100% raw video luminance for true difference inversion) */}
           <div
             ref={scrimRef}
             data-hero-scrim
-            className="absolute inset-0 bg-black/25 pointer-events-none"
+            className="absolute inset-0 bg-transparent pointer-events-none"
           />
+
+          {/* Centered Negative-Blended Arcade Arch Mark inside the initial center frame */}
+          {isIntroActive && (
+            <div
+              ref={introLogoRef}
+              data-hero-intro-logo
+              className="pointer-events-none absolute inset-0 flex items-center justify-center text-white mix-blend-difference"
+            >
+              <svg
+                viewBox="0 0 100 112"
+                fill="currentColor"
+                aria-label="Arcade Architects"
+                style={{
+                  height: 'var(--intro-logo-size, min(17vh, 17vw))',
+                  width: 'auto',
+                }}
+              >
+                <path d="M0 112V50a50 50 0 0 1 100 0v62H75V50a25 25 0 0 0-50 0v62H0Z" />
+              </svg>
+            </div>
+          )}
         </div>
 
-        {/* Hero Content Container pinned to bottom-left & bottom-right */}
+        {/* Hero Editorial Typography Stage (NO z-index here so children blend directly against <video>) */}
         <div
           data-hero-content
           style={shouldRunIntro && status === 'pending' ? { visibility: 'hidden' } : undefined}
-          className={`absolute inset-0 pointer-events-none flex flex-col justify-end ${
-            isIntroActive ? 'z-[945]' : 'z-10'
-          }`}
+          className="absolute inset-0 pointer-events-none flex flex-col justify-end"
         >
-          <div className="w-full px-8 md:px-12 lg:px-20 pb-16 md:pb-20 flex flex-col md:flex-row md:items-end justify-between gap-8">
-            {/* Bottom-Left: Tag & Headline */}
-            <div className="w-full max-w-[520px]">
-              <div
-                data-hero-sub
-                className="text-sm md:text-base font-normal text-white/80 tracking-normal mb-3"
-              >
-                Professional Architectural & 3D Visualization Studio
-              </div>
-
-              <h1
-                data-hero-title
-                className="font-sans text-3xl sm:text-4xl md:text-[48px] font-normal leading-[1.2] text-white tracking-[-0.5px]"
-              >
-                Bring your projects to<br />
-                life with world-class<br />
-                3D visualization
-              </h1>
+          <div className="w-full px-5 sm:px-8 md:px-10 pb-8 sm:pb-10 md:pb-12 flex flex-col items-center text-center">
+            {/* Centered Studio Descriptor (solid white) */}
+            <div
+              data-hero-sub
+              className={`relative text-[10px] sm:text-xs font-normal tracking-[0.16em] sm:tracking-[0.18em] uppercase text-white mb-4 md:mb-5 ${
+                isIntroActive ? 'z-[945]' : 'z-10'
+              }`}
+            >
+              Architectural Planning / Interior Design / Exterior Design
             </div>
 
-            {/* Bottom-Right: Dual Minimal Rectangular Buttons */}
+            {/* Monumental Middle-Bottom Headline (Difference-blended directly against moving video) */}
+            <h1
+              data-hero-title
+              className={`relative w-full font-sans text-[clamp(2.25rem,5.5vw,6.25rem)] font-normal leading-[0.96] tracking-[-0.03em] text-center hero-negative ${
+                isIntroActive ? 'z-[945]' : 'z-10'
+              }`}
+            >
+              At Arcade,
+              <br />
+              imagination becomes architecture.
+            </h1>
+
+            {/* Centered Minimal Editorial CTAs (pure white) */}
             <div
               data-hero-actions
-              className="pointer-events-auto flex items-center gap-2 self-start md:self-auto"
+              className={`relative pointer-events-auto flex items-center justify-center gap-6 sm:gap-8 mt-6 md:mt-7 text-white ${
+                isIntroActive ? 'z-[945]' : 'z-10'
+              }`}
             >
-              {/* Button 1: Portfolio (Glass Translucent) */}
               <a
                 href="#portfolio"
-                className="group relative inline-flex items-center justify-center overflow-hidden h-[54px] px-5 bg-white/15 hover:bg-white text-white hover:text-[#222222] backdrop-blur-md transition-colors duration-400 ease-[cubic-bezier(0.23,1,0.32,1)]"
+                className="group inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-normal tracking-[0.14em] uppercase"
               >
-                <div className="h-5 overflow-hidden flex flex-col">
-                  <div className="flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1/2">
-                    <span className="h-5 flex items-center text-sm md:text-base font-medium">
-                      Portfolio
-                    </span>
-                    <span className="h-5 flex items-center text-sm md:text-base font-medium">
-                      Portfolio
-                    </span>
-                  </div>
-                </div>
+                <span>Explore Projects</span>
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                >
+                  ↗
+                </span>
               </a>
 
-              {/* Button 2: Start project (Solid White) */}
               <button
+                type="button"
                 onClick={onOpenInquiry}
-                className="group relative inline-flex items-center justify-center overflow-hidden h-[54px] px-6 bg-[#FFFFFF] hover:bg-[#2A2A2A] text-[#222222] hover:text-white transition-colors duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] cursor-pointer"
+                className="group relative inline-flex items-center gap-1.5 pb-1 border-b border-current text-[11px] sm:text-xs font-medium tracking-[0.14em] uppercase cursor-pointer"
               >
-                <div className="h-5 overflow-hidden flex flex-col">
-                  <div className="flex flex-col transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:-translate-y-1/2">
-                    <span className="h-5 flex items-center text-sm md:text-base font-medium whitespace-nowrap">
-                      Start project
-                    </span>
-                    <span className="h-5 flex items-center text-sm md:text-base font-medium whitespace-nowrap">
-                      Start project
-                    </span>
-                  </div>
-                </div>
+                <span>Start a Project</span>
+                <span
+                  aria-hidden="true"
+                  className="inline-block transition-transform duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                >
+                  ↗
+                </span>
               </button>
             </div>
           </div>

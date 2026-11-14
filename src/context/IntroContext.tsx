@@ -19,6 +19,7 @@ export interface HeroStageElements {
   mediaWrap: HTMLElement | null;
   video: HTMLVideoElement | null;
   scrim: HTMLElement | null;
+  introLogo?: HTMLElement | null;
 }
 
 function hasReplayParam(search: string): boolean {

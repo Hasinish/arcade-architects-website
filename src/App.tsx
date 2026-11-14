@@ -5,6 +5,7 @@ import 'lenis/dist/lenis.css';
 import { Navbar } from './components/Navbar';
 import { ScrollToTop } from './components/ScrollToTop';
 import { CustomCursor } from './components/CustomCursor';
+import { NegativeScrollbar } from './components/NegativeScrollbar';
 import { PageTransitionProvider } from './context/PageTransitionContext';
 import { IntroProvider } from './context/IntroContext';
 import { HomePage } from './pages/HomePage';
@@ -44,6 +45,9 @@ export const App: React.FC = () => {
 
           {/* Fluid Architectural Interactive Cursor */}
           <CustomCursor />
+
+          {/* Transparent-track Negative Scrollbar Thumb */}
+          <NegativeScrollbar />
 
           <div className="min-h-screen bg-[#F7F7F7] text-[#2E2E2E] relative selection:bg-[#2E2E2E] selection:text-white overflow-x-clip">
             {/* Top Corner-Pinned Minimal Navbar (Real-time Pixel Contrast Engine) */}

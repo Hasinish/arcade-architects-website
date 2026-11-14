@@ -9,15 +9,49 @@ interface NavbarProps {
   onOpenSchedule?: () => void;
 }
 
+const formatDhakaTime = (withSeconds: boolean) =>
+  new Intl.DateTimeFormat('en-GB', {
+    timeZone: 'Asia/Dhaka',
+    hour: '2-digit',
+    minute: '2-digit',
+    ...(withSeconds ? { second: '2-digit' } : {}),
+    hour12: false,
+  }).format(new Date());
+
+const DhakaClock: React.FC = () => {
+  const [time, setTime] = useState<{ full: string; compact: string }>(() => ({
+    full: formatDhakaTime(true),
+    compact: formatDhakaTime(false),
+  }));
+
+  useEffect(() => {
+    const update = () =>
+      setTime({
+        full: formatDhakaTime(true),
+        compact: formatDhakaTime(false),
+      });
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="flex items-center gap-1.5 sm:gap-2.5 text-[9.5px] sm:text-[11px] font-normal tracking-[0.06em] sm:tracking-[0.14em] uppercase tabular-nums select-none">
+      <span className="inline-block w-1.5 h-1.5 bg-current opacity-85 shrink-0" aria-hidden="true" />
+      <span>DHAKA</span>
+      <span className="hidden sm:inline opacity-90">{time.full}</span>
+      <span className="hidden xs:inline sm:hidden opacity-90">{time.compact}</span>
+      <span className="hidden md:inline opacity-65">GMT+6</span>
+    </div>
+  );
+};
+
 export const Navbar: React.FC<NavbarProps> = () => {
   const headerRef = useRef<HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMenuMounted, setIsMenuMounted] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
-  const [isLogoDarkBg, setIsLogoDarkBg] = useState(true);
-  const [isBurgerDarkBg, setIsBurgerDarkBg] = useState(true);
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
-  const [dhakaTime, setDhakaTime] = useState<string>('');
+  const [isOverHero, setIsOverHero] = useState<boolean>(true);
   const navigate = useNavigate();
   const location = useLocation();
   const { navigateWithCurtain, curtainPhase } = useCinematicNavigation();
@@ -31,128 +65,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
     about: '/assets/Exterior/Hazi Bari Project/1.jpg',
     contacts: '/assets/Exhibition/Ford/1.jpg',
   };
-
-  // Real-time Dhaka clock for editorial metadata strip
-  useEffect(() => {
-    const updateClock = () => {
-      const now = new Date();
-      const formatted = new Intl.DateTimeFormat('en-GB', {
-        timeZone: 'Asia/Dhaka',
-        hour: '2-digit',
-        minute: '2-digit',
-        second: '2-digit',
-        hour12: false,
-      }).format(now);
-      setDhakaTime(formatted);
-    };
-    updateClock();
-    const interval = setInterval(updateClock, 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  // Real-time pixel color calculation under Logo and Hamburger
-  useEffect(() => {
-    // Hidden 1x1 canvas for real-time pixel extraction
-    const canvas = document.createElement('canvas');
-    canvas.width = 1;
-    canvas.height = 1;
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
-
-    const samplePixelDarkness = (x: number, y: number): boolean => {
-      const elements = document.elementsFromPoint(x, y);
-
-      for (const el of elements) {
-        // Skip navbar itself, drawer, modals, and active preloader
-        if (
-          el.closest('header') ||
-          el.closest('aside') ||
-          el.closest('[role="dialog"]') ||
-          el.closest('[data-navbar-menu]') ||
-          el.closest('[data-lenis-prevent]') ||
-          el.closest('[data-preloader]')
-        ) continue;
-
-        // 1. Real-time Image pixel extraction via Canvas
-        const img = el.tagName === 'IMG' ? (el as HTMLImageElement) : el.querySelector('img');
-        if (img && img.complete && img.naturalWidth > 0) {
-          try {
-            const rect = img.getBoundingClientRect();
-            if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-              const rx = (x - rect.left) / rect.width;
-              const ry = (y - rect.top) / rect.height;
-              const sx = Math.floor(rx * img.naturalWidth);
-              const sy = Math.floor(ry * img.naturalHeight);
-
-              if (ctx) {
-                ctx.clearRect(0, 0, 1, 1);
-                ctx.drawImage(img, sx, sy, 1, 1, 0, 0, 1, 1);
-                const p = ctx.getImageData(0, 0, 1, 1).data;
-                if (p[3] > 20) {
-                  // ITU-R BT.709 relative luminance
-                  const lum = (0.2126 * p[0] + 0.7152 * p[1] + 0.0722 * p[2]) / 255;
-                  return lum < 0.5;
-                }
-              }
-            }
-          } catch {
-            // Ignore potential cross-origin image errors
-          }
-        }
-
-        // 2. Video element sampling
-        if (el.tagName === 'VIDEO' || el.querySelector('video')) {
-          return true;
-        }
-
-        // 3. Computed CSS background-color sampling
-        const bg = window.getComputedStyle(el).backgroundColor;
-        const match = bg.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([\d.]+))?\)/);
-        if (match) {
-          const a = match[4] !== undefined ? parseFloat(match[4]) : 1;
-          if (a > 0.08) {
-            const r = parseInt(match[1], 10);
-            const g = parseInt(match[2], 10);
-            const b = parseInt(match[3], 10);
-            const lum = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-            return lum < 0.5;
-          }
-        }
-      }
-
-      // Root default (Near top on home with hero is dark, otherwise light)
-      return location.pathname === '/' && window.scrollY < 450;
-    };
-
-    let rafId: number | null = null;
-    const calculatePixels = () => {
-      if (rafId) cancelAnimationFrame(rafId);
-      rafId = requestAnimationFrame(() => {
-        // Sample exact pixel under Logo (x = 64, y = 48)
-        const logoDark = samplePixelDarkness(64, 48);
-        setIsLogoDarkBg(logoDark);
-
-        // Sample exact pixel under Hamburger (x = window.innerWidth - 48, y = 48)
-        const burgerDark = samplePixelDarkness(window.innerWidth - 48, 48);
-        setIsBurgerDarkBg(burgerDark);
-      });
-    };
-
-    window.addEventListener('scroll', calculatePixels, { passive: true });
-    window.addEventListener('resize', calculatePixels);
-    calculatePixels();
-
-    // Trigger on route transitions (immediate, 120ms, and 450ms after curtain opens)
-    const t1 = setTimeout(calculatePixels, 120);
-    const t2 = setTimeout(calculatePixels, 450);
-
-    return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      if (rafId) cancelAnimationFrame(rafId);
-      window.removeEventListener('scroll', calculatePixels);
-      window.removeEventListener('resize', calculatePixels);
-    };
-  }, [location.pathname, introStatus]);
 
   // GSAP intro entrance coordinated at `reveal+0.5s`
   useGSAP(
@@ -195,6 +107,20 @@ export const Navbar: React.FC<NavbarProps> = () => {
     },
     { scope: headerRef, dependencies: [register, shouldRunIntro, location.pathname] },
   );
+
+  useEffect(() => {
+    const updateOverHero = () => {
+      const onHome = location.pathname === '/';
+      setIsOverHero(onHome && window.scrollY < window.innerHeight * 0.9);
+    };
+    updateOverHero();
+    window.addEventListener('scroll', updateOverHero, { passive: true });
+    window.addEventListener('resize', updateOverHero, { passive: true });
+    return () => {
+      window.removeEventListener('scroll', updateOverHero);
+      window.removeEventListener('resize', updateOverHero);
+    };
+  }, [location.pathname]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -242,27 +168,6 @@ export const Navbar: React.FC<NavbarProps> = () => {
       lenis.start();
     }
   }, [drawerOpen, curtainPhase, introStatus]);
-
-  // Adaptive colors for Logo & Burger based on real-time pixel luminance & drawer state:
-  // If pixel under element is dark -> element is LIGHT (white #FFFFFF)
-  // If pixel under element is light -> element is DARK (charcoal #2E2E2E)
-  const logoColor = drawerOpen
-    ? 'text-white'
-    : isLogoDarkBg
-    ? 'text-[#FFFFFF]'
-    : 'text-[#2E2E2E]';
-
-  const logoFilter = drawerOpen
-    ? 'brightness-100 invert'
-    : isLogoDarkBg
-    ? 'brightness-100 invert'
-    : 'brightness-0';
-
-  const burgerColor = drawerOpen
-    ? 'bg-white'
-    : isBurgerDarkBg
-    ? 'bg-white'
-    : 'bg-[#2E2E2E]';
 
   const handleNavClick = (path: string) => {
     const lenis = (window as any).lenis;
@@ -328,13 +233,29 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
   return (
     <>
-      {/* Fixed Top Bar (Pinned at top: 32px, left: 32px, right: 32px) */}
-      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-[960] px-8 pt-8 pointer-events-none transition-colors duration-300">
-        <div className="w-full flex items-center justify-between">
-          {/* Top-Left: Minimal Brand Mark & Wordmark */}
+      {/* Fixed Editorial Top Bar: Pure white over Hero/Menu, Exclusion-blended once scrolled onto light sections */}
+      <header
+        ref={headerRef}
+        className={`fixed top-0 left-0 right-0 z-[960] px-5 sm:px-8 md:px-10 pt-5 sm:pt-7 md:pt-9 pointer-events-none ${
+          drawerOpen || isOverHero ? 'text-white' : 'hero-negative-header'
+        }`}
+      >
+        <div className="relative w-full flex items-center justify-between min-h-[32px]">
+          {/* Top-Left: Location & Live Dhaka Clock */}
+          <div
+            data-nav-item
+            data-nav-location
+            style={hideNavForIntro ? { visibility: 'hidden' } : undefined}
+            className="pointer-events-auto"
+          >
+            <DhakaClock />
+          </div>
+
+          {/* Top-Center: Mathematically Viewport-Centered Logo & Wordmark */}
           <Link
             to="/"
             data-nav-item
+            data-nav-logo
             style={hideNavForIntro ? { visibility: 'hidden' } : undefined}
             onClick={(e) => {
               if (window.location.pathname === '/contacts') {
@@ -342,43 +263,45 @@ export const Navbar: React.FC<NavbarProps> = () => {
                 navigateWithCurtain('/');
               }
             }}
-            className={`pointer-events-auto flex items-center gap-3 transition-colors duration-300 ${logoColor} group`}
+            className="pointer-events-auto absolute left-1/2 -translate-x-1/2 flex items-center gap-2 sm:gap-2.5 group whitespace-nowrap"
           >
-            <div className="w-6 h-6 flex items-center justify-center">
+            <div className="w-4 h-4 sm:w-5 sm:h-5 flex items-center justify-center shrink-0">
               <img
                 src="/assets/Logo/Logo.png"
                 alt="Arcade Architects"
-                className={`w-full h-full object-contain transition-all duration-300 ${logoFilter} group-hover:scale-105`}
+                className="w-full h-full object-contain brightness-0 invert transition-transform duration-300 group-hover:scale-105"
                 onError={(e) => {
                   (e.currentTarget as HTMLImageElement).src = '/assets/Logo/Logo_01.png';
                 }}
               />
             </div>
-            <span className="font-sans text-base font-medium tracking-[-0.5px]">
+            <span className="font-sans text-[10px] sm:text-xs md:text-[13px] font-medium tracking-[0.12em] sm:tracking-[0.16em] uppercase">
               ARCADE ARCHITECTS
             </span>
           </Link>
 
-          {/* Top-Right: Morphing '=' to 'X' Hamburger Button */}
+          {/* Top-Right: Minimal Menu Trigger (MENU label + 2 strokes morphing to X) */}
           <button
             data-nav-item
+            data-nav-menu-trigger
             style={hideNavForIntro ? { visibility: 'hidden' } : undefined}
             onClick={() => setDrawerOpen(!drawerOpen)}
-            className="pointer-events-auto relative w-12 h-12 flex flex-col items-center justify-center p-3 cursor-pointer focus:outline-none z-[960] group"
+            className="pointer-events-auto relative flex items-center gap-2.5 py-1.5 pl-3 cursor-pointer focus:outline-none z-[960] group"
             aria-label={drawerOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
             aria-expanded={drawerOpen}
           >
-            <div className="w-5 h-2.5 flex flex-col justify-between">
-              {/* Top Line */}
+            <span className="hidden sm:inline text-[11px] font-normal tracking-[0.14em] uppercase">
+              {drawerOpen ? 'CLOSE' : 'MENU'}
+            </span>
+            <div className="w-5 h-2 flex flex-col justify-between">
               <span
-                className={`w-5 h-[1.75px] block rounded-sm transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${burgerColor} ${
-                  drawerOpen ? 'rotate-45 translate-y-[4.25px]' : ''
+                className={`w-5 h-[1.5px] block bg-current transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  drawerOpen ? 'rotate-45 translate-y-[3.25px]' : ''
                 }`}
               />
-              {/* Bottom Line */}
               <span
-                className={`w-5 h-[1.75px] block rounded-sm transition-all duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${burgerColor} ${
-                  drawerOpen ? '-rotate-45 -translate-y-[4.25px]' : ''
+                className={`w-5 h-[1.5px] block bg-current transition-transform duration-400 ease-[cubic-bezier(0.23,1,0.32,1)] ${
+                  drawerOpen ? '-rotate-45 -translate-y-[3.25px]' : ''
                 }`}
               />
             </div>
@@ -461,7 +384,7 @@ export const Navbar: React.FC<NavbarProps> = () => {
         <div className="relative z-10 w-full max-w-[1200px] mx-auto pt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs font-mono text-white/50">
           <div className="flex items-center gap-6">
             <span>23.7771° N, 90.3994° E</span>
-            <span>DHAKA {dhakaTime} GMT+6</span>
+            <DhakaClock />
           </div>
 
           <div className="flex items-center gap-6">

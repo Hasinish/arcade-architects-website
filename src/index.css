@@ -15,18 +15,14 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom Scrollbar */
-::-webkit-scrollbar {
-  width: 5px;
+/* Hide native opaque scrollbar so the right viewport edge stays 100% transparent */
+html {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
 }
-::-webkit-scrollbar-track {
-  background: #F7F7F7;
-}
-::-webkit-scrollbar-thumb {
-  background: #D9D9D9;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #B0B0B0;
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
 }
 
 /* Bloom3D Double-Layer Sliding Text Button */
@@ -117,5 +113,27 @@ body {
   input,
   textarea {
     cursor: text !important;
+  }
+}
+
+/* Arqui9-inspired Negative / Difference Compositing */
+.hero-negative,
+.hero-negative-header {
+  color: #ffffff;
+  mix-blend-mode: difference;
+}
+
+/* Keep SplitText-wrapped hero headline lines strictly centered */
+[data-hero-title],
+[data-hero-title] .line {
+  text-align: center;
+  margin-inline: auto;
+}
+
+@supports not (mix-blend-mode: difference) {
+  .hero-negative,
+  .hero-negative-header {
+    color: #ffffff;
+    text-shadow: 0 1px 16px rgba(0, 0, 0, 0.45);
   }
 }

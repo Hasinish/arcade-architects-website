@@ -119,6 +119,7 @@ export const Preloader: React.FC<PreloaderProps> = ({
         const last = heroStage?.mediaWrap ?? null;
         const lastVideo = heroStage?.video ?? null;
         const overlay = heroStage?.scrim ?? null;
+        const lastLogo = heroStage?.introLogo ?? null;
 
         ctx = gsap.context(() => {
           const counterEl = el.querySelector<HTMLElement>('[data-counter]')!;
@@ -135,6 +136,10 @@ export const Preloader: React.FC<PreloaderProps> = ({
           // Initial state: supporting cards + Hero video wrapper collapsed behind center clip-path
           if (last) gsap.set(last, { clipPath: HIDDEN });
           if (overlay) gsap.set(overlay, { autoAlpha: 0 });
+          if (lastLogo) {
+            lastLogo.style.setProperty('--intro-logo-size', `${Math.round(HT * 0.78)}px`);
+            gsap.set(lastLogo, { autoAlpha: 1, scale: 1 });
+          }
           gsap.set(others, {
             width: W,
             height: HT,
@@ -275,8 +280,16 @@ export const Preloader: React.FC<PreloaderProps> = ({
               tl.to(overlay, { autoAlpha: 1, duration: 1.2, ease: 'power2.out' }, 'loaded+=0.5');
             }
 
-            /* 5. Hero typography + Navbar entrance begins halfway through expansion */
-            tl.addLabel('reveal', `loaded+=${0.1 + OPEN / 2}`);
+            /* 5. Once whole video is revealed fullscreen, fade out the negative Arcade logo, then reveal Hero + Navbar texts */
+            const videoRevealedAt = `loaded+=${0.1 + OPEN}`;
+            if (lastLogo) {
+              tl.to(
+                lastLogo,
+                { autoAlpha: 0, scale: 0.96, duration: 0.55, ease: 'power2.out' },
+                videoRevealedAt,
+              );
+            }
+            tl.addLabel('reveal', `loaded+=${0.1 + OPEN + 0.25}`);
           });
         }, el);
       };
