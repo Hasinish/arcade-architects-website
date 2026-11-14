@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useCinematicNavigation } from '../context/PageTransitionContext';
+import { useIntro } from '../context/IntroContext';
+import { EASE, gsap, setupGsap, useGSAP } from '../lib/gsap';
 
 interface NavbarProps {
   onOpenInquiry?: () => void;
@@ -8,6 +10,7 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = () => {
+  const headerRef = useRef<HTMLElement>(null);
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [isMenuMounted, setIsMenuMounted] = useState(false);
   const [isMenuVisible, setIsMenuVisible] = useState(false);
@@ -18,6 +21,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { navigateWithCurtain, curtainPhase } = useCinematicNavigation();
+  const { register, status: introStatus, shouldRunIntro } = useIntro();
+  const hideNavForIntro = shouldRunIntro && introStatus === 'pending' && location.pathname === '/';
 
   // Dynamic background renders for Option 1 hover previews (preloads active section visuals)
   const hoverImages: Record<string, string> = {
@@ -57,13 +62,14 @@ export const Navbar: React.FC<NavbarProps> = () => {
       const elements = document.elementsFromPoint(x, y);
 
       for (const el of elements) {
-        // Skip navbar itself, drawer, and modals
+        // Skip navbar itself, drawer, modals, and active preloader
         if (
           el.closest('header') ||
           el.closest('aside') ||
           el.closest('[role="dialog"]') ||
           el.closest('[data-navbar-menu]') ||
-          el.closest('[data-lenis-prevent]')
+          el.closest('[data-lenis-prevent]') ||
+          el.closest('[data-preloader]')
         ) continue;
 
         // 1. Real-time Image pixel extraction via Canvas
@@ -146,7 +152,49 @@ export const Navbar: React.FC<NavbarProps> = () => {
       window.removeEventListener('scroll', calculatePixels);
       window.removeEventListener('resize', calculatePixels);
     };
-  }, [location.pathname]);
+  }, [location.pathname, introStatus]);
+
+  // GSAP intro entrance coordinated at `reveal+0.5s`
+  useGSAP(
+    () => {
+      const el = headerRef.current;
+      if (!el) return;
+      const items = gsap.utils.toArray<HTMLElement>('[data-nav-item]', el);
+      if (!items.length) return;
+
+      if (!shouldRunIntro || location.pathname !== '/') {
+        gsap.set(items, { clearProps: 'transform,opacity,visibility' });
+        return;
+      }
+
+      setupGsap();
+      const ctx = gsap.context(() => {}, el);
+      gsap.set(items, { y: -14, autoAlpha: 0 });
+
+      const unregister = register((tl, { reveal }) => {
+        ctx.add(() => {
+          tl.to(
+            items,
+            {
+              y: 0,
+              autoAlpha: 1,
+              duration: 1,
+              ease: EASE.settle,
+              stagger: 0.06,
+              clearProps: 'transform,opacity,visibility',
+            },
+            `${reveal}+=0.5`,
+          );
+        });
+      });
+
+      return () => {
+        unregister();
+        ctx.revert();
+      };
+    },
+    { scope: headerRef, dependencies: [register, shouldRunIntro, location.pathname] },
+  );
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -184,16 +232,16 @@ export const Navbar: React.FC<NavbarProps> = () => {
     };
   }, [drawerOpen]);
 
-  // Control Lenis smooth scroll when drawer toggles: only start if curtain is idle
+  // Control Lenis smooth scroll when drawer toggles: only start if curtain is idle AND intro finished
   useEffect(() => {
     const lenis = (window as any).lenis;
     if (!lenis) return;
     if (drawerOpen) {
       lenis.stop();
-    } else if (curtainPhase === 'idle') {
+    } else if (curtainPhase === 'idle' && introStatus === 'done') {
       lenis.start();
     }
-  }, [drawerOpen, curtainPhase]);
+  }, [drawerOpen, curtainPhase, introStatus]);
 
   // Adaptive colors for Logo & Burger based on real-time pixel luminance & drawer state:
   // If pixel under element is dark -> element is LIGHT (white #FFFFFF)
@@ -281,11 +329,13 @@ export const Navbar: React.FC<NavbarProps> = () => {
   return (
     <>
       {/* Fixed Top Bar (Pinned at top: 32px, left: 32px, right: 32px) */}
-      <header className="fixed top-0 left-0 right-0 z-[960] px-8 pt-8 pointer-events-none transition-colors duration-300">
+      <header ref={headerRef} className="fixed top-0 left-0 right-0 z-[960] px-8 pt-8 pointer-events-none transition-colors duration-300">
         <div className="w-full flex items-center justify-between">
           {/* Top-Left: Minimal Brand Mark & Wordmark */}
           <Link
             to="/"
+            data-nav-item
+            style={hideNavForIntro ? { visibility: 'hidden' } : undefined}
             onClick={(e) => {
               if (window.location.pathname === '/contacts') {
                 e.preventDefault();
@@ -311,6 +361,8 @@ export const Navbar: React.FC<NavbarProps> = () => {
 
           {/* Top-Right: Morphing '=' to 'X' Hamburger Button */}
           <button
+            data-nav-item
+            style={hideNavForIntro ? { visibility: 'hidden' } : undefined}
             onClick={() => setDrawerOpen(!drawerOpen)}
             className="pointer-events-auto relative w-12 h-12 flex flex-col items-center justify-center p-3 cursor-pointer focus:outline-none z-[960] group"
             aria-label={drawerOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useCinematicNavigation } from '../context/PageTransitionContext';
 import { Hero } from '../components/Hero';
+import { Preloader } from '../components/Preloader';
 import { PortfolioSection } from '../components/PortfolioSection';
 import { ServicesSection } from '../components/ServicesSection';
 import { AboutSection } from '../components/AboutSection';
@@ -41,6 +42,9 @@ export const HomePage: React.FC = () => {
 
   return (
     <main>
+      {/* Phase 1: GSAP Component-031 Preloader Sequence */}
+      <Preloader />
+
       {/* Phase 2: Full-Bleed Pinned Hero */}
       <Hero onOpenInquiry={handleGoToContacts} />
 

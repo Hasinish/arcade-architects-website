@@ -1,6 +1,12 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **GSAP COMPONENT-031 PRELOADER + CINEMATIC HERO REVEAL** ([`src/components/Preloader.tsx`](file:///d:/arcade-architects-website/src/components/Preloader.tsx), [`src/context/IntroContext.tsx`](file:///d:/arcade-architects-website/src/context/IntroContext.tsx), [`src/lib/gsap.ts`](file:///d:/arcade-architects-website/src/lib/gsap.ts), [`src/components/Hero.tsx`](file:///d:/arcade-architects-website/src/components/Hero.tsx), [`src/components/Navbar.tsx`](file:///d:/arcade-architects-website/src/components/Navbar.tsx)):
+  - [x] Implemented `gsap` + `@gsap/react` with Component 031 CustomEases (`introOpen`, `introFan`, `introSettle`, `introUnveil`, `introTally`) and `SplitText` masked line reveals.
+  - [x] Built 7-frame Arcade Architects clip-path stack (`0.55s` reveal, `0.13s` stagger), geometric fan-out (`fanRatio: 0.68`, `fanGap: 0.12`, `centerHeight: 0.24`, `1.15s`), synchronized `0 -> 100` tabular-nums counter, and `1.6s` fullscreen expansion (`scale(1.16 -> 1)`) overlapping `SplitText` hero lines and `Navbar` entrance.
+  - [x] Extracted `/assets/hero-poster.jpg` from frame 0 of `/assets/hero.mp4` and paused video at `t=0` until handoff for a zero-flash, zero-crop-shift transition.
+  - [x] Integrated Lenis scroll locking, reload-always / SPA-once gating (runs on every `F5`/`Ctrl+F5` load on `/`, skipped on internal route returns), `?intro=1` replay support, `prefers-reduced-motion` bypass, and slow-network timeout guards.
+  - [x] Verified via Playwright across `1440×900` (with video recording + milestone captures), `1920×1080`, `768×1024`, `390×844`, reduced motion, slow network, reload, and `/contacts -> /` route return; `npm run build` passed in `1.57s`.
 - [x] **CTA BACKGROUND IMAGE SWAP (`public/assets/Random/3.png`)** ([`src/components/CTASection.tsx`](file:///d:/arcade-architects-website/src/components/CTASection.tsx#L44-L46)):
   - [x] Replaced external Webflow Ubud CDN image with local `/assets/Random/3.png`.
 - [x] **HERO BACKGROUND VIDEO SWAP (`public/assets/hero.mp4`)** ([`src/components/Hero.tsx`](file:///d:/arcade-architects-website/src/components/Hero.tsx#L21)):
