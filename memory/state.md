@@ -1,6 +1,8 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **CTA BACKGROUND IMAGE SWAP (`public/assets/Random/3.png`)** ([`src/components/CTASection.tsx`](file:///d:/arcade-architects-website/src/components/CTASection.tsx#L44-L46)):
+  - [x] Replaced external Webflow Ubud CDN image with local `/assets/Random/3.png`.
 - [x] **HERO BACKGROUND VIDEO SWAP (`public/assets/hero.mp4`)** ([`src/components/Hero.tsx`](file:///d:/arcade-architects-website/src/components/Hero.tsx#L21)):
   - [x] Replaced external Bloom3D video (`https://bloom-viz.b-cdn.net/Video_calab4k_cler.webm`, `type="video/webm"`) with local `/assets/hero.mp4` (`type="video/mp4"`).
 - [x] **FIX WHY-WORK-WITH-US RAF ANIMATION STARVATION BUG** ([`src/components/WhyUsSection.tsx`](file:///d:/Arcade%20Architects%20Website/src/components/WhyUsSection.tsx)):

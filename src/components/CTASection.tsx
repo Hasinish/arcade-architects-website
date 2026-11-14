@@ -42,8 +42,8 @@ export const CTASection: React.FC<CTASectionProps> = ({ onOpenInquiry, onOpenSch
         }}
       >
         <img
-          src="https://cdn.prod.website-files.com/686bafaa09e3deeafa1ad8a8/6937f1d6327f71a2b72829fd_f069ebf4a9d9de326e02dbaeed24f0c5_Photorealistic%203D%20architectural%20visualization%20of%20The%20Ubud%20project.webp"
-          alt="Arcade Architects Ubud Architecture"
+          src="/assets/Random/3.png"
+          alt="Arcade Architects Architectural Visualization"
           className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.05]"
           onError={(e) => {
             (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/1.jpg';
