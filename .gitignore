@@ -26,3 +26,7 @@ Resources/
 *.njsproj
 *.sln
 *.sw?
+
+# Local Agent Memory / Sensitive Info
+memory/personal_info.md
+
