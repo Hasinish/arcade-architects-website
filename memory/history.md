@@ -1,3 +1,12 @@
+# Session Summary — 2026-11-12 (Part 33: Memory Privacy & Global Gitignore Enforcement)
+- **Investigated and Remediated `memory/personal_info.md` Git Tracking**:
+  - Found `memory/personal_info.md` had been tracked in Git since commit `6a5fc77` and was missing from `.gitignore`.
+  - Untracked `memory/personal_info.md` from the Git index (`git rm --cached memory/personal_info.md`) while preserving the file intact locally.
+  - Added `memory/personal_info.md` to `.gitignore`.
+  - Added a strict, mandatory global privacy rule to `C:\Users\Hasin\.gemini\config\AGENTS.md` and `D:\custom-antigravity\config\AGENTS.md` prohibiting the staging, committing, or pushing of `memory/personal_info.md` across all workspaces.
+  - Mirrored, committed, and pushed changes to `D:\custom-antigravity` (`origin main`).
+  - Committed and pushed changes to `d:\Arcade Architects Website` (`origin main`), dropping `memory/personal_info.md` from the remote repository.
+
 # Session Summary — 2026-11-11 (Part 32: Forensic Audit & Fix for Why Us Section RAF Starvation)
 - **Diagnosed and Resolved Animation Freezing on "Why work with us?" ([`src/components/WhyUsSection.tsx`](file:///D:/Arcade%20Architects%20Website/src/components/WhyUsSection.tsx))**:
   - **The Glitch**: When navigating back to the home page from Contacts and scrolling to "Why work with us", the progress stroke animation froze completely, failing to draw sequentially or cross-fade images while scrolling, and jumping abruptly only when scrolling stopped (as captured in Hasin's screenshot showing Item 04 snapped open with a frozen stroke at 19%).
