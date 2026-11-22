@@ -38,6 +38,8 @@ function computeShouldRunIntro(pathname: string): boolean {
   if (pathname !== '/') return false;
   if (prefersReducedMotionNow()) return false;
   try {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('intro') === '0' || params.get('preloader') === '0') return false;
     if (sessionStorage.getItem('arcade_scroll_target')) return false;
   } catch {
     // ignore storage restrictions

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import React, { createContext, useContext, useState, useCallback, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -70,9 +70,14 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
     [location.pathname, navigate, prefersReducedMotion]
   );
 
+  const curtainPhaseRef = useRef<CurtainPhase>('idle');
+  curtainPhaseRef.current = curtainPhase;
+  const targetPathRef = useRef<string | null>(null);
+  targetPathRef.current = targetPath;
+
   // Handle phase transitions
   const handleCoverComplete = useCallback(() => {
-    if (curtainPhase === 'covering' && targetPath) {
+    if (curtainPhaseRef.current === 'covering' && targetPathRef.current) {
       // 1. Reset scroll position immediately while fully covered
       window.scrollTo(0, 0);
       const lenis = (window as any).lenis;
@@ -81,7 +86,7 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
       }
 
       // 2. Perform React Router navigation
-      navigate(targetPath);
+      navigate(targetPathRef.current);
 
       // 3. Small RAF tick to ensure target page DOM has mounted at scrollY=0
       requestAnimationFrame(() => {
@@ -90,10 +95,10 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
         setCurtainPhase('revealing');
       });
     }
-  }, [curtainPhase, targetPath, navigate]);
+  }, [navigate]);
 
   const handleRevealComplete = useCallback(() => {
-    if (curtainPhase === 'revealing') {
+    if (curtainPhaseRef.current === 'revealing') {
       setCurtainPhase('idle');
       setTargetPath(null);
 
@@ -103,19 +108,19 @@ export const PageTransitionProvider: React.FC<{ children: React.ReactNode }> = (
         lenis.start();
       }
     }
-  }, [curtainPhase]);
+  }, []);
 
   // Fallback watchdog timer so curtainPhase can never stay stuck if onAnimationComplete is dropped
   useEffect(() => {
     if (curtainPhase === 'covering') {
       const watchdog = setTimeout(() => {
         handleCoverComplete();
-      }, 900);
+      }, 650);
       return () => clearTimeout(watchdog);
     } else if (curtainPhase === 'revealing') {
       const watchdog = setTimeout(() => {
         handleRevealComplete();
-      }, 900);
+      }, 700);
       return () => clearTimeout(watchdog);
     }
   }, [curtainPhase, handleCoverComplete, handleRevealComplete]);

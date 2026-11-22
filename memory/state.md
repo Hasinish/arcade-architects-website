@@ -1,6 +1,15 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **ARCADE ARCHITECTS — INFINITE DRAGGABLE SERVICES GALLERY REDESIGN** ([`src/components/ServicesSection.tsx`](file:///d:/Arcade%20Architects%20Website/src/components/ServicesSection.tsx)):
+  - [x] Replaced variable-sized snapping carousel with a perfectly uniform 4:3 architectural filmstrip (500x375 desktop, 380x285 tablet, 280x210 mobile, 16px gap, zero rounded corners, zero 3D distortion).
+  - [x] Engineered continuous frame-rate-independent auto-scrolling moving right-to-left at 24.97 px/s (target 25 px/s).
+  - [x] Implemented 5 repeating sets (35 tiles) with modular position wrapping for 100% seamless infinite continuity in both directions.
+  - [x] Added bidirectional mouse grabbing and touch dragging (`touch-action: pan-y`) with realistic exponential momentum decay blending back into auto-speed.
+  - [x] Built closed-form $O(1)$ screen-center active item detection, eliminating React state updates on animation frames.
+  - [x] Integrated masked typography crossfade beneath active image and inquiry button handoff to `/contacts`.
+  - [x] Added hover-pause lock (`isHoveredRef`): hovering over either the filmstrip stage or the caption/CTA area pauses auto-scrolling (`0.00px` drift) and decays flick momentum to `0` so a selected or hovered image stays completely still until `onMouseLeave`.
+  - [x] All 8 Playwright verification suites passed in real Chrome across 1920x1080, 1440x900, 768x1024, 390x844 with 0 console errors and passing build (`8.22s`).
 - [x] **Strict Privacy & Gitignore Rule for personal_info.md**:
   - Untracked `memory/personal_info.md` from git index (`git rm --cached`).
   - Added `memory/personal_info.md` to `.gitignore`.

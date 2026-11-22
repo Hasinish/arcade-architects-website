@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface ServicesSectionProps {
   onOpenInquiry: (serviceName?: string) => void;
@@ -10,10 +11,11 @@ interface ServiceItem {
   description: string;
   image: string;
   category: string;
+  objectPosition?: string;
 }
 
 export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry }) => {
-  const containerRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   const trackRef = useRef<HTMLDivElement>(null);
 
   // 7 Architectural Services for Arcade Architects
@@ -24,6 +26,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'Photorealistic exterior stills, atmospheric daylight and dusk studies, and rich environmental context.',
       image: '/assets/Exterior/CHANDINA PROJECT/3.jpg',
       category: 'Visualization',
+      objectPosition: 'center',
     },
     {
       id: 'interior-viz',
@@ -31,6 +34,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'Tactile material curation, bespoke millwork, atmospheric artificial lighting, and luxury residential styling.',
       image: '/assets/Interior/Resi/5.jpg',
       category: 'Interior Design',
+      objectPosition: 'center',
     },
     {
       id: 'cinematic-3d',
@@ -38,6 +42,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: '4K architectural films, continuous drone flyovers, fluid camera choreography, and spatial showreels.',
       image: '/assets/Exterior/Hazi Bari Project/1.jpg',
       category: 'Animation',
+      objectPosition: 'center 40%',
     },
     {
       id: 'masterplanning',
@@ -45,6 +50,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'From initial conceptual massing and schematic sketches to comprehensive permit-ready drawing packages.',
       image: '/assets/Exterior/USA/2.jpg',
       category: 'Architecture',
+      objectPosition: 'center',
     },
     {
       id: 'exhibition-brand',
@@ -52,6 +58,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'Monumental corporate flagships, automotive expo pavilions, and immersive public exhibition structures.',
       image: '/assets/Exhibition/Ford/2.jpg',
       category: 'Commercial',
+      objectPosition: 'center',
     },
     {
       id: 'hospitality',
@@ -59,6 +66,7 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'Experiential hospitality environments, acoustic considerations, and curated commercial dining destinations.',
       image: '/assets/Interior/Cafe/1.jpg',
       category: 'Hospitality',
+      objectPosition: 'center',
     },
     {
       id: 'construction-oversight',
@@ -66,202 +74,446 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
       description: 'Comprehensive structural coordination, statutory clearance oversight, and hands-on site management in Bangladesh.',
       image: '/assets/Exterior/KOTBARI PROJECT/1.jpg',
       category: 'Construction',
+      objectPosition: 'center 35%',
     },
   ];
 
   const total = services.length;
 
-  // Active progress state (continuous float for drag interpolation, snapped to integer index on settle)
-  const [progress, setProgress] = useState(0);
-  const [isDesktop, setIsDesktop] = useState(true);
-  const [isDragging, setIsDragging] = useState(false);
+  // 5 full repeating sets (35 items) to guarantee seamless infinite continuity on all screen sizes up to 8K
+  const SET_COUNT = 5;
+  const displayItems = useRef(
+    Array.from({ length: SET_COUNT * total }, (_, i) => ({
+      ...services[i % total],
+      globalIndex: i,
+      serviceIndex: i % total,
+    }))
+  ).current;
+
+  // Active service index (triggers React re-render ONLY when centered service changes)
   const [activeSlideIndex, setActiveSlideIndex] = useState(0);
+  const activeIndexRef = useRef(0);
 
-  // Drag interaction refs
-  const dragStartX = useRef(0);
-  const dragStartProgress = useRef(0);
-  const dragStartTime = useRef(0);
-  const currentProgressRef = useRef(0);
+  // Dragging state for UI styling
+  const [isDragging, setIsDragging] = useState(false);
+
+  // Physics, animation, and coordinate references
+  const currentXRef = useRef(0);
+  const velocityRef = useRef(-25); // px/sec (right to left = negative)
+  const modeRef = useRef<'AUTO' | 'DRAGGING' | 'MOMENTUM' | 'TWEEN'>('AUTO');
+  const isVisibleRef = useRef(false);
+  const isHoveredRef = useRef(false);
   const animationFrameId = useRef<number | null>(null);
-  const targetProgressRef = useRef(0);
+  const lastTimeRef = useRef<number>(performance.now());
 
-  // Sync ref with state
-  useEffect(() => {
-    currentProgressRef.current = progress;
-    setActiveSlideIndex(((Math.round(progress) % total) + total) % total);
-  }, [progress, total]);
+  // Drag tracking refs
+  const dragStartXRef = useRef(0);
+  const dragStartYRef = useRef(0);
+  const dragStartTrackXRef = useRef(0);
+  const lastMoveXRef = useRef(0);
+  const lastMoveTimeRef = useRef(0);
+  const hasMovedRef = useRef(false);
+  const isTouchLockedRef = useRef(false);
 
-  // Eagerly preload all 7 service images on component mount so direct anchor jumps never encounter cold network latency
+  // Tween tracking refs
+  const tweenStartRef = useRef(0);
+  const tweenDurationRef = useRef(400);
+  const tweenDeltaXRef = useRef(0);
+  const tweenLastProgressRef = useRef(0);
+
+  // Cinematic constant auto speed (25px per second right-to-left)
+  const AUTO_SPEED = useRef(-25);
+
+  // Responsive metrics calculation
+  const getMetrics = useCallback(() => {
+    const width = typeof window !== 'undefined' ? window.innerWidth : 1440;
+    if (width >= 1024) {
+      return { itemWidth: 500, itemHeight: 375, gap: 16 };
+    } else if (width >= 768) {
+      return { itemWidth: 380, itemHeight: 285, gap: 14 };
+    } else {
+      return { itemWidth: 280, itemHeight: 210, gap: 12 };
+    }
+  }, []);
+
+  const metricsRef = useRef(getMetrics());
+
+  // Eagerly preload all 7 service images on mount
   useEffect(() => {
     services.forEach((service) => {
       const img = new Image();
       img.src = service.image;
     });
+
+    // Check user reduced motion preference
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (mediaQuery.matches) {
+      AUTO_SPEED.current = 0;
+      velocityRef.current = 0;
+    }
   }, []);
 
-  // Viewport breakpoint listener (Snøhetta breakpoint: >= 1200px)
+  // Update metrics on resize while preserving currently centered service
   useEffect(() => {
-    const checkBreakpoint = () => {
-      setIsDesktop(window.innerWidth >= 1200);
-    };
-    checkBreakpoint();
-    window.addEventListener('resize', checkBreakpoint);
-    return () => window.removeEventListener('resize', checkBreakpoint);
-  }, []);
+    const handleResize = () => {
+      const newMetrics = getMetrics();
+      metricsRef.current = newMetrics;
 
-  // Snøhetta Mathematical Layout Formula
-  // R: Slide Width Percentage
-  const getSlideWidth = useCallback(
-    (slideIdx: number, baseIdx: number, desktop: boolean) => {
-      const active = ((baseIdx % total) + total) % total;
-      if (slideIdx === active) return desktop ? 36 : 68;
-      let diff = Math.abs(slideIdx - active);
-      if (diff > total / 2) diff = total - diff;
-      if (diff === 1) return desktop ? 24 : 50;
-      return desktop ? 16 : 50;
-    },
-    [total]
-  );
+      const { itemWidth, gap } = newMetrics;
+      const step = itemWidth + gap;
+      const cycleWidth = total * step;
+      const screenCenterX = window.innerWidth / 2;
 
-  // $: Slide Left Position Percentage
-  const getSlideLeft = useCallback(
-    (slideIdx: number, baseIdx: number, desktop: boolean) => {
-      const activeWidth = desktop ? 36 : 68;
-      const centerLeft = (100 - activeWidth) / 2;
-      const active = ((baseIdx % total) + total) % total;
-      if (slideIdx === active) return centerLeft;
+      // Center the active service in Set 2 without any sudden jump
+      const currentActive = activeIndexRef.current;
+      const targetTileGlobalIndex = 2 * total + currentActive;
+      let newX = screenCenterX - targetTileGlobalIndex * step - itemWidth / 2;
 
-      let diff = slideIdx - active;
-      if (diff < -total / 2) diff += total;
-      else if (diff > total / 2) diff -= total;
+      const minX = -2 * cycleWidth;
+      const maxX = -1 * cycleWidth;
+      while (newX < minX) newX += cycleWidth;
+      while (newX >= maxX) newX -= cycleWidth;
 
-      const neighborWidth = desktop ? 24 : 50;
-      const outerWidth = desktop ? 16 : 50;
-
-      let offset = 0;
-      if (diff > 0) {
-        offset = activeWidth;
-        if (Math.abs(diff) > 1) offset += neighborWidth;
-        if (Math.abs(diff) > 2) offset += outerWidth * (Math.abs(diff) - 2);
-      } else {
-        offset = neighborWidth;
-        if (Math.abs(diff) > 1) offset += outerWidth * (Math.abs(diff) - 1);
+      currentXRef.current = newX;
+      if (trackRef.current) {
+        trackRef.current.style.transform = `translate3d(${newX}px, 0, 0)`;
       }
+    };
 
-      return centerLeft + (diff > 0 ? 1 : -1) * offset;
-    },
-    [total]
-  );
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [getMetrics, total]);
 
-  // Smooth Snap Animation Loop
-  const animateTo = useCallback((target: number, duration: number = 400) => {
-    if (animationFrameId.current) {
-      cancelAnimationFrame(animationFrameId.current);
+  // Initial centering of Service 0
+  useEffect(() => {
+    const { itemWidth, gap } = metricsRef.current;
+    const step = itemWidth + gap;
+    const cycleWidth = total * step;
+    const screenCenterX = window.innerWidth / 2;
+
+    // Center tile 14 (Set 2, Service 0)
+    const initialTileIndex = 2 * total; // 14
+    let initX = screenCenterX - initialTileIndex * step - itemWidth / 2;
+
+    const minX = -2 * cycleWidth;
+    const maxX = -1 * cycleWidth;
+    while (initX < minX) initX += cycleWidth;
+    while (initX >= maxX) initX -= cycleWidth;
+
+    currentXRef.current = initX;
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${initX}px, 0, 0)`;
     }
+  }, [total]);
 
-    const startProgress = currentProgressRef.current;
-    const startTime = performance.now();
-    targetProgressRef.current = target;
-
-    const tick = (now: number) => {
-      const elapsed = now - startTime;
-      const t = Math.min(1, elapsed / duration);
-      // Quintic ease-out: 1 - (1 - t)^5
-      const ease = 1 - Math.pow(1 - t, 5);
-      const nextProgress = startProgress + (target - startProgress) * ease;
-
-      setProgress(nextProgress);
-
-      if (t < 1) {
-        animationFrameId.current = requestAnimationFrame(tick);
-      } else {
-        setProgress(target);
-        animationFrameId.current = null;
-      }
-    };
-
-    animationFrameId.current = requestAnimationFrame(tick);
+  // Differential incremental tween helper (immune to boundary wrapping glitches)
+  const startTweenDelta = useCallback((deltaX: number, duration: number = 420) => {
+    modeRef.current = 'TWEEN';
+    tweenDeltaXRef.current = deltaX;
+    tweenLastProgressRef.current = 0;
+    tweenStartRef.current = performance.now();
+    tweenDurationRef.current = duration;
   }, []);
 
-  // Drag Handlers
+  // Main high-performance Animation Frame Loop (Zero React state updates per frame)
+  useEffect(() => {
+    let isRunning = true;
+
+    const loop = (now: number) => {
+      if (!isRunning) return;
+
+      const dt = Math.min((now - lastTimeRef.current) / 1000, 0.1);
+      lastTimeRef.current = now;
+
+      const { itemWidth, gap } = metricsRef.current;
+      const step = itemWidth + gap;
+      const cycleWidth = total * step;
+      const minX = -2 * cycleWidth;
+      const maxX = -1 * cycleWidth;
+
+      // Only animate if the section is currently intersecting the viewport
+      if (isVisibleRef.current) {
+        if (modeRef.current === 'AUTO') {
+          if (!isHoveredRef.current) {
+            currentXRef.current += AUTO_SPEED.current * dt;
+
+            // Seamless infinite modular wrap
+            while (currentXRef.current < minX) currentXRef.current += cycleWidth;
+            while (currentXRef.current >= maxX) currentXRef.current -= cycleWidth;
+          }
+        } else if (modeRef.current === 'MOMENTUM') {
+          currentXRef.current += velocityRef.current * dt;
+
+          // Seamless infinite modular wrap
+          while (currentXRef.current < minX) currentXRef.current += cycleWidth;
+          while (currentXRef.current >= maxX) currentXRef.current -= cycleWidth;
+
+          // Target velocity is 0 when hovered, or AUTO_SPEED (-25px/s) when not hovered
+          const targetSpeed = isHoveredRef.current ? 0 : AUTO_SPEED.current;
+          const decayRate = isHoveredRef.current ? 4.0 : 2.4;
+          const blend = 1 - Math.exp(-decayRate * dt);
+          velocityRef.current += (targetSpeed - velocityRef.current) * blend;
+
+          // Once velocity converges back to targetSpeed, smoothly transition back to AUTO mode
+          if (Math.abs(velocityRef.current - targetSpeed) < 0.25) {
+            velocityRef.current = targetSpeed;
+            modeRef.current = 'AUTO';
+          }
+        } else if (modeRef.current === 'TWEEN') {
+          const elapsed = now - tweenStartRef.current;
+          const progress = Math.min(1, elapsed / tweenDurationRef.current);
+          // Quintic ease-out curve: 1 - (1 - t)^5
+          const ease = 1 - Math.pow(1 - progress, 5);
+
+          const frameDelta = (ease - tweenLastProgressRef.current) * tweenDeltaXRef.current;
+          tweenLastProgressRef.current = ease;
+
+          currentXRef.current += frameDelta;
+
+          // Seamless infinite modular wrap during tween
+          while (currentXRef.current < minX) currentXRef.current += cycleWidth;
+          while (currentXRef.current >= maxX) currentXRef.current -= cycleWidth;
+
+          if (progress >= 1) {
+            velocityRef.current = isHoveredRef.current ? 0 : AUTO_SPEED.current;
+            modeRef.current = 'AUTO';
+          }
+        }
+
+        // Apply hardware-accelerated transform directly to DOM
+        if (trackRef.current && modeRef.current !== 'DRAGGING') {
+          trackRef.current.style.transform = `translate3d(${currentXRef.current}px, 0, 0)`;
+        }
+
+        // Constant-time mathematical calculation of the image closest to horizontal screen center
+        const screenCenterX = window.innerWidth / 2;
+        const iClosest = Math.round((screenCenterX - currentXRef.current - itemWidth / 2) / step);
+        const activeIdx = ((iClosest % total) + total) % total;
+
+        // Update React state ONLY when the centered service index actually changes
+        if (activeIdx !== activeIndexRef.current) {
+          activeIndexRef.current = activeIdx;
+          setActiveSlideIndex(activeIdx);
+        }
+      }
+
+      animationFrameId.current = requestAnimationFrame(loop);
+    };
+
+    animationFrameId.current = requestAnimationFrame(loop);
+
+    return () => {
+      isRunning = false;
+      if (animationFrameId.current) {
+        cancelAnimationFrame(animationFrameId.current);
+      }
+    };
+  }, [total]);
+
+  // IntersectionObserver to pause loop when gallery is offscreen (Conserves battery & GPU resources)
+  useEffect(() => {
+    const target = sectionRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting;
+          if (entry.isIntersecting) {
+            lastTimeRef.current = performance.now();
+          }
+        });
+      },
+      { rootMargin: '100px 0px 100px 0px', threshold: 0 }
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, []);
+
+  // Interactive Pointer / Drag Handlers
   const handlePointerDown = (e: React.PointerEvent) => {
-    if (e.button !== 0) return; // Only drag on primary left click
+    if (e.button !== 0 && e.pointerType === 'mouse') return; // Left click only for mouse
 
-    if (animationFrameId.current) {
-      cancelAnimationFrame(animationFrameId.current);
-      animationFrameId.current = null;
-    }
-
+    modeRef.current = 'DRAGGING';
     setIsDragging(true);
-    dragStartX.current = e.clientX;
-    dragStartProgress.current = currentProgressRef.current;
-    dragStartTime.current = performance.now();
+    hasMovedRef.current = false;
+    isTouchLockedRef.current = false;
 
-    (e.target as HTMLElement).setPointerCapture?.(e.pointerId);
+    dragStartXRef.current = e.clientX;
+    dragStartYRef.current = e.clientY;
+    dragStartTrackXRef.current = currentXRef.current;
+    lastMoveXRef.current = e.clientX;
+    lastMoveTimeRef.current = performance.now();
+    velocityRef.current = 0;
+
+    try {
+      (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+    } catch {}
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
-    if (!isDragging) return;
+    if (modeRef.current !== 'DRAGGING') return;
 
-    const deltaX = e.clientX - dragStartX.current;
-    const containerWidth = containerRef.current?.offsetWidth || window.innerWidth;
-    // Step sensitivity: 30% of container width per slide
-    const stepSize = containerWidth * (isDesktop ? 0.3 : 0.6);
-    const deltaProgress = -deltaX / stepSize;
+    const dx = e.clientX - dragStartXRef.current;
+    const dy = e.clientY - dragStartYRef.current;
 
-    setProgress(dragStartProgress.current + deltaProgress);
+    // Touch discrimination: allow normal vertical page scroll on mobile
+    if (e.pointerType === 'touch' && !isTouchLockedRef.current) {
+      if (Math.abs(dy) > Math.abs(dx) && Math.abs(dy) > 8) {
+        // User intended vertical scroll: release drag lock and let browser/Lenis scroll
+        modeRef.current = 'AUTO';
+        setIsDragging(false);
+        try {
+          (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+        } catch {}
+        return;
+      } else if (Math.abs(dx) > 8) {
+        // User intended horizontal filmstrip drag
+        isTouchLockedRef.current = true;
+      } else {
+        return;
+      }
+    }
+
+    if (Math.abs(dx) > 4) {
+      hasMovedRef.current = true;
+    }
+
+    const { itemWidth, gap } = metricsRef.current;
+    const step = itemWidth + gap;
+    const cycleWidth = total * step;
+    const minX = -2 * cycleWidth;
+    const maxX = -1 * cycleWidth;
+
+    let newX = dragStartTrackXRef.current + dx;
+
+    // Wrap position during drag while preserving drag offset alignment
+    while (newX < minX) {
+      newX += cycleWidth;
+      dragStartTrackXRef.current += cycleWidth;
+    }
+    while (newX >= maxX) {
+      newX -= cycleWidth;
+      dragStartTrackXRef.current -= cycleWidth;
+    }
+
+    currentXRef.current = newX;
+
+    // Sample pointer velocity (px/sec)
+    const now = performance.now();
+    const dt = (now - lastMoveTimeRef.current) / 1000;
+    if (dt > 0.008) {
+      const instVelocity = (e.clientX - lastMoveXRef.current) / dt;
+      // Exponential moving average for smooth release velocity
+      velocityRef.current = velocityRef.current * 0.35 + instVelocity * 0.65;
+      lastMoveXRef.current = e.clientX;
+      lastMoveTimeRef.current = now;
+    }
+
+    // Direct GPU transform update during active drag
+    if (trackRef.current) {
+      trackRef.current.style.transform = `translate3d(${newX}px, 0, 0)`;
+    }
+
+    // Dynamic active item update during drag
+    const screenCenterX = window.innerWidth / 2;
+    const iClosest = Math.round((screenCenterX - newX - itemWidth / 2) / step);
+    const activeIdx = ((iClosest % total) + total) % total;
+    if (activeIdx !== activeIndexRef.current) {
+      activeIndexRef.current = activeIdx;
+      setActiveSlideIndex(activeIdx);
+    }
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
-    if (!isDragging) return;
+    if (modeRef.current !== 'DRAGGING') return;
     setIsDragging(false);
 
-    const deltaX = e.clientX - dragStartX.current;
-    const elapsed = performance.now() - dragStartTime.current;
-    const velocity = deltaX / Math.max(1, elapsed); // px/ms
-
-    // Determine snap target
-    let target = Math.round(currentProgressRef.current);
-
-    // Flick recognition
-    if (Math.abs(velocity) > 0.4 && Math.abs(deltaX) > 20) {
-      target = velocity > 0 ? Math.floor(currentProgressRef.current) : Math.ceil(currentProgressRef.current);
-    }
-
-    animateTo(target, 450);
-
     try {
-      (e.target as HTMLElement).releasePointerCapture?.(e.pointerId);
-    } catch {
-      // Ignore capture release errors
+      (e.currentTarget as HTMLElement).releasePointerCapture(e.pointerId);
+    } catch {}
+
+    // If pointer did not drag, treat as an intentional click / tap on the image tile
+    if (!hasMovedRef.current) {
+      const { itemWidth, gap } = metricsRef.current;
+      const step = itemWidth + gap;
+      const cycleWidth = total * step;
+      const screenCenterX = window.innerWidth / 2;
+
+      const clickedIndex = Math.floor((e.clientX - currentXRef.current) / step);
+      if (clickedIndex >= 0 && clickedIndex < displayItems.length) {
+        const item = displayItems[clickedIndex];
+        if (item.serviceIndex === activeIndexRef.current) {
+          onOpenInquiry(item.title);
+        } else {
+          const itemCurrentScreenCenter = currentXRef.current + item.globalIndex * step + itemWidth / 2;
+          let delta = (itemCurrentScreenCenter - screenCenterX) % cycleWidth;
+          if (delta > cycleWidth / 2) delta -= cycleWidth;
+          if (delta < -cycleWidth / 2) delta += cycleWidth;
+          startTweenDelta(-delta, 440);
+        }
+      }
+      return;
     }
+
+    // Check if pointer remained static before release (cancels fling)
+    const timeSinceLastMove = performance.now() - lastMoveTimeRef.current;
+    if (timeSinceLastMove > 65) {
+      velocityRef.current = 0;
+    }
+
+    // Clamp maximum release velocity for natural momentum feel
+    const MAX_VELOCITY = 1500;
+    velocityRef.current = Math.max(-MAX_VELOCITY, Math.min(MAX_VELOCITY, velocityRef.current));
+
+    modeRef.current = 'MOMENTUM';
+    lastTimeRef.current = performance.now();
   };
 
-  // Release dragging globally if pointer leaves window
-  useEffect(() => {
-    if (!isDragging) return;
-    const handleGlobalPointerUp = () => setIsDragging(false);
-    window.addEventListener('pointerup', handleGlobalPointerUp);
-    return () => window.removeEventListener('pointerup', handleGlobalPointerUp);
-  }, [isDragging]);
-
-  // Keyboard navigation
+  // Keyboard navigation: Left / Right arrows shift gallery by one image
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (document.activeElement?.tagName === 'INPUT' || document.activeElement?.tagName === 'TEXTAREA') return;
+
+      const { itemWidth, gap } = metricsRef.current;
+      const step = itemWidth + gap;
+
       if (e.key === 'ArrowLeft') {
-        animateTo(Math.round(currentProgressRef.current) - 1);
+        // Shift right by step (bring previous image to center)
+        startTweenDelta(step, 380);
       } else if (e.key === 'ArrowRight') {
-        animateTo(Math.round(currentProgressRef.current) + 1);
+        // Shift left by step (bring next image to center)
+        startTweenDelta(-step, 380);
       }
     };
+
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [animateTo]);
+  }, [startTweenDelta]);
 
-  // Compute slide transforms for current progress
-  const baseIndex = Math.floor(progress);
-  const fraction = progress - baseIndex;
+  // Click on individual image tile: centers that image or triggers inquiry if already centered
+  const handleTileClick = (item: (typeof displayItems)[0]) => {
+    if (hasMovedRef.current) return; // Ignore clicks if user was actively dragging
+
+    const { itemWidth, gap } = metricsRef.current;
+    const step = itemWidth + gap;
+    const cycleWidth = total * step;
+    const screenCenterX = window.innerWidth / 2;
+
+    if (item.serviceIndex === activeIndexRef.current) {
+      // Already centered: trigger inquiry
+      onOpenInquiry(item.title);
+    } else {
+      // Shortest modular angular distance to center
+      const itemCurrentScreenCenter = currentXRef.current + item.globalIndex * step + itemWidth / 2;
+      let delta = (itemCurrentScreenCenter - screenCenterX) % cycleWidth;
+      if (delta > cycleWidth / 2) delta -= cycleWidth;
+      if (delta < -cycleWidth / 2) delta += cycleWidth;
+
+      startTweenDelta(-delta, 440);
+    }
+  };
 
   const activeService = services[activeSlideIndex] || services[0];
 
@@ -269,11 +521,11 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
     <section
       id="services"
       data-nav-theme="dark"
-      ref={containerRef}
+      ref={sectionRef}
       className="relative z-20 w-full bg-[#000000] text-white pt-24 md:pt-32 pb-24 md:pb-32 overflow-hidden select-none"
     >
-      {/* Top Editorial Headline matching Snøhetta's Manifesto */}
-      <div className="w-full px-8 md:px-12 lg:px-20 mb-12 md:mb-16">
+      {/* Top Editorial Headline matching Arcade Architects Studio Disciplines */}
+      <div className="w-full px-8 md:px-12 lg:px-20 mb-10 md:mb-14">
         <div className="max-w-4xl">
           <p className="text-xs uppercase tracking-widest text-[#898989] mb-4">
             Studio Disciplines
@@ -284,128 +536,97 @@ export const ServicesSection: React.FC<ServicesSectionProps> = ({ onOpenInquiry 
         </div>
       </div>
 
-      {/* Horizontal Draggable Gallery Stage */}
+      {/* Horizontal Draggable Infinite Filmstrip Stage */}
       <div
-        ref={trackRef}
         data-cursor="drag"
+        onMouseEnter={() => {
+          isHoveredRef.current = true;
+        }}
+        onMouseLeave={() => {
+          isHoveredRef.current = false;
+        }}
         onPointerDown={handlePointerDown}
         onPointerMove={handlePointerMove}
         onPointerUp={handlePointerUp}
         onPointerCancel={handlePointerUp}
-        className={`relative w-full overflow-hidden touch-none ${
+        className={`relative w-full overflow-hidden touch-pan-y h-[210px] md:h-[285px] lg:h-[375px] ${
           isDragging ? 'cursor-grabbing' : 'cursor-grab'
         }`}
-        style={{
-          // Height matches active image aspect ratio: 36vw on desktop * 0.6667 = 24vw
-          height: isDesktop ? 'clamp(260px, 24vw, 420px)' : 'clamp(200px, 45.3vw, 340px)',
-        }}
       >
-        {services.map((service, index) => {
-          // Linear interpolation between floor and ceil
-          const w0 = getSlideWidth(index, baseIndex, isDesktop);
-          const w1 = getSlideWidth(index, baseIndex + 1, isDesktop);
-          const l0 = getSlideLeft(index, baseIndex, isDesktop);
-          const l1 = getSlideLeft(index, baseIndex + 1, isDesktop);
-
-          // Handle wrapping boundary jump
-          let currentLeft: number;
-          if (Math.abs(l1 - l0) > 50) {
-            // Crossed the circular boundary
-            currentLeft = fraction < 0.5 ? l0 : l1;
-          } else {
-            currentLeft = l0 + (l1 - l0) * fraction;
-          }
-
-          const currentWidth = w0 + (w1 - w0) * fraction;
-          const isActive = index === activeSlideIndex;
-
-          return (
+        <div
+          ref={trackRef}
+          className="flex flex-nowrap items-center will-change-transform gap-3 md:gap-3.5 lg:gap-4 pointer-events-auto h-full"
+        >
+          {displayItems.map((item) => (
             <div
-              key={service.id}
-              onClick={(e) => {
-                if (Math.abs(e.clientX - dragStartX.current) < 6) {
-                  if (isActive) {
-                    onOpenInquiry(service.title);
-                  } else {
-                    // Clicking adjacent slide centers it
-                    const currentInt = Math.round(progress);
-                    let diff = index - ((currentInt % total) + total) % total;
-                    if (diff < -total / 2) diff += total;
-                    else if (diff > total / 2) diff -= total;
-                    animateTo(currentInt + diff);
-                  }
-                }
-              }}
-              className="absolute top-0 flex-none will-change-transform group transition-opacity duration-300"
-              style={{
-                left: `${currentLeft}%`,
-                width: `${currentWidth}%`,
-                // Exact 3:2 Aspect Ratio via percentage padding trick
-                height: 0,
-                paddingBottom: `${currentWidth * 0.666667}%`,
-                zIndex: isActive ? 20 : 10,
-              }}
+              key={`service-tile-${item.globalIndex}`}
+              onClick={() => handleTileClick(item)}
+              className="flex-none w-[280px] h-[210px] md:w-[380px] md:h-[285px] lg:w-[500px] lg:h-[375px] rounded-none overflow-hidden relative bg-[#141414] select-none group"
             >
-              {/* Inner Full Image Container */}
-              <div className="absolute inset-0 w-full h-full overflow-hidden bg-[#161616]">
-                {/* Architectural subtle skeleton placeholder */}
-                <div className="absolute inset-0 bg-[#1A1A1A] animate-pulse pointer-events-none" />
+              {/* Architectural subtle skeleton placeholder */}
+              <div className="absolute inset-0 bg-[#1A1A1A] pointer-events-none" />
 
-                <img
-                  src={service.image}
-                  alt={service.title}
-                  draggable={false}
-                  loading="eager"
-                  fetchPriority={isActive ? 'high' : 'auto'}
-                  decoding="async"
-                  onError={(e) => {
-                    (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/1.jpg';
-                  }}
-                  className="relative z-10 w-full h-full object-cover filter brightness-[0.92] contrast-[1.03] transition-transform duration-500 group-hover:scale-[1.02]"
-                />
+              <img
+                src={item.image}
+                alt={item.title}
+                draggable={false}
+                loading="eager"
+                decoding="async"
+                onError={(e) => {
+                  (e.currentTarget as HTMLImageElement).src = '/assets/Exterior/Hazi Bari Project/1.jpg';
+                }}
+                style={{ objectPosition: item.objectPosition || 'center' }}
+                className="relative z-10 w-full h-full object-cover rounded-none filter brightness-[0.92] contrast-[1.03] transition-all duration-300 group-hover:brightness-100"
+              />
 
-                {/* Subtle dark gradient overlay for depth */}
-                <div
-                  className={`absolute inset-0 z-20 transition-opacity duration-300 pointer-events-none ${
-                    isActive ? 'bg-black/0' : 'bg-black/25 group-hover:bg-black/10'
-                  }`}
-                />
-              </div>
+              {/* Minimal architectural borderless overlay */}
+              <div className="absolute inset-0 z-20 bg-black/15 group-hover:bg-black/0 transition-colors duration-300 pointer-events-none" />
             </div>
-          );
-        })}
+          ))}
+        </div>
       </div>
 
-      {/* Understated Caption Area Aligned Directly Under Active Image */}
-      <div className="w-full px-8 md:px-12 lg:px-20 mt-8 md:mt-10">
+      {/* Understated Editorial Caption Area Aligned Directly Under Active Center Image */}
+      <div className="w-full px-6 md:px-12 mt-8 md:mt-10 flex justify-center">
         <div
-          className="transition-all duration-300"
-          style={{
-            marginLeft: isDesktop ? '32%' : '16%',
-            width: isDesktop ? '36%' : '68%',
-            maxWidth: isDesktop ? 'none' : '100%',
+          className="w-full max-w-[500px]"
+          onMouseEnter={() => {
+            isHoveredRef.current = true;
+          }}
+          onMouseLeave={() => {
+            isHoveredRef.current = false;
           }}
         >
-          <div className="flex flex-col sm:flex-row sm:items-baseline justify-between gap-2 border-b border-white/10 pb-3 mb-3">
-            <h3 className="font-display text-lg sm:text-xl font-normal text-white tracking-tight">
-              {activeService.title}
-            </h3>
-            <span className="text-xs font-mono uppercase tracking-widest text-[#898989]">
-              0{activeSlideIndex + 1} / 0{total}
-            </span>
-          </div>
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeSlideIndex}
+              initial={{ opacity: 0, y: 5 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -5 }}
+              transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex items-baseline justify-between gap-4 border-b border-white/10 pb-3 mb-3">
+                <h3 className="font-display text-lg sm:text-xl font-normal text-white tracking-tight">
+                  {activeService.title}
+                </h3>
+                <span className="text-xs font-mono uppercase tracking-widest text-[#898989] flex-none">
+                  0{activeSlideIndex + 1} / 0{total}
+                </span>
+              </div>
 
-          <p className="text-sm sm:text-base font-light text-[#949494] leading-relaxed mb-4">
-            {activeService.description}
-          </p>
+              <p className="text-sm sm:text-base font-light text-[#949494] leading-relaxed mb-4">
+                {activeService.description}
+              </p>
 
-          <button
-            onClick={() => onOpenInquiry(activeService.title)}
-            className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-white hover:text-[#DFDFDF] transition-colors cursor-pointer group"
-          >
-            <span>Inquire for {activeService.category}</span>
-            <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
-          </button>
+              <button
+                onClick={() => onOpenInquiry(activeService.title)}
+                className="inline-flex items-center gap-2 text-xs font-medium uppercase tracking-wider text-white hover:text-[#DFDFDF] transition-colors cursor-pointer group"
+              >
+                <span>Inquire for {activeService.category}</span>
+                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+              </button>
+            </motion.div>
+          </AnimatePresence>
         </div>
       </div>
     </section>
