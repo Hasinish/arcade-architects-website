@@ -1,6 +1,10 @@
 # state.md — Current Workspace State
 
 ## Active Goals & Todo
+- [x] **Strict Privacy & Gitignore Rule for personal_info.md**:
+  - Untracked `memory/personal_info.md` from git index (`git rm --cached`).
+  - Added `memory/personal_info.md` to `.gitignore`.
+  - Added mandatory global rule to `C:\Users\Hasin\.gemini\config\AGENTS.md` and synced/pushed to `D:\custom-antigravity`.
 - [x] **GSAP COMPONENT-031 PRELOADER + CINEMATIC HERO REVEAL** ([`src/components/Preloader.tsx`](file:///d:/arcade-architects-website/src/components/Preloader.tsx), [`src/context/IntroContext.tsx`](file:///d:/arcade-architects-website/src/context/IntroContext.tsx), [`src/lib/gsap.ts`](file:///d:/arcade-architects-website/src/lib/gsap.ts), [`src/components/Hero.tsx`](file:///d:/arcade-architects-website/src/components/Hero.tsx), [`src/components/Navbar.tsx`](file:///d:/arcade-architects-website/src/components/Navbar.tsx)):
   - [x] Implemented `gsap` + `@gsap/react` with Component 031 CustomEases (`introOpen`, `introFan`, `introSettle`, `introUnveil`, `introTally`) and `SplitText` masked line reveals.
   - [x] Built 7-frame Arcade Architects clip-path stack (`0.55s` reveal, `0.13s` stagger), geometric fan-out (`fanRatio: 0.68`, `fanGap: 0.12`, `centerHeight: 0.24`, `1.15s`), synchronized `0 -> 100` tabular-nums counter, and `1.6s` fullscreen expansion (`scale(1.16 -> 1)`) overlapping `SplitText` hero lines and `Navbar` entrance.
